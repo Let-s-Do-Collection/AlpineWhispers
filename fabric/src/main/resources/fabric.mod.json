@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "hearth_and_haven",
+  "version": "${version}",
+  "name": "[Let's Do] Hearth & Haven",
+  "description": "Hearth & Haven brings cozy, rustic furniture to every corner of your world.",
+  "authors": [
+    "satisfy"
+  ],
+  "contact": {
+    "issues": "https://github.com/satisfyu/Let-s-Do-Hub",
+    "sources": "https://github.com/satisfyu/HearthAndHaven"
+  },
+  "license": "custom",
+  "icon": "pack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.satisfy.hearth_and_haven.fabric.HearthAndHavenFabric"
+    ],
+    "client": [
+      "net.satisfy.hearth_and_haven.fabric.client.HearthAndHavenClientFabric"
+    ]
+  },
+  "depends": {
+    "fabric-api": "*",
+    "minecraft": ">=1.20",
+    "architectury": ">=9.0.8"
+  },
+  "suggests": {
+    "Farm & Charm": ">=1.0.0"
+  }
+}
