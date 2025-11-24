@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "alpinewhispers:block/layered_alpine_gneiss_bricks"
+  }
+}

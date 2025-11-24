@@ -1,20 +1,5 @@
 {
   "replace": false,
   "values": [
-    "hearth_and_haven:alpine_gneiss_brick_stairs",
-    "hearth_and_haven:mossy_alpine_gneiss_brick_stairs",
-    "hearth_and_haven:layered_alpine_gneiss_brick_stairs",
-    "hearth_and_haven:mossy_layered_alpine_gneiss_brick_stairs",
-    "hearth_and_haven:layered_stone_brick_stairs",
-    "hearth_and_haven:mossy_layered_stone_brick_stairs",
-    "hearth_and_haven:rubblestone_stairs",
-    "hearth_and_haven:covered_rubblestone_stairs",
-    "hearth_and_haven:plastered_rubblestone_stairs",
-    "hearth_and_haven:rubblestone_masonry_stairs",
-    "hearth_and_haven:devon_rubblestone_stairs",
-    "hearth_and_haven:handmade_brick_stairs",
-    "hearth_and_haven:splitstone_stairs",
-    "hearth_and_haven:mossy_splitstone_stairs",
-    "hearth_and_haven:groutless_rubblestone_stairs"
   ]
 }

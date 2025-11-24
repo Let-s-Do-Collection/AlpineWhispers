@@ -6,7 +6,7 @@
 
 <br> 
 
-<p>Refined farming and cooking with new tools, functional blocks, and rustic meals. Use sprinklers, scarecrows, and fertilized soil to improve crops. Process food with a mincer, transport goods with carts, and prepare simple farmhouse dishes. </p>
+<p>Refined farming and cooking with new tools, functional blocks, and arolla_pine meals. Use sprinklers, scarecrows, and fertilized soil to improve crops. Process food with a mincer, transport goods with carts, and prepare simple farmhouse dishes. </p>
 
 </div>
 

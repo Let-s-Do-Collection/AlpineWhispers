@@ -1,0 +1,6 @@
+{
+  "parent": "alpinewhispers:block/arolla_pine_bed",
+  "textures": {
+    "0": "alpinewhispers:entity/bed/arolla_pine"
+  }
+}

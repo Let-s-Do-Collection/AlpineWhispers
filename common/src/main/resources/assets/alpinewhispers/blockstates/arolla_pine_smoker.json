@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "alpinewhispers:block/arolla_pine_smoker",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "alpinewhispers:block/arolla_pine_smoker"
+    },
+    "facing=south": {
+      "model": "alpinewhispers:block/arolla_pine_smoker",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "alpinewhispers:block/arolla_pine_smoker",
+      "y": 270
+    }
+  }
+}

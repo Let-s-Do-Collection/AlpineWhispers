@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,type=left": {
+      "model": "alpinewhispers:block/arolla_pine_sofa_left"
+    },
+    "facing=east,type=left": {
+      "y": 90,
+      "model": "alpinewhispers:block/arolla_pine_sofa_left"
+    },
+    "facing=west,type=middle": {
+      "y": 270,
+      "model": "alpinewhispers:block/arolla_pine_sofa_middle"
+    },
+    "facing=west,type=left": {
+      "y": 270,
+      "model": "alpinewhispers:block/arolla_pine_sofa_left"
+    },
+    "facing=north,type=right": {
+      "model": "alpinewhispers:block/arolla_pine_sofa_right"
+    },
+    "facing=east,type=middle": {
+      "y": 90,
+      "model": "alpinewhispers:block/arolla_pine_sofa_middle"
+    },
+    "facing=east,type=right": {
+      "y": 90,
+      "model": "alpinewhispers:block/arolla_pine_sofa_right"
+    },
+    "facing=south,type=none": {
+      "y": 180,
+      "model": "alpinewhispers:block/arolla_pine_sofa_single"
+    },
+    "facing=north,type=middle": {
+      "model": "alpinewhispers:block/arolla_pine_sofa_middle"
+    },
+    "facing=north,type=none": {
+      "model": "alpinewhispers:block/arolla_pine_sofa_single"
+    },
+    "facing=east,type=none": {
+      "y": 90,
+      "model": "alpinewhispers:block/arolla_pine_sofa_single"
+    },
+    "facing=south,type=middle": {
+      "y": 180,
+      "model": "alpinewhispers:block/arolla_pine_sofa_middle"
+    },
+    "facing=south,type=right": {
+      "y": 180,
+      "model": "alpinewhispers:block/arolla_pine_sofa_right"
+    },
+    "facing=south,type=left": {
+      "y": 180,
+      "model": "alpinewhispers:block/arolla_pine_sofa_left"
+    },
+    "facing=west,type=right": {
+      "y": 270,
+      "model": "alpinewhispers:block/arolla_pine_sofa_right"
+    },
+    "facing=west,type=none": {
+      "y": 270,
+      "model": "alpinewhispers:block/arolla_pine_sofa_single"
+    }
+  }
+}

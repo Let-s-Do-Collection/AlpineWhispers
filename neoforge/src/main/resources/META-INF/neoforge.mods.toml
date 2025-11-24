@@ -4,33 +4,33 @@ license = "Custom"
 issueTrackerURL = "https://github.com/satisfyu/Let-s-Do-Hub"
 
 [[mixins]]
-config = "hearthandhaven-neoforge.mixins.json"
+config = "alpinewhispers-neoforge.mixins.json"
 
 [[mods]]
-modId = "hearth_and_haven"
+modId = "alpinewhispers"
 version = "${version}"
-displayName = "[Let's Do] Hearth & Haven"
+displayName = "[Let's Do] Alpinewhispers"
 authors = "satisfy"
 description = '''
-Hearth & Haven brings cozy, rustic furniture to every corner of your world.
+Alpinewhispers brings cozy, arolla_pine furniture to every corner of your world.
 '''
 logoFile = "pack.png"
 
-[[dependencies.hearth_and_haven]]
+[[dependencies.alpinewhispers]]
 modId = "neoforge"
 type = "required"
 versionRange = "[21.0,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hearth_and_haven]]
+[[dependencies.alpinewhispers]]
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hearth_and_haven]]
+[[dependencies.alpinewhispers]]
 modId = "architectury"
 type = "required"
 versionRange = "[9.0.8,)"

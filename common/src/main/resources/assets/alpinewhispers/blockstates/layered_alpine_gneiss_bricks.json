@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "alpinewhispers:block/layered_alpine_gneiss_bricks"
+    }
+  }
+}

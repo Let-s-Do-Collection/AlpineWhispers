@@ -1,21 +1,5 @@
 {
+  "replace": false,
   "values": [
-    "hearth_and_haven:rustic_washbasin",
-    "hearth_and_haven:rustic_glass_block",
-    "hearth_and_haven:rustic_glass_pane",
-    "hearth_and_haven:rustic_sink",
-    "hearth_and_haven:rustic_bathtub",
-    "hearth_and_haven:rustic_privy",
-    "hearth_and_haven:rustic_smoker",
-    "hearth_and_haven:rustic_haven_floor",
-    "hearth_and_haven:rustic_bed",
-    "hearth_and_haven:rustic_sofa",
-    "hearth_and_haven:rustic_dresser",
-    "hearth_and_haven:rustic_cabinet",
-    "hearth_and_haven:rustic_cooking_aisle",
-    "hearth_and_haven:rustic_wall_cabinet",
-    "hearth_and_haven:rustic_wardrobe",
-    "hearth_and_haven:rustic_table",
-    "hearth_and_haven:rustic_chair"
   ]
 }

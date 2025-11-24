@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "hearth_and_haven",
+  "id": "alpinewhispers",
   "version": "${version}",
-  "name": "[Let's Do] Hearth & Haven",
-  "description": "Hearth & Haven brings cozy, rustic furniture to every corner of your world.",
+  "name": "[Let's Do] Alpinewhispers",
+  "description": "Alpinewhispers brings cozy, arolla_pine furniture to every corner of your world.",
   "authors": [
     "satisfy"
   ],
   "contact": {
     "issues": "https://github.com/satisfyu/Let-s-Do-Hub",
-    "sources": "https://github.com/satisfyu/HearthAndHaven"
+    "sources": "https://github.com/satisfyu/Alpinewhispers"
   },
   "license": "custom",
   "icon": "pack.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.satisfy.hearth_and_haven.fabric.HearthAndHavenFabric"
+      "net.satisfy.alpinewhispers.fabric.AlpineWhispersFabric"
     ],
     "client": [
-      "net.satisfy.hearth_and_haven.fabric.client.HearthAndHavenClientFabric"
+      "net.satisfy.alpinewhispers.fabric.client.AlpineWhispersClientFabric"
     ]
   },
   "depends": {
@@ -28,6 +28,5 @@
     "architectury": ">=9.0.8"
   },
   "suggests": {
-    "Farm & Charm": ">=1.0.0"
   }
 }

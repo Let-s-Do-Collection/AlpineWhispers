@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hearth_and_haven:block/mossy_alpine_gneiss_bricks"
-  }
-}

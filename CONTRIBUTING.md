@@ -1,4 +1,4 @@
-# 🪵 Contributing to [Let's Do] Hearth & Haven 🪵
+# 🪵 Contributing to [Let's Do] Alpinewhispers 🪵
 
 Thanks for stopping by; i'm excited you’re here to help make this mod grow and thrive! Pull Requests (PRs) are
 welcome - let’s keep the code clean and efficient.
