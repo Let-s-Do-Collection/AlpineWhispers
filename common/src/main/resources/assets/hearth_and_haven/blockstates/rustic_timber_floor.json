@@ -2,19 +2,19 @@
   "variants": {
     "": [
       {
-        "model": "hearth_and_haven:block/rustic_haven_floor_0",
+        "model": "hearth_and_haven:block/rustic_timber_floor_0",
         "weight": 1
       },
       {
-        "model": "hearth_and_haven:block/rustic_haven_floor_1",
+        "model": "hearth_and_haven:block/rustic_timber_floor_1",
         "weight": 1
       },
       {
-        "model": "hearth_and_haven:block/rustic_haven_floor_2",
+        "model": "hearth_and_haven:block/rustic_timber_floor_2",
         "weight": 1
       },
       {
-        "model": "hearth_and_haven:block/rustic_haven_floor_3",
+        "model": "hearth_and_haven:block/rustic_timber_floor_3",
         "weight": 1
       }
     ]

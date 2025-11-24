@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "hearth_and_haven:block/shingle_roof",
-    "top": "hearth_and_haven:block/shingle_roof",
-    "side": "hearth_and_haven:block/shingle_roof"
-  }
-}

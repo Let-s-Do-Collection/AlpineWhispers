@@ -16,7 +16,23 @@ public class TabRegistry {
             .icon(() -> new ItemStack(ObjectRegistry.RUSTIC_BATHTUB.get()))
             .title(Component.translatable("creativetab.hearth_and_haven.tab"))
             .displayItems((parameters, output) -> {
-                output.accept(ObjectRegistry.RUSTIC_HAVEN_FLOOR.get());
+                output.accept(ObjectRegistry.alpine_gneiss_BRICKS.get());
+                output.accept(ObjectRegistry.alpine_gneiss_BRICK_STAIRS.get());
+                output.accept(ObjectRegistry.alpine_gneiss_BRICK_SLAB.get());
+                output.accept(ObjectRegistry.alpine_gneiss_BRICK_WALL.get());
+                output.accept(ObjectRegistry.MOSSY_alpine_gneiss_BRICKS.get());
+                output.accept(ObjectRegistry.MOSSY_alpine_gneiss_BRICK_STAIRS.get());
+                output.accept(ObjectRegistry.MOSSY_alpine_gneiss_BRICK_SLAB.get());
+                output.accept(ObjectRegistry.MOSSY_alpine_gneiss_BRICK_WALL.get());
+                output.accept(ObjectRegistry.LAYERED_alpine_gneiss_BRICKS.get());
+                output.accept(ObjectRegistry.LAYERED_alpine_gneiss_BRICK_STAIRS.get());
+                output.accept(ObjectRegistry.LAYERED_alpine_gneiss_BRICK_SLAB.get());
+                output.accept(ObjectRegistry.LAYERED_alpine_gneiss_BRICK_WALL.get());
+                output.accept(ObjectRegistry.MOSSY_LAYERED_alpine_gneiss_BRICKS.get());
+                output.accept(ObjectRegistry.MOSSY_LAYERED_alpine_gneiss_BRICK_STAIRS.get());
+                output.accept(ObjectRegistry.MOSSY_LAYERED_alpine_gneiss_BRICK_SLAB.get());
+                output.accept(ObjectRegistry.MOSSY_LAYERED_alpine_gneiss_BRICK_WALL.get());
+                output.accept(ObjectRegistry.RUSTIC_TIMBER_FLOOR.get());
                 output.accept(ObjectRegistry.RUSTIC_BED.get());
                 output.accept(ObjectRegistry.RUSTIC_SOFA.get());
                 output.accept(ObjectRegistry.RUSTIC_CHAIR.get());
@@ -31,8 +47,7 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.RUSTIC_PRIVY.get());
                 output.accept(ObjectRegistry.RUSTIC_WASHBASIN.get());
                 output.accept(ObjectRegistry.RUSTIC_BATHTUB.get());
-                output.accept(ObjectRegistry.RUSTIC_GLASS_PANE.get());
-                output.accept(ObjectRegistry.RUSTIC_GLASS_BLOCK.get());
+                output.accept(ObjectRegistry.FIREPLACE_CORNICE.get());
             })
             .build());
 

@@ -24,6 +24,7 @@ public class EntityTypeRegistry {
     public static final RegistrySupplier<BlockEntityType<WardrobeBlockEntity>> WARDROBE_BLOCK_ENTITY = registerBlockEntity("wardrobe", () -> BlockEntityType.Builder.of(WardrobeBlockEntity::new, RUSTIC_WARDROBE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<BathtubBlockEntity>> BATHTUB_BLOCK_ENTITY = registerBlockEntity("bathtub", () -> BlockEntityType.Builder.of(BathtubBlockEntity::new, RUSTIC_BATHTUB.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<PrivyBlockEntity>> PRIVY_BLOCK_ENTITY = registerBlockEntity("privy", () -> BlockEntityType.Builder.of(PrivyBlockEntity::new, RUSTIC_PRIVY.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<FireplaceCorniceBlockEntity>> FIRE_PLACE_CORNICE_BLOCK_ENTITY = registerBlockEntity("fire_place_cornice", () -> BlockEntityType.Builder.of(FireplaceCorniceBlockEntity::new, FIREPLACE_CORNICE.get()).build(null));
 
     public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR_ENTITY = registerEntityType(() -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((HearthAndHaven.identifier("chair")).toString()));
 

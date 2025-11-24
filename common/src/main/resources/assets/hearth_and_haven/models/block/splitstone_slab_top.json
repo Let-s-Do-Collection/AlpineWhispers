@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab_top",
-  "textures": {
-    "bottom": "hearth_and_haven:block/splitstone",
-    "top": "hearth_and_haven:block/splitstone",
-    "side": "hearth_and_haven:block/splitstone"
-  }
-}

@@ -6,8 +6,8 @@
 		"1": "hearth_and_haven:block/rustic_washbasin_side",
 		"2": "hearth_and_haven:block/rustic_washbasin_bottom",
 		"3": "hearth_and_haven:block/rustic_sink_top",
-		"4": "hearth_and_haven:block/fieldstone_bricks",
-		"6": "hearth_and_haven:block/wet_fieldstone",
+		"4": "hearth_and_haven:block/alpine_gneiss_bricks",
+		"6": "hearth_and_haven:block/wet_alpine_gneiss",
 		"particle": "hearth_and_haven:block/rustic_washbasin_bottom"
 	},
 	"elements": [

@@ -20,8 +20,7 @@ import static net.satisfy.hearth_and_haven.core.registry.ObjectRegistry.*;
 public class HearthAndHavenClient {
 
     public static void onInitializeClient() {
-        RenderTypeRegistry.register(RenderType.cutout(), RUSTIC_WARDROBE.get(), RUSTIC_SINK.get(), RUSTIC_WASHBASIN.get(), RUSTIC_BATHTUB.get(), RUSTIC_TABLE.get(), RUSTIC_CHAIR.get(), RUSTIC_SOFA.get());
-        RenderTypeRegistry.register(RenderType.translucent(), RUSTIC_GLASS_PANE.get(), RUSTIC_GLASS_BLOCK.get());
+        RenderTypeRegistry.register(RenderType.cutout(), RUSTIC_WARDROBE.get(), RUSTIC_SINK.get(), RUSTIC_WASHBASIN.get(), RUSTIC_BATHTUB.get(), RUSTIC_TABLE.get(), RUSTIC_CHAIR.get(), RUSTIC_SOFA.get(), FIREPLACE_CORNICE.get());
 
         ColorHandlerRegistry.registerBlockColors((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {

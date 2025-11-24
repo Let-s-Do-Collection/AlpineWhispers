@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "hearth_and_haven:block/rustic_haven_floor_3"
+    "all": "hearth_and_haven:block/rustic_timber_floor_3"
   }
 }

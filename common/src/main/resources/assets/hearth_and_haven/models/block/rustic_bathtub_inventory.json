@@ -2,11 +2,11 @@
 	"format_version": "1.21.6",
 	"credit": "Made by Satisfy",
 	"textures": {
-		"0": "hearth_and_haven:block/fieldstone_bricks",
+		"0": "hearth_and_haven:block/alpine_gneiss_bricks",
 		"1": "hearth_and_haven:block/rustic_bathtub_top",
 		"2": "hearth_and_haven:block/rustic_sink_parts",
-		"3": "hearth_and_haven:block/wet_fieldstone",
-		"particle": "hearth_and_haven:block/fieldstone_bricks"
+		"3": "hearth_and_haven:block/wet_alpine_gneiss",
+		"particle": "hearth_and_haven:block/alpine_gneiss_bricks"
 	},
 	"elements": [
 		{

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stone_walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "hearth_and_haven:alpine_gneiss_bricks"
+    }
+  },
+  "result": {
+    "id": "hearth_and_haven:alpine_gneiss_brick_wall",
+    "count": 6
+  }
+}

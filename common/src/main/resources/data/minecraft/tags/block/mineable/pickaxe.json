@@ -1,5 +1,20 @@
 {
   "values": [
-
+    "hearth_and_haven:alpine_gneiss_bricks",
+    "hearth_and_haven:alpine_gneiss_brick_stairs",
+    "hearth_and_haven:alpine_gneiss_brick_slab",
+    "hearth_and_haven:alpine_gneiss_brick_wall",
+    "hearth_and_haven:mossy_alpine_gneiss_bricks",
+    "hearth_and_haven:mossy_alpine_gneiss_brick_stairs",
+    "hearth_and_haven:mossy_alpine_gneiss_brick_slab",
+    "hearth_and_haven:mossy_alpine_gneiss_brick_wall",
+    "hearth_and_haven:layered_alpine_gneiss_bricks",
+    "hearth_and_haven:layered_alpine_gneiss_brick_stairs",
+    "hearth_and_haven:layered_alpine_gneiss_brick_slab",
+    "hearth_and_haven:layered_alpine_gneiss_brick_wall",
+    "hearth_and_haven:mossy_layered_alpine_gneiss_bricks",
+    "hearth_and_haven:mossy_layered_alpine_gneiss_brick_stairs",
+    "hearth_and_haven:mossy_layered_alpine_gneiss_brick_slab",
+    "hearth_and_haven:mossy_layered_alpine_gneiss_brick_wall"
   ]
 }

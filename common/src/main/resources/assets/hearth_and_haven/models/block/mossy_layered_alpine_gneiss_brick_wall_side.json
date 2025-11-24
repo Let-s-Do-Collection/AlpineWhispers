@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "hearth_and_haven:block/mossy_layered_alpine_gneiss_bricks"
+  }
+}
