@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "alpinewhispers:block/arolla_pine_planks_0"
+  }
+}

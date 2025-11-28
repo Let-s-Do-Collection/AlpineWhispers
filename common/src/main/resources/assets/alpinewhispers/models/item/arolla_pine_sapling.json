@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "alpinewhispers:item/arolla_pine_sapling"
+  }
+}

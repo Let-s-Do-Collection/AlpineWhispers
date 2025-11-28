@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/sign",
+  "textures": {
+    "texture": "alpinewhispers:block/arolla_pine_planks",
+    "particle": "alpinewhispers:block/arolla_pine_planks"
+  }
+}

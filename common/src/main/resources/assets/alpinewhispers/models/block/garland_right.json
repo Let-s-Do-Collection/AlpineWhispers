@@ -1,0 +1,99 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made by Satisfy",
+	"textures": {
+		"0": "alpinewhispers:block/garland_single",
+		"particle": "alpinewhispers:block/garland_single"
+	},
+	"elements": [
+		{
+			"from": [2, 10, 12],
+			"to": [16, 16, 12],
+			"rotation": {"angle": 0, "axis": "x", "origin": [16, 10, 12]},
+			"faces": {
+				"north": {"uv": [14, 6, 0, 12], "texture": "#0"},
+				"south": {"uv": [0, 6, 14, 12], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 10, 15.9975],
+			"to": [16, 16, 15.9975],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 10, 16]},
+			"faces": {
+				"north": {"uv": [14, 6, 0, 12], "texture": "#0"},
+				"south": {"uv": [0, 6, 14, 12], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 11, 11],
+			"to": [16, 11, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 11, 11]},
+			"faces": {
+				"up": {"uv": [0, 6, 14, 12], "texture": "#0"},
+				"down": {"uv": [0, 6, 14, 12], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 15, 11],
+			"to": [16, 15, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 15, 11]},
+			"faces": {
+				"up": {"uv": [0, 6, 14, 12], "texture": "#0"},
+				"down": {"uv": [0, 6, 14, 12], "texture": "#0"}
+			}
+		},
+		{
+			"from": [13, 12, 11],
+			"to": [15, 14, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 12, 11]},
+			"faces": {
+				"north": {"uv": [4, 13, 2, 15], "texture": "#0"},
+				"east": {"uv": [5, 13, 4, 15], "texture": "#0"},
+				"south": {"uv": [14, 13, 12, 15], "texture": "#0"},
+				"west": {"uv": [2, 13, 1, 15], "texture": "#0"},
+				"up": {"uv": [4, 12, 2, 13], "texture": "#0"},
+				"down": {"uv": [4, 15, 2, 16], "texture": "#0"}
+			}
+		},
+		{
+			"from": [9, 11, 11],
+			"to": [11, 13, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 11, 11]},
+			"faces": {
+				"north": {"uv": [9, 13, 7, 15], "texture": "#0"},
+				"east": {"uv": [10, 13, 9, 15], "texture": "#0"},
+				"south": {"uv": [9, 13, 7, 15], "texture": "#0"},
+				"west": {"uv": [7, 13, 6, 15], "texture": "#0"},
+				"up": {"uv": [9, 12, 7, 13], "texture": "#0"},
+				"down": {"uv": [9, 15, 7, 16], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 13, 11],
+			"to": [6, 15, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 13, 11]},
+			"faces": {
+				"north": {"uv": [14, 13, 12, 15], "texture": "#0"},
+				"east": {"uv": [15, 13, 14, 15], "texture": "#0"},
+				"south": {"uv": [4, 13, 2, 15], "texture": "#0"},
+				"west": {"uv": [12, 13, 11, 15], "texture": "#0"},
+				"up": {"uv": [14, 12, 12, 13], "texture": "#0"},
+				"down": {"uv": [14, 15, 12, 16], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "garland",
+			"origin": [0, 11, 16],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		},
+		{
+			"name": "baubles",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [4, 5, 6]
+		}
+	]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:snowy_plains",
+  "features": [
+    "alpinewhispers:hoarfrost_grass_patch_placed",
+    "alpinewhispers:trees_snowy_plains_checked",
+    "alpinewhispers:alpine_gneiss_rock_placed",
+    "alpinewhispers:arolla_pine_tree_fallen_checked",
+    "alpinewhispers:cold_flowers_patch_placed",
+    "alpinewhispers:alpine_gneiss_slabs_placed",
+    "alpinewhispers:alpine_gneiss_boulder_placed",
+    "alpinewhispers:icicles_patch_placed"
+  ],
+  "step": "vegetal_decoration"
+}

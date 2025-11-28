@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "alpinewhispers:block/wall_wreath",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "alpinewhispers:block/wall_wreath"
+    },
+    "facing=south": {
+      "model": "alpinewhispers:block/wall_wreath",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "alpinewhispers:block/wall_wreath",
+      "y": 270
+    }
+  }
+}

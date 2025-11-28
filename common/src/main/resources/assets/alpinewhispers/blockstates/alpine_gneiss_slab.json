@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "alpinewhispers:block/alpine_gneiss_slab"
+    },
+    "type=top": {
+      "model": "alpinewhispers:block/alpine_gneiss_slab_top"
+    },
+    "type=double": {
+      "model": "alpinewhispers:block/alpine_gneiss"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "alpinewhispers:rock_pile",
+  "config": {
+    "min_count": 1,
+    "max_count": 3,
+    "spread_x": 6,
+    "spread_z": 6,
+    "rocks": [
+      {
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "alpinewhispers:alpine_gneiss"
+          }
+        },
+        "min_size_x": 4,
+        "max_size_x": 6,
+        "min_size_y": 4,
+        "max_size_y": 6,
+        "min_size_z": 4,
+        "max_size_z": 6,
+        "min_bury": 2,
+        "max_bury": 3,
+        "min_roughness": 0.15,
+        "max_roughness": 0.35
+      }
+    ]
+  }
+}

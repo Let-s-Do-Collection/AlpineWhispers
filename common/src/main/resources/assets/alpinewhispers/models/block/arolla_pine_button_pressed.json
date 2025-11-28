@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "alpinewhispers:block/arolla_pine_planks_0"
+  }
+}

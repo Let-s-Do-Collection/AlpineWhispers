@@ -16,6 +16,11 @@ public class TabRegistry {
             .icon(() -> new ItemStack(ObjectRegistry.AROLLA_PINE_BATHTUB.get()))
             .title(Component.translatable("creativetab.alpinewhispers.tab"))
             .displayItems((parameters, output) -> {
+                output.accept(ObjectRegistry.FROZEN_DIRT.get());
+                output.accept(ObjectRegistry.ALPINE_GNEISS.get());
+                output.accept(ObjectRegistry.ALPINE_GNEISS_STAIRS.get());
+                output.accept(ObjectRegistry.ALPINE_GNEISS_SLAB.get());
+                output.accept(ObjectRegistry.ALPINE_GNEISS_WALL.get());
                 output.accept(ObjectRegistry.ALPINE_GNEISS_BRICKS.get());
                 output.accept(ObjectRegistry.ALPINE_GNEISS_BRICK_STAIRS.get());
                 output.accept(ObjectRegistry.ALPINE_GNEISS_BRICK_SLAB.get());
@@ -32,7 +37,23 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.MOSSY_LAYERED_ALPINE_GNEISS_BRICK_STAIRS.get());
                 output.accept(ObjectRegistry.MOSSY_LAYERED_ALPINE_GNEISS_BRICK_SLAB.get());
                 output.accept(ObjectRegistry.MOSSY_LAYERED_ALPINE_GNEISS_BRICK_WALL.get());
-                output.accept(ObjectRegistry.AROLLA_PINE_TIMBER_FLOOR.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_LOG.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_WOOD.get());
+                output.accept(ObjectRegistry.STRIPPED_AROLLA_PINE_WOOD.get());
+                output.accept(ObjectRegistry.STRIPPED_AROLLA_PINE_LOG.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_PLANKS.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_STAIRS.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_PRESSURE_PLATE.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_DOOR.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_FENCE_GATE.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_BUTTON.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_SLAB.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_TRAPDOOR.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_FENCE.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_WINDOW_PANE.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_WINDOW.get());
+                output.accept(ObjectRegistry.AROLLA_PINE_LEAVES.get());;
+                output.accept(ObjectRegistry.AROLLA_PINE_SAPLING.get());;
                 output.accept(ObjectRegistry.AROLLA_PINE_BED.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_SOFA.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_CHAIR.get());
@@ -47,7 +68,19 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.AROLLA_PINE_PRIVY.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_WASHBASIN.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_BATHTUB.get());
+                output.accept(ObjectRegistry.CHRISTMAS_ROSE.get());
+                output.accept(ObjectRegistry.SNOW_GENTIAN.get());
+                output.accept(ObjectRegistry.HOARFROST_GRASS.get());
+                output.accept(ObjectRegistry.TALL_HOARFROST_GRASS.get());
                 output.accept(ObjectRegistry.FIREPLACE_CORNICE.get());
+                output.accept(ObjectRegistry.CANDLE_WREATH.get());
+                output.accept(ObjectRegistry.WALL_WREATH.get());
+                output.accept(ObjectRegistry.FAIRY_LIGHTS.get());
+                output.accept(ObjectRegistry.GARLAND.get());
+                output.accept(ObjectRegistry.STAR_TOPPER.get());
+                output.accept(ObjectRegistry.ICICLES.get());
+                output.accept(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get());
+
             })
             .build());
 

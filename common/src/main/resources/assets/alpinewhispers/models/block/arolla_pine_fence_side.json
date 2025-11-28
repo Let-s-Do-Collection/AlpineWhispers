@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "alpinewhispers:block/arolla_pine_planks_0"
+  }
+}

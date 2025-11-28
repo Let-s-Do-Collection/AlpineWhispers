@@ -1,10 +1,7 @@
 package net.satisfy.alpinewhispers;
 
 import net.minecraft.resources.ResourceLocation;
-import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
-import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
-import net.satisfy.alpinewhispers.core.registry.SoundEventRegistry;
-import net.satisfy.alpinewhispers.core.registry.TabRegistry;
+import net.satisfy.alpinewhispers.core.registry.*;
 
 public class AlpineWhispers {
     public static final String MOD_ID = "alpinewhispers";
@@ -18,5 +15,6 @@ public class AlpineWhispers {
         EntityTypeRegistry.init();
         TabRegistry.init();
         SoundEventRegistry.init();
+        PlacerTypeRegistry.init();
     }
 }

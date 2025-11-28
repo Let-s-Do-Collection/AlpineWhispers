@@ -1,0 +1,64 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 10,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "weight": 28,
+                "data": {
+                  "Name": "alpinewhispers:hoarfrost_grass"
+                }
+              },
+              {
+                "weight": 6,
+                "data": {
+                  "Name": "alpinewhispers:tall_hoarfrost_grass",
+                  "Properties": {
+                    "half": "lower"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": [
+                  "minecraft:air"
+                ]
+              },
+              {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "alpinewhispers:tall_hoarfrost_grass",
+                  "Properties": {
+                    "half": "lower"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "minecraft:heightmap",
+          "heightmap": "MOTION_BLOCKING_NO_LEAVES"
+        }
+      ]
+    }
+  }
+}

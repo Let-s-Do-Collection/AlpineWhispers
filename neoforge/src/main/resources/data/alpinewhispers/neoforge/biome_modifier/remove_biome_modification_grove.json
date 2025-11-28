@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "minecraft:grove",
+  "features": [
+    "minecraft:trees_grove",
+    "minecraft:patch_pumpkin"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "alpinewhispers:item/arolla_pine_sapling"
+  }
+}

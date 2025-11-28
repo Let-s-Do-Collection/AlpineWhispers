@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,type=none": {
+      "model": "alpinewhispers:block/garland_single"
+    },
+    "facing=east,type=none": {
+      "model": "alpinewhispers:block/garland_single",
+      "y": 90
+    },
+    "facing=south,type=none": {
+      "model": "alpinewhispers:block/garland_single",
+      "y": 180
+    },
+    "facing=west,type=none": {
+      "model": "alpinewhispers:block/garland_single",
+      "y": 270
+    },
+    "facing=north,type=middle": {
+      "model": "alpinewhispers:block/garland_middle"
+    },
+    "facing=east,type=middle": {
+      "model": "alpinewhispers:block/garland_middle",
+      "y": 90
+    },
+    "facing=south,type=middle": {
+      "model": "alpinewhispers:block/garland_middle",
+      "y": 180
+    },
+    "facing=west,type=middle": {
+      "model": "alpinewhispers:block/garland_middle",
+      "y": 270
+    },
+    "facing=north,type=left": {
+      "model": "alpinewhispers:block/garland_right"
+    },
+    "facing=east,type=left": {
+      "model": "alpinewhispers:block/garland_right",
+      "y": 90
+    },
+    "facing=south,type=left": {
+      "model": "alpinewhispers:block/garland_right",
+      "y": 180
+    },
+    "facing=west,type=left": {
+      "model": "alpinewhispers:block/garland_right",
+      "y": 270
+    },
+    "facing=north,type=right": {
+      "model": "alpinewhispers:block/garland_left"
+    },
+    "facing=east,type=right": {
+      "model": "alpinewhispers:block/garland_left",
+      "y": 90
+    },
+    "facing=south,type=right": {
+      "model": "alpinewhispers:block/garland_left",
+      "y": 180
+    },
+    "facing=west,type=right": {
+      "model": "alpinewhispers:block/garland_left",
+      "y": 270
+    }
+  }
+}

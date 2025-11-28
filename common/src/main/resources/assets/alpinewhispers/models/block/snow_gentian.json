@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "alpinewhispers:block/snow_gentian"
+  }
+}

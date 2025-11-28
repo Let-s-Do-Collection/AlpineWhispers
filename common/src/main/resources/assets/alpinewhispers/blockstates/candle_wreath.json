@@ -1,0 +1,260 @@
+{
+  "variants": {
+    "facing=north,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl_fl",
+      "y": 0
+    },
+    "facing=north,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl_fl",
+      "y": 0
+    },
+    "facing=east,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl_fl",
+      "y": 90
+    },
+    "facing=east,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl_fl",
+      "y": 90
+    },
+    "facing=south,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl_fl",
+      "y": 180
+    },
+    "facing=south,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl_fl",
+      "y": 180
+    },
+    "facing=west,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=false,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_bl_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=false": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=true,lit_bl=false,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=false,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_bl_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=false,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_br_bl_fl",
+      "y": 270
+    },
+    "facing=west,lit_fr=true,lit_br=true,lit_bl=true,lit_fl=true": {
+      "model": "alpinewhispers:block/candle_wreath_lit_fr_br_bl_fl",
+      "y": 270
+    }
+  }
+}

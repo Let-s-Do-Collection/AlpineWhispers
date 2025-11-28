@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "alpinewhispers:alpine_gneiss",
+    "alpinewhispers:frozen_dirt",
+    "alpinewhispers:arolla_pine_leaves",
+    "minecraft:stone"
+  ]
+}

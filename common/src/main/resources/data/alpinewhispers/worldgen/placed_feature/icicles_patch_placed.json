@@ -1,0 +1,27 @@
+{
+  "feature": "alpinewhispers:icicles_patch",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 4
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": 80
+        },
+        "max_inclusive": {
+          "absolute": 200
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

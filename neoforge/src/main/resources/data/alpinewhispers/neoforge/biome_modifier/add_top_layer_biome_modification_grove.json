@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:snowy_plains",
+  "features": [
+    "alpinewhispers:snow_under_trees_placed",
+    "alpinewhispers:snow_drifts_placed",
+    "alpinewhispers:frozen_dirt_disk_placed"
+  ],
+  "step": "top_layer_modification"
+}

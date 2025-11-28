@@ -1,0 +1,25 @@
+{
+  "feature": "alpinewhispers:cold_flowers_patch",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 20
+    },
+    {
+      "type": "minecraft:noise_threshold_count",
+      "noise_level": 0.3,
+      "below_noise": 0,
+      "above_noise": 1
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
