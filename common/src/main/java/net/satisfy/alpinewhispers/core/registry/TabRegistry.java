@@ -13,7 +13,7 @@ public class TabRegistry {
 
     @SuppressWarnings("unused")
     public static final RegistrySupplier<CreativeModeTab> ALPINEWHISPERS_TAB = CREATIVE_MODE_TABS.register("alpinewhispers", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-            .icon(() -> new ItemStack(ObjectRegistry.AROLLA_PINE_BATHTUB.get()))
+            .icon(() -> new ItemStack(ObjectRegistry.WALL_WREATH.get()))
             .title(Component.translatable("creativetab.alpinewhispers.tab"))
             .displayItems((parameters, output) -> {
                 output.accept(ObjectRegistry.FROZEN_DIRT.get());
@@ -54,6 +54,8 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.AROLLA_PINE_WINDOW.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_LEAVES.get());;
                 output.accept(ObjectRegistry.AROLLA_PINE_SAPLING.get());;
+                output.accept(ObjectRegistry.HOMESPUN_WOOL.get());
+                output.accept(ObjectRegistry.HOMESPUN_CARPET.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_BED.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_SOFA.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_CHAIR.get());
@@ -76,10 +78,17 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.CANDLE_WREATH.get());
                 output.accept(ObjectRegistry.WALL_WREATH.get());
                 output.accept(ObjectRegistry.FAIRY_LIGHTS.get());
+                output.accept(ObjectRegistry.TREE_BAUBLES_ITEM.get());
                 output.accept(ObjectRegistry.GARLAND.get());
                 output.accept(ObjectRegistry.STAR_TOPPER.get());
+                output.accept(ObjectRegistry.SNOW_GLOBE.get());
+                output.accept(ObjectRegistry.WINTER_HAT.get());
+                output.accept(ObjectRegistry.REINDEER.get());
+                output.accept(ObjectRegistry.COOKED_REINDEER.get());
+                output.accept(ObjectRegistry.COOKED_REINDEER_DISH.get());
                 output.accept(ObjectRegistry.ICICLES.get());
                 output.accept(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get());
+                output.accept(ObjectRegistry.REINDEER_SPAWN_EGG.get());
 
             })
             .build());

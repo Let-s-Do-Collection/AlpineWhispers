@@ -2,8 +2,8 @@
 	"format_version": "1.21.6",
 	"credit": "Made by Satisfy",
 	"textures": {
-		"1": "alpinewhispers:block/arolla_pine_window_edge",
-		"2": "alpinewhispers:block/arolla_pine_window"
+		"1": "alpinewhispers:block/arolla_pine_window_pane_side",
+		"2": "alpinewhispers:block/arolla_pine_window_pane"
 	},
 	"elements": [
 		{

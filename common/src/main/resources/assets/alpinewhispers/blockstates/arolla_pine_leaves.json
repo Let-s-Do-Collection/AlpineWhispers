@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
+    "snowy=false": {
       "model": "alpinewhispers:block/arolla_pine_leaves"
-    }
+    },
+    "snowy=true": [
+      {
+        "model": "alpinewhispers:block/snowy_arolla_pine_leaves_0"
+      },
+      {
+        "model": "alpinewhispers:block/snowy_arolla_pine_leaves_1"
+      }
+    ]
   }
 }

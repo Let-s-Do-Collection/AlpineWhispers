@@ -2,6 +2,7 @@ package net.satisfy.alpinewhispers.core.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -16,19 +17,28 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.alpinewhispers.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GarlandBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<GarlandType> TYPE = EnumProperty.create("type", GarlandType.class);
+    public static final Map<Direction, VoxelShape> SHAPES = new HashMap<>();
 
-    private static final VoxelShape NORTH_SHAPE = Block.box(0.0, 4.0, 14.0, 16.0, 12.0, 16.0);
-    private static final VoxelShape SOUTH_SHAPE = Block.box(0.0, 4.0, 0.0, 16.0, 12.0, 2.0);
-    private static final VoxelShape WEST_SHAPE = Block.box(14.0, 4.0, 0.0, 16.0, 12.0, 16.0);
-    private static final VoxelShape EAST_SHAPE = Block.box(0.0, 4.0, 0.0, 2.0, 12.0, 16.0);
+    static {
+        VoxelShape baseShape = makeShape();
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            SHAPES.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, baseShape));
+        }
+    }
 
     public GarlandBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -45,20 +55,32 @@ public class GarlandBlock extends Block {
     @Override
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
-        return switch (facing) {
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-            case EAST -> EAST_SHAPE;
-            default -> NORTH_SHAPE;
-        };
+        return SHAPES.getOrDefault(facing, SHAPES.get(Direction.NORTH));
     }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction facing = state.getValue(FACING);
-        BlockPos supportPos = pos.relative(facing.getOpposite());
-        BlockState supportState = level.getBlockState(supportPos);
-        return supportState.isFaceSturdy(level, supportPos, facing);
+
+        BlockPos wallPos = pos.relative(facing.getOpposite());
+        BlockState wallState = level.getBlockState(wallPos);
+        if (canAttachTo(wallState, level, wallPos, facing)) {
+            return true;
+        }
+
+        BlockPos ceilingPos = pos.above();
+        BlockState ceilingState = level.getBlockState(ceilingPos);
+        return canAttachTo(ceilingState, level, ceilingPos, Direction.DOWN);
+    }
+
+    private static boolean canAttachTo(BlockState blockState, LevelReader levelReader, BlockPos blockPos, Direction face) {
+        if (blockState.isAir()) {
+            return false;
+        }
+        if (blockState.is(BlockTags.LEAVES)) {
+            return true;
+        }
+        return blockState.isFaceSturdy(levelReader, blockPos, face);
     }
 
     @Override
@@ -117,6 +139,15 @@ public class GarlandBlock extends Block {
             return false;
         }
         return neighborState.getValue(FACING) == facing;
+    }
+
+    private static VoxelShape makeShape() {
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0, 0.6875, 0.75, 1, 0.9375, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.125, 0.6875, 0.6875, 0.25, 0.8125, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.4375, 0.8125, 0.6875, 0.5625, 0.9375, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.75, 0.75, 0.6875, 0.875, 0.875, 0.75), BooleanOp.OR);
+        return shape;
     }
 
     public enum GarlandType implements StringRepresentable {

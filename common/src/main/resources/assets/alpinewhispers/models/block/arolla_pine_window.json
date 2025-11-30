@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "alpinewhispers:block/arolla_pine_window_top",
-    "side": "alpinewhispers:block/arolla_pine_window"
+    "side": "alpinewhispers:block/arolla_pine_window_pane"
   }
 }

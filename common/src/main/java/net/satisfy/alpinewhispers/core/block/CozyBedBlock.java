@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class AWBedBlock extends BedBlock {
-    public AWBedBlock(Properties settings) {
+public class CozyBedBlock extends BedBlock {
+    public CozyBedBlock(Properties settings) {
         super(DyeColor.GRAY, settings);
     }
 

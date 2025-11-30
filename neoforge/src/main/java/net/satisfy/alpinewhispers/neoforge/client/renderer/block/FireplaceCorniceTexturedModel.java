@@ -10,8 +10,11 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.ChunkRenderTypeSet;
+import net.neoforged.neoforge.client.model.IQuadTransformer;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
+import net.satisfy.alpinewhispers.core.block.FireplaceCorniceBlock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,61 +26,95 @@ import java.util.function.BiPredicate;
 public class FireplaceCorniceTexturedModel implements BakedModel {
     public static final ModelProperty<BlockState> MIMIC = new ModelProperty<>();
     private final BakedModel original;
-    private final BiPredicate<BakedQuad, TextureAtlasSprite> filter;
+    private final BiPredicate<BakedQuad, BlockState> remapFilter;
 
-    public FireplaceCorniceTexturedModel(BakedModel original, BiPredicate<BakedQuad, TextureAtlasSprite> filter) {
+    public FireplaceCorniceTexturedModel(BakedModel original, BiPredicate<BakedQuad, BlockState> remapFilter) {
         this.original = original;
-        this.filter = filter;
+        this.remapFilter = remapFilter;
+    }
+
+    private static boolean isMissing(TextureAtlasSprite sprite) {
+        if (sprite == null) return true;
+        sprite.contents();
+        return "missingno".equals(sprite.contents().name().getPath());
+    }
+
+    @Override
+    public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource random, @NotNull ModelData data) {
+        return original.getRenderTypes(state, random, data);
     }
 
     private static TextureAtlasSprite targetSprite(@Nullable BlockState mimic, TextureAtlasSprite fallback) {
-        if (mimic != null) {
-            BakedModel m = Minecraft.getInstance().getBlockRenderer().getBlockModel(mimic);
-            return m.getParticleIcon();
-        }
-        return fallback;
+        if (mimic == null || mimic.isAir()) return fallback;
+        BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(mimic);
+        TextureAtlasSprite sprite = model.getParticleIcon();
+        return isMissing(sprite) ? fallback : sprite;
     }
 
-    private static BakedQuad remapQuad(BakedQuad q, TextureAtlasSprite dst) {
-        TextureAtlasSprite src = q.getSprite();
-        int[] verts = q.getVertices().clone();
-        float su0 = src.getU0(), su1 = src.getU1();
-        float sv0 = src.getV0(), sv1 = src.getV1();
-        float du = su1 - su0, dv = sv1 - sv0;
-        float duDst = dst.getU1() - dst.getU0();
-        float dvDst = dst.getV1() - dst.getV0();
+    private static BakedQuad remapQuad(BakedQuad quad, TextureAtlasSprite dst) {
+        TextureAtlasSprite src = quad.getSprite();
+        if (src == dst) return quad;
+
+        int[] vertices = quad.getVertices().clone();
+        int stride = IQuadTransformer.STRIDE;
+        int uvBase = IQuadTransformer.UV0;
+
+        float wScale = dst.contents().width() / (float) src.contents().width();
+        float hScale = dst.contents().height() / (float) src.contents().height();
+
         for (int i = 0; i < 4; i++) {
-            int off = i * 8;
-            float uA = Float.intBitsToFloat(verts[off + 4]);
-            float vA = Float.intBitsToFloat(verts[off + 5]);
-            float uNorm = du != 0f ? (uA - su0) / du : 0f;
-            float vNorm = dv != 0f ? (vA - sv0) / dv : 0f;
-            float u = dst.getU0() + uNorm * duDst;
-            float v = dst.getV0() + vNorm * dvDst;
-            verts[off + 4] = Float.floatToRawIntBits(u);
-            verts[off + 5] = Float.floatToRawIntBits(v);
+            int off = i * stride + uvBase;
+            float uOrig = Float.intBitsToFloat(vertices[off]);
+            float vOrig = Float.intBitsToFloat(vertices[off + 1]);
+
+            float uRemap = (uOrig - src.getU0()) * wScale + dst.getU0();
+            float vRemap = (vOrig - src.getV0()) * hScale + dst.getV0();
+
+            vertices[off] = Float.floatToRawIntBits(uRemap);
+            vertices[off + 1] = Float.floatToRawIntBits(vRemap);
         }
-        return new BakedQuad(verts, q.getTintIndex(), q.getDirection(), dst, q.isShade());
+
+        return new BakedQuad(vertices, quad.getTintIndex(), quad.getDirection(), dst, quad.isShade(), quad.hasAmbientOcclusion());
     }
 
-    private static List<BakedQuad> remapAll(List<BakedQuad> in, TextureAtlasSprite dst, BiPredicate<BakedQuad, TextureAtlasSprite> filter) {
-        if (in.isEmpty()) return in;
-        List<BakedQuad> out = new ArrayList<>(in.size());
-        for (BakedQuad q : in) out.add(filter.test(q, dst) ? remapQuad(q, dst) : q);
+    private List<BakedQuad> remapFiltered(List<BakedQuad> input, TextureAtlasSprite dst, @Nullable BlockState state) {
+        if (input.isEmpty()) return input;
+        List<BakedQuad> out = new ArrayList<>(input.size());
+        for (BakedQuad quad : input) {
+            if (state != null && remapFilter.test(quad, state)) {
+                out.add(remapQuad(quad, dst));
+            } else {
+                out.add(quad);
+            }
+        }
         return out;
     }
 
     @Override
-    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
-        return original.getQuads(state, side, rand);
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource random) {
+        return original.getQuads(state, side, random);
     }
 
     @Override
-    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData data, @Nullable RenderType layer) {
-        List<BakedQuad> base = original.getQuads(state, side, rand, data, layer);
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource random, @NotNull ModelData data, @Nullable RenderType layer) {
+        List<BakedQuad> base = original.getQuads(state, side, random, data, layer);
+        if (base.isEmpty()) return base;
+
+        if (state == null) return base;
+        if (state.getBlock() instanceof FireplaceCorniceBlock) {
+            if (!state.getValue(FireplaceCorniceBlock.APPLIED)) {
+                return base;
+            }
+        }
+
         if (!data.has(MIMIC)) return base;
-        TextureAtlasSprite dst = targetSprite(data.get(MIMIC), original.getParticleIcon());
-        return remapAll(base, dst, filter);
+        BlockState mimic = data.get(MIMIC);
+        if (mimic == null || mimic.isAir()) return base;
+
+        TextureAtlasSprite dst = targetSprite(mimic, original.getParticleIcon());
+        if (isMissing(dst)) return base;
+
+        return remapFiltered(base, dst, state);
     }
 
     @Override

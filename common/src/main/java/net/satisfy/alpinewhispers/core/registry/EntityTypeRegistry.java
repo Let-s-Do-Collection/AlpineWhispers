@@ -1,5 +1,6 @@
 package net.satisfy.alpinewhispers.core.registry;
 
+import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.block.entity.*;
 import net.satisfy.alpinewhispers.core.entity.ChairEntity;
+import net.satisfy.alpinewhispers.core.entity.ReindeerEntity;
 
 import java.util.function.Supplier;
 
@@ -25,18 +27,21 @@ public class EntityTypeRegistry {
     public static final RegistrySupplier<BlockEntityType<BathtubBlockEntity>> BATHTUB_BLOCK_ENTITY = registerBlockEntity("bathtub", () -> BlockEntityType.Builder.of(BathtubBlockEntity::new, AROLLA_PINE_BATHTUB.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<PrivyBlockEntity>> PRIVY_BLOCK_ENTITY = registerBlockEntity("privy", () -> BlockEntityType.Builder.of(PrivyBlockEntity::new, AROLLA_PINE_PRIVY.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<FireplaceCorniceBlockEntity>> FIRE_PLACE_CORNICE_BLOCK_ENTITY = registerBlockEntity("fire_place_cornice", () -> BlockEntityType.Builder.of(FireplaceCorniceBlockEntity::new, FIREPLACE_CORNICE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<TreeBaublesBlockEntity>> TREE_BAUBLES_BLOCK_ENTITY = registerBlockEntity("tree_baubles", () -> BlockEntityType.Builder.of(TreeBaublesBlockEntity::new, TREE_BAUBLES.get()).build(null));
 
-    public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR_ENTITY = registerEntityType(() -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((AlpineWhispers.identifier("chair")).toString()));
+    public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR_ENTITY = registerEntityType("chair", () -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((AlpineWhispers.identifier("chair")).toString()));
+    public static final RegistrySupplier<EntityType<ReindeerEntity>> REINDEER_ENTITY = registerEntityType("reindeer", () -> EntityType.Builder.of(ReindeerEntity::new, MobCategory.CREATURE).sized(1.1F, 1.6F).build(AlpineWhispers.identifier("reindeer").toString()));
 
     private static <T extends BlockEntityType<?>> RegistrySupplier<T> registerBlockEntity(final String path, final Supplier<T> type) {
         return BLOCK_ENTITY_TYPES.register(AlpineWhispers.identifier(path), type);
     }
 
-    private static <T extends EntityType<?>> RegistrySupplier<T> registerEntityType(final Supplier<T> type) {
-        return ENTITY_TYPES.register(AlpineWhispers.identifier("chair"), type);
+    public static <T extends EntityType<?>> RegistrySupplier<T> registerEntityType(final String path, final Supplier<T> type) {
+        return ENTITY_TYPES.register(AlpineWhispers.identifier(path), type);
     }
 
     public static void init() {
         ENTITY_TYPES.register();
+        EntityAttributeRegistry.register(REINDEER_ENTITY, ReindeerEntity::createMobAttributes);
     }
 }

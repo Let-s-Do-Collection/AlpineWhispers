@@ -1,12 +1,12 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "minecraft:snowy_plains",
+  "biomes": "minecraft:grove",
   "features": [
+    "alpinewhispers:stone_replacer_placed",
     "alpinewhispers:hoarfrost_grass_patch_placed",
-    "alpinewhispers:trees_snowy_plains_checked",
+    "alpinewhispers:trees_grove_checked",
     "alpinewhispers:alpine_gneiss_rock_placed",
     "alpinewhispers:arolla_pine_tree_fallen_checked",
-    "alpinewhispers:cold_flowers_patch_placed",
     "alpinewhispers:alpine_gneiss_slabs_placed",
     "alpinewhispers:alpine_gneiss_boulder_placed",
     "alpinewhispers:icicles_patch_placed"

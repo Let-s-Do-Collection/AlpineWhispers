@@ -89,7 +89,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_post"
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_post"
       }
     },
     {
@@ -98,7 +98,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_side"
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_side"
       }
     },
     {
@@ -107,7 +107,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_side",
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_side",
         "y": 90
       }
     },
@@ -117,7 +117,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_side_alt"
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_side_alt"
       }
     },
     {
@@ -126,7 +126,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_side_alt",
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_side_alt",
         "y": 90
       }
     },
@@ -136,7 +136,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_noside"
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_noside"
       }
     },
     {
@@ -145,7 +145,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_noside_alt"
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_noside_alt"
       }
     },
     {
@@ -154,7 +154,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_noside_alt",
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_noside_alt",
         "y": 90
       }
     },
@@ -164,7 +164,7 @@
         "part": 2
       },
       "apply": {
-        "model": "alpinewhispers:block/arolla_pine_window_pane_middle_noside",
+        "model": "alpinewhispers:block/arolla_pine_window_pane_mid_noside",
         "y": 270
       }
     },

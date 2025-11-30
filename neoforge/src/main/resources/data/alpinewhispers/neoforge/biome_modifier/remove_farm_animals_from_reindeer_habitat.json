@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:remove_spawns",
+  "biomes": "#alpinewhispers:reindeer_habitat",
+  "entity_types": [
+    "minecraft:sheep",
+    "minecraft:cow"
+  ]
+}

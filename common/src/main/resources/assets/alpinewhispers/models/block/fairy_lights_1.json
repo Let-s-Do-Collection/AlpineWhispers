@@ -1,5 +1,6 @@
 {
 	"credit": "Made by Satisfy",
+	"ambientocclusion": false,
 	"textures": {
 		"0": "alpinewhispers:block/fairy_lights_1",
 		"particle": "alpinewhispers:block/fairy_lights_1"

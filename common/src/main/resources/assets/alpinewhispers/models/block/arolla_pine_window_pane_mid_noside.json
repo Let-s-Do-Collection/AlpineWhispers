@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside",
+  "textures": {
+    "pane": "alpinewhispers:block/arolla_pine_window_pane_middle"
+  }
+}

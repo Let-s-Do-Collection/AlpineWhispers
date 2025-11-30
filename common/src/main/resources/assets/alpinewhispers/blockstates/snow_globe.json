@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "alpinewhispers:block/snow_globe",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "alpinewhispers:block/snow_globe"
+    },
+    "facing=south": {
+      "model": "alpinewhispers:block/snow_globe",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "alpinewhispers:block/snow_globe",
+      "y": 270
+    }
+  }
+}

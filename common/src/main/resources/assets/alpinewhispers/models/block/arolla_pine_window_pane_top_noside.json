@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/template_glass_pane_side",
+  "parent": "minecraft:block/template_glass_pane_noside",
   "textures": {
-    "pane": "alpinewhispers:block/arolla_pine_window",
-    "edge": "alpinewhispers:block/arolla_pine_window_edge"
+    "pane": "alpinewhispers:block/arolla_pine_window_pane_top"
   }
 }

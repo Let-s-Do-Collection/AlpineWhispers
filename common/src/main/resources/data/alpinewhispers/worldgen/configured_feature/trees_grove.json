@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.6,
+        "feature": "alpinewhispers:arolla_pine_mid_on_snow_checked"
+      },
+      {
+        "chance": 0.3,
+        "feature": "alpinewhispers:arolla_pine_tall_on_snow_checked"
+      },
+      {
+        "chance": 0.1,
+        "feature": "alpinewhispers:arolla_pine_small_on_snow_checked"
+      }
+    ],
+    "default": "alpinewhispers:arolla_pine_mid_on_snow_checked"
+  }
+}

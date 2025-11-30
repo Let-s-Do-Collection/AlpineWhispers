@@ -19,7 +19,7 @@
       "placement": [
         {
           "type": "minecraft:environment_scan",
-          "direction_of_search": "down",
+          "direction_of_search": "up",
           "max_steps": 16,
           "target_condition": {
             "type": "minecraft:all_of",
@@ -33,7 +33,6 @@
               {
                 "type": "minecraft:matching_blocks",
                 "blocks": [
-                  "alpinewhispers:frozen_dirt",
                   "minecraft:grass_block"
                 ],
                 "offset": [
@@ -47,8 +46,8 @@
         }
       ]
     },
-    "tries": 12,
-    "xz_spread": 4,
+    "tries": 64,
+    "xz_spread": 6,
     "y_spread": 3
   }
 }

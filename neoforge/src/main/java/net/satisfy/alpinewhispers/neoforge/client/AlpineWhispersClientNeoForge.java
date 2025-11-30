@@ -8,9 +8,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.client.AlpineWhispersClient;
+import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
+import net.satisfy.alpinewhispers.neoforge.client.extensions.WinterHatExtensions;
 import net.satisfy.alpinewhispers.neoforge.client.renderer.block.FireplaceCorniceTexturedModel;
 
 import java.util.Map;
@@ -38,5 +41,10 @@ public class AlpineWhispersClientNeoForge {
                 models.put(entry.getKey(), new FireplaceCorniceTexturedModel(entry.getValue(), (q, s) -> q.getTintIndex() == 1));
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(new WinterHatExtensions(), ObjectRegistry.WINTER_HAT.get());
     }
 }

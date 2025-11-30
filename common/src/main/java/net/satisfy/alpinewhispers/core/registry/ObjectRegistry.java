@@ -1,5 +1,6 @@
 package net.satisfy.alpinewhispers.core.registry;
 
+import dev.architectury.core.item.ArchitecturySpawnEggItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -9,7 +10,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -20,9 +22,10 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.block.*;
-import net.satisfy.alpinewhispers.core.block.AWBedBlock;
+import net.satisfy.alpinewhispers.core.block.CozyBedBlock;
+import net.satisfy.alpinewhispers.core.item.TreeBaublesItem;
+import net.satisfy.alpinewhispers.core.item.WinterHatItem;
 import net.satisfy.alpinewhispers.core.util.GeneralUtil;
-import net.satisfy.alpinewhispers.core.world.feature.configured.tree.foliage.ArollaPineFoliagePlacer;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -36,7 +39,7 @@ public class ObjectRegistry {
     public static final Registrar<Block> BLOCK_REGISTRAR = BLOCKS.getRegistrar();
 
     public static final RegistrySupplier<Block> FROZEN_DIRT = registerWithItem("frozen_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
-    public static final RegistrySupplier<Block> ICICLES = registerWithItem("icicles", () -> new IcicleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
+    public static final RegistrySupplier<Block> ICICLES = registerWithItem("icicles", () -> new IcicleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).noOcclusion()));
 
     public static final RegistrySupplier<Block> ALPINE_GNEISS = registerWithItem("alpine_gneiss", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)));
     public static final RegistrySupplier<Block> ALPINE_GNEISS_STAIRS = registerWithItem("alpine_gneiss_stairs", () -> new StairBlock(ALPINE_GNEISS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_STAIRS)));
@@ -79,10 +82,9 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> AROLLA_PINE_WINDOW_PANE = registerWithItem("arolla_pine_window_pane", () -> new WindowBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GLASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).mapColor(MapColor.GRASS).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> AROLLA_PINE_WINDOW = registerWithItem("arolla_pine_window", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
     public static final RegistrySupplier<Block> AROLLA_PINE_LEAVES = registerWithItem("arolla_pine_leaves", () -> new SnowyLeavesBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).mapColor(MapColor.GRASS)));
-    //TODO!
-    public static final RegistrySupplier<Block> AROLLA_PINE_SAPLING = registerWithItem("arolla_pine_sapling", () -> new SaplingBlock(new TreeGrower("arolla_pine_tall", Optional.empty(), Optional.of(configuredFeatureKey("arolla_pine_tall")), Optional.empty()), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING)));
+    public static final RegistrySupplier<Block> AROLLA_PINE_SAPLING = registerWithItem("arolla_pine_sapling", () -> new SaplingBlock(new TreeGrower("arolla_pine_mid", Optional.empty(), Optional.of(configuredFeatureKey("arolla_pine_mid")), Optional.empty()), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING)));
 
-    public static final RegistrySupplier<Block> AROLLA_PINE_BED = registerWithItem("arolla_pine_bed", () -> new AWBedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRAY_BED).sound(SoundType.WOOD).strength(0.2F).noOcclusion()));
+    public static final RegistrySupplier<Block> AROLLA_PINE_BED = registerWithItem("arolla_pine_bed", () -> new CozyBedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRAY_BED).sound(SoundType.WOOD).strength(0.2F).noOcclusion()));
     public static final RegistrySupplier<Block> AROLLA_PINE_SOFA = registerWithItem("arolla_pine_sofa", () -> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).mapColor(MapColor.COLOR_LIGHT_GRAY)));
     public static final RegistrySupplier<Block> AROLLA_PINE_DRESSER = registerWithItem("arolla_pine_dresser", () -> new DresserBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), () -> SoundEvents.WOODEN_TRAPDOOR_OPEN, () -> SoundEvents.WOODEN_TRAPDOOR_CLOSE));
     public static final RegistrySupplier<Block> AROLLA_PINE_SINK = registerWithItem("arolla_pine_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS), false));
@@ -100,11 +102,14 @@ public class ObjectRegistry {
 
     public static final RegistrySupplier<Block> CANDLE_WREATH = registerWithItem("candle_wreath", () -> new CandleWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
     public static final RegistrySupplier<Block> WALL_WREATH = registerWithItem("wall_wreath", () -> new WallWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
-    public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE).lightLevel(state -> 11).noOcclusion()));
-    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel(state -> 8)));
+    public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13).noOcclusion()));
+    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13)));
     public static final RegistrySupplier<Block> STAR_TOPPER = registerWithItem("star_topper", () -> new StarTopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
+    public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13).noOcclusion()));
+    public static final RegistrySupplier<Item> TREE_BAUBLES_ITEM = registerItem("tree_baubles",  () -> new TreeBaublesItem(TREE_BAUBLES.get(), new Item.Properties()));
 
     public static final RegistrySupplier<Item> WINTER_MAGIC_MUSIC_DISC = registerItem("winter_magic_music_disc", () -> new Item(new Item.Properties().stacksTo(1).jukeboxPlayable(JukeboxSongRegistry.WINTER_MAGIC)));
+    public static final RegistrySupplier<Item> REINDEER_SPAWN_EGG = registerItem("reindeer_spawn_egg", () -> new ArchitecturySpawnEggItem(EntityTypeRegistry.REINDEER_ENTITY, -1, -1, getSettings()));
 
     public static final RegistrySupplier<Block> SNOW_GENTIAN = registerWithItem("snow_gentian", () -> new FlowerBlock(MobEffects.HEAL, 1, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_TULIP)));
     public static final RegistrySupplier<Block> POTTED_SNOW_GENTIAN = registerWithoutItem("potted_snow_gentian", () -> new FlowerPotBlock(SNOW_GENTIAN.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.FLOWER_POT)));
@@ -113,10 +118,15 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> POTTED_CHRISTMAS_ROSE = registerWithoutItem("potted_christmas_rose", () -> new FlowerPotBlock(CHRISTMAS_ROSE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.FLOWER_POT)));
     public static final RegistrySupplier<Block> HOARFROST_GRASS = registerWithItem("hoarfrost_grass", () -> new SnowyGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)));
     public static final RegistrySupplier<Block> TALL_HOARFROST_GRASS = registerWithItem("tall_hoarfrost_grass", () -> new SnowyDoublePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)));
-    public static final RegistrySupplier<Block> SNOW_GLOBE = registerWithItem("snow_globe", () -> new TerrariumBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+    public static final RegistrySupplier<Block> SNOW_GLOBE = registerWithItem("snow_globe", () -> new SnowGlobeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
-    public static final RegistrySupplier<Block> HOMESPUN_WOOL = registerWithItem("rustic_wool", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)));
-    public static final RegistrySupplier<Block> HOMESPUN_CARPET = registerWithItem("rustic_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_CARPET)));
+    public static final RegistrySupplier<Block> HOMESPUN_WOOL = registerWithItem("homespun_wool", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)));
+    public static final RegistrySupplier<Block> HOMESPUN_CARPET = registerWithItem("homespun_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_CARPET)));
+    public static final RegistrySupplier<Item> REINDEER = registerItem("reindeer", () -> new Item(getSettings().food(Foods.MUTTON)));
+    public static final RegistrySupplier<Item> COOKED_REINDEER = registerItem("cooked_reindeer", () -> new Item(getSettings().food(Foods.COOKED_MUTTON)));
+    public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new Item(getSettings().food(Foods.GOLDEN_CARROT)));
+
+    public static final RegistrySupplier<Item> WINTER_HAT = registerItem("winter_hat", () -> new WinterHatItem(ArmorMaterialRegistry.WINTER_HAT.value(), ArmorItem.Type.HELMET, getSettings().rarity(Rarity.RARE), AlpineWhispers.identifier("textures/models/armor/winter_hat_layer_1.png")));
 
 
     public static void init() {

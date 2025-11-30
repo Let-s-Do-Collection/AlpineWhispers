@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -158,45 +157,57 @@ public class CandleWreathBlock extends Block implements SimpleWaterloggedBlock {
         RelativeQuadrant quadrant = getRelativeQuadrant(hitLocation, facing);
         LitInfo info = getLitInfo(quadrant);
 
-        if (info == null) {
+        boolean isLighter = stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE);
+        boolean isBucket = stack.is(Items.BUCKET);
+
+        if (!isLighter && !isBucket) {
+            if (state.getValue(info.property) && level.isClientSide()) {
+                Vec3 particlePos = rotatePosition(info.particlePosition, facing).add(pos.getX(), pos.getY(), pos.getZ());
+                addParticlesAndSound(level, particlePos, level.random);
+                level.playLocalSound(particlePos.x, particlePos.y, particlePos.z, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
+                return ItemInteractionResult.sidedSuccess(true);
+            }
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        if (!level.isClientSide()) {
-            boolean isLighter = stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE);
-            boolean isBucket = stack.is(Items.BUCKET);
-            BlockState newState = state;
-            boolean updated = false;
-
+        if (level.isClientSide()) {
             if (isLighter && !state.getValue(info.property) && !state.getValue(WATERLOGGED)) {
-                newState = newState.setValue(info.property, true);
-                updated = true;
-            } else if (isBucket && state.getValue(info.property)) {
-                newState = newState.setValue(info.property, false);
-                updated = true;
-            }
-
-            if (updated) {
-                level.setBlock(pos, newState, 3);
                 Vec3 particlePos = rotatePosition(info.particlePosition, facing).add(pos.getX(), pos.getY(), pos.getZ());
                 addParticlesAndSound(level, particlePos, level.random);
-
-                if (isLighter) {
-                    level.playSound(null, particlePos.x, particlePos.y, particlePos.z, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
-                } else {
-                    level.playSound(null, particlePos.x, particlePos.y, particlePos.z, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
-                }
-
-                return ItemInteractionResult.sidedSuccess(level.isClientSide());
+                level.playLocalSound(particlePos.x, particlePos.y, particlePos.z, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F, false);
+                return ItemInteractionResult.sidedSuccess(true);
             }
-        } else if (state.getValue(info.property)) {
-            Vec3 particlePos = rotatePosition(info.particlePosition, facing).add(pos.getX(), pos.getY(), pos.getZ());
-            addParticlesAndSound(level, particlePos, level.random);
-            level.playLocalSound(particlePos.x, particlePos.y, particlePos.z, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
+            if (isBucket && state.getValue(info.property)) {
+                Vec3 particlePos = rotatePosition(info.particlePosition, facing).add(pos.getX(), pos.getY(), pos.getZ());
+                level.playLocalSound(particlePos.x, particlePos.y, particlePos.z, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                return ItemInteractionResult.sidedSuccess(true);
+            }
             return ItemInteractionResult.sidedSuccess(true);
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        BlockState newState = state;
+        boolean updated = false;
+
+        if (isLighter && !state.getValue(info.property) && !state.getValue(WATERLOGGED)) {
+            newState = newState.setValue(info.property, true);
+            updated = true;
+        } else if (isBucket && state.getValue(info.property)) {
+            newState = newState.setValue(info.property, false);
+            updated = true;
+        }
+
+        if (updated) {
+            level.setBlock(pos, newState, 3);
+            Vec3 particlePos = rotatePosition(info.particlePosition, facing).add(pos.getX(), pos.getY(), pos.getZ());
+            addParticlesAndSound(level, particlePos, level.random);
+            if (isLighter) {
+                level.playSound(null, particlePos.x, particlePos.y, particlePos.z, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+            } else {
+                level.playSound(null, particlePos.x, particlePos.y, particlePos.z, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+        }
+
+        return ItemInteractionResult.sidedSuccess(false);
     }
 
     @Override
@@ -240,14 +251,14 @@ public class CandleWreathBlock extends Block implements SimpleWaterloggedBlock {
         level.addParticle(ParticleTypes.SMALL_FLAME, vec3.x, vec3.y, vec3.z, 0.0, 0.0, 0.0);
     }
 
-    private Vec3 rotatePosition(Vector3f position, Direction facing) {
+    private static Vec3 rotatePosition(Vector3f position, Direction facing) {
         double x = (position.x() + 1) / 16.0;
         double y = (position.y() + 1) / 16.0;
         double z = (position.z() + 1) / 16.0;
         return switch (facing) {
-            case EAST -> new Vec3(z, y, 1 - x);
-            case SOUTH -> new Vec3(1 - x, y, 1 - z);
-            case WEST -> new Vec3(1 - z, y, x);
+            case EAST -> new Vec3(1.0 - z, y, x);
+            case SOUTH -> new Vec3(1.0 - x, y, 1.0 - z);
+            case WEST -> new Vec3(z, y, 1.0 - x);
             default -> new Vec3(x, y, z);
         };
     }
@@ -259,14 +270,7 @@ public class CandleWreathBlock extends Block implements SimpleWaterloggedBlock {
         BACK_LEFT
     }
 
-    private static class LitInfo {
-        final BooleanProperty property;
-        final Vector3f particlePosition;
-
-        LitInfo(BooleanProperty property, Vector3f particlePosition) {
-            this.property = property;
-            this.particlePosition = particlePosition;
-        }
+    private record LitInfo(BooleanProperty property, Vector3f particlePosition) {
     }
 
     private RelativeQuadrant getRelativeQuadrant(Vec3 hitLocation, Direction facing) {
@@ -315,8 +319,9 @@ public class CandleWreathBlock extends Block implements SimpleWaterloggedBlock {
                 .setValue(LIT_BL, false)
                 .setValue(LIT_FL, false);
         level.setBlock(pos, newState, 11);
+        Direction facing = state.getValue(FACING);
         for (Vector3f firePos : FIRE_POSITIONS) {
-            Vec3 particlePos = new Vec3(firePos.x() / 16.0, firePos.y() / 16.0, firePos.z() / 16.0).add(pos.getX(), pos.getY(), pos.getZ());
+            Vec3 particlePos = rotatePosition(firePos, facing).add(pos.getX(), pos.getY(), pos.getZ());
             level.addParticle(ParticleTypes.SMOKE, particlePos.x, particlePos.y, particlePos.z, 0.0, 0.1, 0.0);
         }
         level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);

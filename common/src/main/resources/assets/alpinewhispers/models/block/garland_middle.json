@@ -1,6 +1,7 @@
 {
 	"format_version": "1.21.6",
 	"credit": "Made by Satisfy",
+	"ambientocclusion": false,
 	"textures": {
 		"0": "alpinewhispers:block/garland_single",
 		"particle": "alpinewhispers:block/garland_single"

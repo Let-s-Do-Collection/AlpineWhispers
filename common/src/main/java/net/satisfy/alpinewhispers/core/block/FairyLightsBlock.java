@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -42,11 +43,28 @@ public class FairyLightsBlock extends Block {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        Direction direction = state.getValue(FACING);
-        BlockPos supportPos = pos.relative(direction.getOpposite());
-        BlockState supportState = world.getBlockState(supportPos);
-        return supportState.isFaceSturdy(world, supportPos, direction);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        Direction facing = state.getValue(FACING);
+
+        BlockPos wallPos = pos.relative(facing.getOpposite());
+        BlockState wallState = level.getBlockState(wallPos);
+        if (canAttachTo(wallState, level, wallPos, facing)) {
+            return true;
+        }
+
+        BlockPos ceilingPos = pos.above();
+        BlockState ceilingState = level.getBlockState(ceilingPos);
+        return canAttachTo(ceilingState, level, ceilingPos, Direction.DOWN);
+    }
+
+    private static boolean canAttachTo(BlockState blockState, LevelReader levelReader, BlockPos blockPos, Direction face) {
+        if (blockState.isAir()) {
+            return false;
+        }
+        if (blockState.is(BlockTags.LEAVES)) {
+            return true;
+        }
+        return blockState.isFaceSturdy(levelReader, blockPos, face);
     }
 
     @Override
