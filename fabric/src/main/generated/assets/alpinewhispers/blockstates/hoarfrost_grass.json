@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "alpinewhispers:block/hoarfrost_grass"
+    }
+  }
+}

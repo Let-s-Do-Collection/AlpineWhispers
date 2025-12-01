@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "alpinewhispers:block/arolla_pine_pressure_plate"
+    },
+    "powered=true": {
+      "model": "alpinewhispers:block/arolla_pine_pressure_plate_down"
+    }
+  }
+}

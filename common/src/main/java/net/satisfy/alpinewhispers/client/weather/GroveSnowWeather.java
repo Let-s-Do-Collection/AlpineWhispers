@@ -24,6 +24,10 @@ public class GroveSnowWeather {
     }
 
     private static void tickClient(Minecraft minecraft) {
+        if (minecraft.isPaused()) {
+            return;
+        }
+
         ClientLevel level = minecraft.level;
         LocalPlayer player = minecraft.player;
         if (level == null || player == null) {

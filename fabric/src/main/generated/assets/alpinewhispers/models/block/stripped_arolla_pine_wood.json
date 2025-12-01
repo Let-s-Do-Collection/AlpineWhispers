@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "alpinewhispers:block/stripped_arolla_pine_log",
+    "side": "alpinewhispers:block/stripped_arolla_pine_log"
+  }
+}

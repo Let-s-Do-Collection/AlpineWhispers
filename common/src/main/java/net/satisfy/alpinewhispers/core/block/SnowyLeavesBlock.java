@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.satisfy.alpinewhispers.core.item.TreeBaublesItem;
 import org.jetbrains.annotations.NotNull;
 
 public class SnowyLeavesBlock extends LeavesBlock {
@@ -50,6 +51,16 @@ public class SnowyLeavesBlock extends LeavesBlock {
 
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        ItemStack mainHand = player.getMainHandItem();
+        ItemStack offHand = player.getOffhandItem();
+        if (mainHand.getItem() instanceof TreeBaublesItem || offHand.getItem() instanceof TreeBaublesItem) {
+            return InteractionResult.PASS;
+        }
+
+        if (!mainHand.isEmpty()) {
+            return InteractionResult.PASS;
+        }
+
         if (!state.getValue(SNOWY)) return InteractionResult.PASS;
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             level.setBlock(pos, state.setValue(SNOWY, false), Block.UPDATE_ALL);
@@ -65,6 +76,7 @@ public class SnowyLeavesBlock extends LeavesBlock {
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
+
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {

@@ -3,6 +3,8 @@ package net.satisfy.alpinewhispers.core.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -30,8 +31,8 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
     public static final MapCodec<SnowGlobeBlock> CODEC = simpleCodec(SnowGlobeBlock::new);
 
     private static final VoxelShape SHAPE = Shapes.or(
-            Shapes.box(0.0, 0.0, 0.0, 1.0, 0.125, 1.0),
-            Shapes.box(0.0625, 0.125, 0.0625, 0.9375, 0.875, 0.9375)
+            Shapes.box(1.0 / 16.0, 0.0, 1.0 / 16.0, 15.0 / 16.0, 2.0 / 16.0, 15.0 / 16.0),
+            Shapes.box(2.0 / 16.0, 2.0 / 16.0, 2.0 / 16.0, 14.0 / 16.0, 14.0 / 16.0, 14.0 / 16.0)
     );
 
     public SnowGlobeBlock(BlockBehaviour.Properties properties) {
@@ -40,13 +41,15 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+    public @NotNull MapCodec<SnowGlobeBlock> codec() {
         return CODEC;
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(POWER, 0);
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(POWER, 0);
     }
 
     @Override
@@ -64,12 +67,29 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
+
         int currentPower = blockState.getValue(POWER);
-        int nextPower = Math.min(15, currentPower + 1);
+        int nextPower = Math.min(15, currentPower + 5);
+
         if (nextPower != currentPower) {
             level.setBlock(blockPos, blockState.setValue(POWER, nextPower), Block.UPDATE_ALL);
+            level.scheduleTick(blockPos, this, 4);
         }
+
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void tick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
+        int currentPower = blockState.getValue(POWER);
+        if (currentPower <= 0) {
+            return;
+        }
+        int nextPower = currentPower - 1;
+        level.setBlock(blockPos, blockState.setValue(POWER, nextPower), Block.UPDATE_ALL);
+        if (nextPower > 0) {
+            level.scheduleTick(blockPos, this, 4);
+        }
     }
 
     @Override
@@ -83,30 +103,32 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (!level.isClientSide) {
-            return;
-        }
-
+        if (!level.isClientSide) return;
         int power = blockState.getValue(POWER);
-        int chanceDivider = power > 0 ? Math.max(1, 6 - power / 3) : 8;
+        if (power <= 0) return;
+        if (!level.getBlockState(blockPos.below()).isSolid()) return;
 
-        if (randomSource.nextInt(chanceDivider) != 0) {
-            return;
-        }
+        double intensity = Math.min(1.0, power / 15.0);
+        int particleCount = 1 + (int)(intensity * 4.0);
 
-        int particleCount = 1 + power / 5;
-        double baseSpeed = 0.01 + power * 0.004;
+        double minX = blockPos.getX() + 4.0 / 16.0;
+        double maxX = blockPos.getX() + 12.0 / 16.0;
+        double minY = blockPos.getY() + 4.0 / 16.0;
+        double maxY = blockPos.getY() + 12.0 / 16.0;
+        double minZ = blockPos.getZ() + 4.0 / 16.0;
+        double maxZ = blockPos.getZ() + 12.0 / 16.0;
+
+        double baseSpeed = 0.002 + intensity * 0.003;
 
         for (int i = 0; i < particleCount; i++) {
-            double x = blockPos.getX() + 0.2 + randomSource.nextDouble() * 0.6;
-            double y = blockPos.getY() + 0.65 + randomSource.nextDouble() * 0.2;
-            double z = blockPos.getZ() + 0.2 + randomSource.nextDouble() * 0.6;
-
+            double x = minX + randomSource.nextDouble() * (maxX - minX);
+            double y = minY + randomSource.nextDouble() * (maxY - minY);
+            double z = minZ + randomSource.nextDouble() * (maxZ - minZ);
             double motionX = (randomSource.nextDouble() - 0.5) * baseSpeed;
-            double motionY = (randomSource.nextDouble() - 0.5) * baseSpeed * 0.6;
             double motionZ = (randomSource.nextDouble() - 0.5) * baseSpeed;
-
+            double motionY = -0.002 - randomSource.nextDouble() * baseSpeed * 0.5;
             level.addParticle(ParticleTypes.SNOWFLAKE, x, y, z, motionX, motionY, motionZ);
         }
     }

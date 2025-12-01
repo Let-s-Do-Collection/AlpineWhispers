@@ -5,7 +5,6 @@ import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
@@ -25,7 +24,6 @@ public interface ArollaPineModelGen {
         generateSlabStairFence(modelGen);
         generateLogs(modelGen);
 
-        modelGen.createTrivialBlock(ObjectRegistry.AROLLA_PINE_LEAVES.get(), TexturedModel.LEAVES);
     }
 
     static void generateLogs(BlockModelGenerators modelGen) {

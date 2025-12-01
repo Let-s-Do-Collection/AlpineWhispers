@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -48,23 +47,17 @@ public class FairyLightsBlock extends Block {
 
         BlockPos wallPos = pos.relative(facing.getOpposite());
         BlockState wallState = level.getBlockState(wallPos);
-        if (canAttachTo(wallState, level, wallPos, facing)) {
+        if (canAttachTo(wallState)) {
             return true;
         }
 
         BlockPos ceilingPos = pos.above();
         BlockState ceilingState = level.getBlockState(ceilingPos);
-        return canAttachTo(ceilingState, level, ceilingPos, Direction.DOWN);
+        return canAttachTo(ceilingState);
     }
 
-    private static boolean canAttachTo(BlockState blockState, LevelReader levelReader, BlockPos blockPos, Direction face) {
-        if (blockState.isAir()) {
-            return false;
-        }
-        if (blockState.is(BlockTags.LEAVES)) {
-            return true;
-        }
-        return blockState.isFaceSturdy(levelReader, blockPos, face);
+    private static boolean canAttachTo(BlockState blockState) {
+        return !blockState.isAir();
     }
 
     @Override

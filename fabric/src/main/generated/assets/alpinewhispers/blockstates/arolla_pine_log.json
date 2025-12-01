@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "alpinewhispers:block/arolla_pine_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "alpinewhispers:block/arolla_pine_log"
+    },
+    "axis=z": {
+      "model": "alpinewhispers:block/arolla_pine_log",
+      "x": 90
+    }
+  }
+}

@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.block.*;
 import net.satisfy.alpinewhispers.core.block.CozyBedBlock;
+import net.satisfy.alpinewhispers.core.item.FoodBlockItem;
 import net.satisfy.alpinewhispers.core.item.TreeBaublesItem;
 import net.satisfy.alpinewhispers.core.item.WinterHatItem;
 import net.satisfy.alpinewhispers.core.util.GeneralUtil;
@@ -102,10 +104,10 @@ public class ObjectRegistry {
 
     public static final RegistrySupplier<Block> CANDLE_WREATH = registerWithItem("candle_wreath", () -> new CandleWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
     public static final RegistrySupplier<Block> WALL_WREATH = registerWithItem("wall_wreath", () -> new WallWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
-    public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13).noOcclusion()));
-    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13)));
+    public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 9).noOcclusion()));
+    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 4)));
     public static final RegistrySupplier<Block> STAR_TOPPER = registerWithItem("star_topper", () -> new StarTopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
-    public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((s, w, p) -> true).lightLevel(state -> 4).noOcclusion()));
+    public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 4).noOcclusion()));
     public static final RegistrySupplier<Item> TREE_BAUBLES_ITEM = registerItem("tree_baubles",  () -> new TreeBaublesItem(TREE_BAUBLES.get(), new Item.Properties()));
 
     public static final RegistrySupplier<Item> WINTER_MAGIC_MUSIC_DISC = registerItem("winter_magic_music_disc", () -> new Item(new Item.Properties().stacksTo(1).jukeboxPlayable(SoundEventRegistry.WINTER_MAGIC)));
@@ -124,7 +126,9 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> HOMESPUN_CARPET = registerWithItem("homespun_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_CARPET)));
     public static final RegistrySupplier<Item> REINDEER = registerItem("reindeer", () -> new Item(getSettings().food(Foods.MUTTON)));
     public static final RegistrySupplier<Item> COOKED_REINDEER = registerItem("cooked_reindeer", () -> new Item(getSettings().food(Foods.COOKED_MUTTON)));
-    public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new Item(getSettings().food(Foods.GOLDEN_CARROT)));
+
+    public static final RegistrySupplier<Block> COOKED_REINDEER_DISH_BLOCK = registerWithoutItem("cooked_reindeer_dish", () -> new FoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), 4, new FoodProperties.Builder().nutrition(8).saturationModifier(0.9F).build()));
+    public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new FoodBlockItem(COOKED_REINDEER_DISH_BLOCK.get(), getSettings().food(Foods.GOLDEN_CARROT)));
 
     public static final RegistrySupplier<Item> WINTER_HAT = registerItem("winter_hat", () -> new WinterHatItem(ArmorMaterialRegistry.WINTER_HAT.value(), ArmorItem.Type.HELMET, getSettings().rarity(Rarity.RARE), AlpineWhispers.identifier("textures/models/armor/winter_hat_layer_1.png")));
 

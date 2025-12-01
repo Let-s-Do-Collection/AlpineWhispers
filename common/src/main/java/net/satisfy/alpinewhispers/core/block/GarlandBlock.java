@@ -74,13 +74,7 @@ public class GarlandBlock extends Block {
     }
 
     private static boolean canAttachTo(BlockState blockState, LevelReader levelReader, BlockPos blockPos, Direction face) {
-        if (blockState.isAir()) {
-            return false;
-        }
-        if (blockState.is(BlockTags.LEAVES)) {
-            return true;
-        }
-        return blockState.isFaceSturdy(levelReader, blockPos, face);
+        return !blockState.isAir();
     }
 
     @Override

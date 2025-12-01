@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "alpinewhispers:block/alpine_gneiss",
+    "side": "alpinewhispers:block/alpine_gneiss",
+    "top": "alpinewhispers:block/alpine_gneiss"
+  }
+}

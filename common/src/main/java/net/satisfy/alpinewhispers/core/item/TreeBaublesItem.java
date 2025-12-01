@@ -23,28 +23,31 @@ public class TreeBaublesItem extends BlockItem {
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState clicked = level.getBlockState(pos);
+        BlockPos blockPos = context.getClickedPos();
+        BlockState originalState = level.getBlockState(blockPos);
 
-        if (clicked.is(BlockTags.LEAVES)) {
-            if (!level.isClientSide) {
-                BlockState baublesState = getBlock().defaultBlockState();
-                if (level.setBlock(pos, baublesState, Block.UPDATE_ALL)) {
-                    level.playSound(context.getPlayer(), pos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    BlockEntity blockEntity = level.getBlockEntity(pos);
-                    if (blockEntity instanceof TreeBaublesBlockEntity treeBaublesBlockEntity) {
-                        treeBaublesBlockEntity.setHeldBlock(clicked);
-                        treeBaublesBlockEntity.setChanged();
-                    }
-                    Player player = context.getPlayer();
-                    if (player != null && !player.getAbilities().instabuild) {
-                        context.getItemInHand().shrink(1);
-                    }
-                }
-            }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        if (!originalState.is(BlockTags.LEAVES)) {
+            return super.useOn(context);
         }
 
-        return super.useOn(context);
+        BlockState baublesState = getBlock().defaultBlockState();
+        if (!level.setBlock(blockPos, baublesState, Block.UPDATE_ALL)) {
+            return InteractionResult.FAIL;
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof TreeBaublesBlockEntity treeBaublesBlockEntity) {
+            treeBaublesBlockEntity.setHeldBlock(originalState);
+        }
+
+        if (!level.isClientSide) {
+            level.playSound(context.getPlayer(), blockPos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            Player player = context.getPlayer();
+            if (player != null && !player.getAbilities().instabuild) {
+                context.getItemInHand().shrink(1);
+            }
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 }
