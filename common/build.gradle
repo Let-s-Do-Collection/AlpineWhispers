@@ -15,6 +15,14 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir(project(":fabric").file("src/main/generated"))
+        }
+    }
+}
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {

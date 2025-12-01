@@ -17,6 +17,7 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         translateAdditionals(texts);
         translateAlpineGneiss(texts);
         translateArollaPine(texts);
+        translateOtherBlocks(texts);
         translateDecor(texts);
     }
 
@@ -83,9 +84,20 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(ObjectRegistry.AROLLA_PINE_WINDOW.get(), "Arolla Pine Window");
     }
 
+    public static void translateOtherBlocks(TranslationBuilder texts) {
+        texts.add(ObjectRegistry.FROZEN_DIRT.get(), "Frozen Dirt");
+        texts.add(ObjectRegistry.ICICLES.get(), "Icicles");
+        texts.add(ObjectRegistry.HOMESPUN_WOOL.get(), "Homespun Wool");
+        texts.add(ObjectRegistry.HOMESPUN_CARPET.get(), "Homespun Carpet");
+    }
+
     public static void translateDecor(TranslationBuilder texts) {
         texts.add(ObjectRegistry.CANDLE_WREATH.get(), "Candle Wreath");
         texts.add(ObjectRegistry.FAIRY_LIGHTS.get(), "Fairy Lights");
         texts.add(ObjectRegistry.GARLAND.get(), "Garland");
+        texts.add(ObjectRegistry.WALL_WREATH.get(), "Wall Wreath");
+        texts.add(ObjectRegistry.STAR_TOPPER.get(), "Star Topper");
+        texts.add(ObjectRegistry.TREE_BAUBLES.get(), "Tree Baubles");
+        texts.add(ObjectRegistry.SNOW_GLOBE.get(), "Snow Globe");
     }
 }
