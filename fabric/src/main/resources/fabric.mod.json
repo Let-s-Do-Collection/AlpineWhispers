@@ -18,6 +18,9 @@
     "main": [
       "net.satisfy.alpinewhispers.fabric.AlpineWhispersFabric"
     ],
+    "fabric-datagen": [
+      "net.satisfy.alpinewhispers.fabric.datagen.AlpineWhispersDatagen"
+    ],
     "client": [
       "net.satisfy.alpinewhispers.fabric.client.AlpineWhispersClientFabric"
     ]

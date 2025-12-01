@@ -105,7 +105,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13).noOcclusion()));
     public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13)));
     public static final RegistrySupplier<Block> STAR_TOPPER = registerWithItem("star_topper", () -> new StarTopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
-    public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).lightLevel(state -> 13).noOcclusion()));
+    public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((s, w, p) -> true).lightLevel(state -> 4).noOcclusion()));
     public static final RegistrySupplier<Item> TREE_BAUBLES_ITEM = registerItem("tree_baubles",  () -> new TreeBaublesItem(TREE_BAUBLES.get(), new Item.Properties()));
 
     public static final RegistrySupplier<Item> WINTER_MAGIC_MUSIC_DISC = registerItem("winter_magic_music_disc", () -> new Item(new Item.Properties().stacksTo(1).jukeboxPlayable(JukeboxSongRegistry.WINTER_MAGIC)));
