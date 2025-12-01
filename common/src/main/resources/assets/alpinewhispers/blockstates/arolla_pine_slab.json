@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "alpinewhispers:block/arolla_pine_slab"
+    },
+    "type=double": {
+      "model": "alpinewhispers:block/arolla_pine_planks_0"
+    },
+    "type=top": {
+      "model": "alpinewhispers:block/arolla_pine_slab_top"
+    }
+  }
+}

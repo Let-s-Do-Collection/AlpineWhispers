@@ -5,9 +5,10 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.Items;
 import net.satisfy.alpinewhispers.core.entity.ai.AnimationAttackGoal;
 import net.satisfy.alpinewhispers.core.entity.ai.EntityWithAttackAnimation;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
+import net.satisfy.alpinewhispers.core.registry.SoundEventRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
@@ -320,5 +322,59 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
         }
 
         return super.mobInteract(player, interactionHand);
+    }
+
+    @Override
+    public SoundEvent getAmbientSound() {
+        return SoundEventRegistry.REINDEER_AMBIENT.get();
+    }
+
+    @Override
+    public SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEventRegistry.REINDEER_HURT.get();
+    }
+
+    @Override
+    public SoundEvent getDeathSound() {
+        return SoundEventRegistry.REINDEER_DEATH.get();
+    }
+
+    protected SoundEvent getAngrySound() {
+        return SoundEventRegistry.REINDEER_HURT.get();
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.05F + 0.8F;
+    }
+
+    @Override
+    protected boolean canAddPassenger(Entity passenger) {
+        return this.getPassengers().size() < 2 && !passenger.isPassenger();
+    }
+
+    @Override
+    protected @NotNull Vec3 getPassengerAttachmentPoint(Entity passenger, EntityDimensions dimensions, float partialTick) {
+        Vec3 basePos = super.getPassengerAttachmentPoint(passenger, dimensions, partialTick);
+        if (!this.hasPassenger(passenger)) {
+            return basePos;
+        }
+
+        int passengerIndex = this.getPassengers().indexOf(passenger);
+        if (passengerIndex < 0) {
+            return basePos;
+        }
+
+        float rotation = -this.getYRot() * ((float) Math.PI / 180F);
+        Vec3 localOffset;
+
+        if (passengerIndex == 0) {
+            localOffset = new Vec3(0.0, 0.0, -0.3);
+        } else {
+            localOffset = new Vec3(0.0, 0.0, 0.3);
+        }
+
+        Vec3 worldOffset = localOffset.yRot(rotation);
+        return basePos.add(worldOffset);
     }
 }

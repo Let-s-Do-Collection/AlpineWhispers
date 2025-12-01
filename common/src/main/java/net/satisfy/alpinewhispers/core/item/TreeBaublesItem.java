@@ -30,7 +30,7 @@ public class TreeBaublesItem extends BlockItem {
             if (!level.isClientSide) {
                 BlockState baublesState = getBlock().defaultBlockState();
                 if (level.setBlock(pos, baublesState, Block.UPDATE_ALL)) {
-                    level.playSound(context.getPlayer(), pos, SoundEvents.LEASH_KNOT_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(context.getPlayer(), pos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     BlockEntity blockEntity = level.getBlockEntity(pos);
                     if (blockEntity instanceof TreeBaublesBlockEntity treeBaublesBlockEntity) {
                         treeBaublesBlockEntity.setHeldBlock(clicked);

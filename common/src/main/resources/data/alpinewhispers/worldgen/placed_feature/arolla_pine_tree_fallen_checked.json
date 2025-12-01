@@ -27,7 +27,8 @@
         ],
         "blocks": [
           "minecraft:grass_block",
-          "minecraft:coarse_dirt"
+          "minecraft:coarse_dirt",
+          "minecraft:snow_block"
         ]
       }
     },

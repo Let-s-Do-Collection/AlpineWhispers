@@ -15,15 +15,12 @@
                 },
                 {
                   "type": "minecraft:matching_blocks",
-                  "offset": [
-                    0,
-                    -1,
-                    0
-                  ],
+                  "offset": [ 0, -1, 0 ],
                   "blocks": [
                     "minecraft:grass_block",
                     "minecraft:dirt",
-                    "minecraft:coarse_dirt"
+                    "minecraft:coarse_dirt",
+                    "minecraft:snow_block"
                   ]
                 }
               ]
@@ -50,15 +47,12 @@
             "type": "minecraft:block_predicate_filter",
             "predicate": {
               "type": "minecraft:matching_blocks",
-              "offset": [
-                0,
-                -1,
-                -6
-              ],
+              "offset": [ 0, -1, -6 ],
               "blocks": [
                 "minecraft:grass_block",
                 "minecraft:dirt",
-                "minecraft:coarse_dirt"
+                "minecraft:coarse_dirt",
+                "minecraft:snow_block"
               ]
             }
           }
@@ -77,15 +71,12 @@
                 },
                 {
                   "type": "minecraft:matching_blocks",
-                  "offset": [
-                    0,
-                    -1,
-                    0
-                  ],
+                  "offset": [ 0, -1, 0 ],
                   "blocks": [
                     "minecraft:grass_block",
                     "minecraft:dirt",
-                    "minecraft:coarse_dirt"
+                    "minecraft:coarse_dirt",
+                    "minecraft:snow_block"
                   ]
                 }
               ]
@@ -112,15 +103,12 @@
             "type": "minecraft:block_predicate_filter",
             "predicate": {
               "type": "minecraft:matching_blocks",
-              "offset": [
-                0,
-                -1,
-                6
-              ],
+              "offset": [ 0, -1, 6 ],
               "blocks": [
                 "minecraft:grass_block",
                 "minecraft:dirt",
-                "minecraft:coarse_dirt"
+                "minecraft:coarse_dirt",
+                "minecraft:snow_block"
               ]
             }
           }
@@ -139,15 +127,12 @@
                 },
                 {
                   "type": "minecraft:matching_blocks",
-                  "offset": [
-                    0,
-                    -1,
-                    0
-                  ],
+                  "offset": [ 0, -1, 0 ],
                   "blocks": [
                     "minecraft:grass_block",
                     "minecraft:dirt",
-                    "minecraft:coarse_dirt"
+                    "minecraft:coarse_dirt",
+                    "minecraft:snow_block"
                   ]
                 }
               ]
@@ -174,15 +159,12 @@
             "type": "minecraft:block_predicate_filter",
             "predicate": {
               "type": "minecraft:matching_blocks",
-              "offset": [
-                6,
-                -1,
-                0
-              ],
+              "offset": [ 6, -1, 0 ],
               "blocks": [
                 "minecraft:grass_block",
                 "minecraft:dirt",
-                "minecraft:coarse_dirt"
+                "minecraft:coarse_dirt",
+                "minecraft:snow_block"
               ]
             }
           }
@@ -201,15 +183,12 @@
                 },
                 {
                   "type": "minecraft:matching_blocks",
-                  "offset": [
-                    0,
-                    -1,
-                    0
-                  ],
+                  "offset": [ 0, -1, 0 ],
                   "blocks": [
                     "minecraft:grass_block",
                     "minecraft:dirt",
-                    "minecraft:coarse_dirt"
+                    "minecraft:coarse_dirt",
+                    "minecraft:snow_block"
                   ]
                 }
               ]
@@ -236,15 +215,12 @@
             "type": "minecraft:block_predicate_filter",
             "predicate": {
               "type": "minecraft:matching_blocks",
-              "offset": [
-                -6,
-                -1,
-                0
-              ],
+              "offset": [ -6, -1, 0 ],
               "blocks": [
                 "minecraft:grass_block",
                 "minecraft:dirt",
-                "minecraft:coarse_dirt"
+                "minecraft:coarse_dirt",
+                "minecraft:snow_block"
               ]
             }
           }

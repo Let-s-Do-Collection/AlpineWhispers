@@ -118,27 +118,48 @@ public class GarlandBlock extends Block {
 
     private GarlandType resolveType(BlockState state, LevelAccessor level, BlockPos pos) {
         Direction facing = state.getValue(FACING);
-        Direction leftDir = facing.getCounterClockWise();
-        Direction rightDir = facing.getClockWise();
+        Direction leftDirection = facing.getCounterClockWise();
+        Direction rightDirection = facing.getClockWise();
 
-        boolean hasLeft = isSameGarland(level.getBlockState(pos.relative(leftDir)), facing);
-        boolean hasRight = isSameGarland(level.getBlockState(pos.relative(rightDir)), facing);
+        BlockState leftState = level.getBlockState(pos.relative(leftDirection));
+        BlockState rightState = level.getBlockState(pos.relative(rightDirection));
 
-        if (hasLeft && hasRight) {
-            return GarlandType.MIDDLE;
-        } else if (hasLeft) {
-            return GarlandType.RIGHT;
-        } else if (hasRight) {
-            return GarlandType.LEFT;
+        boolean hasLeft = leftState.is(this);
+        boolean hasRight = rightState.is(this);
+
+        if (hasLeft && hasRight
+                && leftState.getValue(FACING) == facing
+                && rightState.getValue(FACING) == facing) {
+            return GarlandType.STRAIGHT;
         }
+
+        if (hasLeft) {
+            Direction leftFacing = leftState.getValue(FACING);
+            if (leftFacing == leftDirection) {
+                return GarlandType.OUTER_LEFT;
+            }
+            if (leftFacing == leftDirection.getOpposite()) {
+                return GarlandType.INNER_LEFT;
+            }
+            if (leftFacing == facing) {
+                return GarlandType.STRAIGHT;
+            }
+        }
+
+        if (hasRight) {
+            Direction rightFacing = rightState.getValue(FACING);
+            if (rightFacing == rightDirection) {
+                return GarlandType.OUTER_RIGHT;
+            }
+            if (rightFacing == rightDirection.getOpposite()) {
+                return GarlandType.INNER_RIGHT;
+            }
+            if (rightFacing == facing) {
+                return GarlandType.STRAIGHT;
+            }
+        }
+
         return GarlandType.NONE;
-    }
-
-    private boolean isSameGarland(BlockState neighborState, Direction facing) {
-        if (!neighborState.is(this)) {
-            return false;
-        }
-        return neighborState.getValue(FACING) == facing;
     }
 
     private static VoxelShape makeShape() {
@@ -152,9 +173,11 @@ public class GarlandBlock extends Block {
 
     public enum GarlandType implements StringRepresentable {
         NONE("none"),
-        LEFT("left"),
-        MIDDLE("middle"),
-        RIGHT("right");
+        STRAIGHT("straight"),
+        INNER_LEFT("inner_left"),
+        INNER_RIGHT("inner_right"),
+        OUTER_LEFT("outer_left"),
+        OUTER_RIGHT("outer_right");
 
         private final String name;
 

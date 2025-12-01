@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,5 +42,10 @@ public class SnowyDoublePlantBlock extends DoublePlantBlock {
             double z = blockPos.getZ() + randomSource.nextDouble();
             level.addParticle(ParticleTypes.SNOWFLAKE, x, y, z, 0.0, -0.01, 0.0);
         }
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState state, net.minecraft.world.level.BlockGetter world, BlockPos pos) {
+        return state.is(Blocks.SNOW) || state.is(Blocks.SNOW_BLOCK) || super.mayPlaceOn(state, world, pos);
     }
 }

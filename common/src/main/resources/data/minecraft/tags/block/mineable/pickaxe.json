@@ -1,5 +1,29 @@
 {
   "replace": false,
   "values": [
+    "alpinewhispers:alpine_gneiss",
+    "alpinewhispers:alpine_gneiss_brick_slab",
+    "alpinewhispers:alpine_gneiss_brick_stairs",
+    "alpinewhispers:alpine_gneiss_brick_wall",
+    "alpinewhispers:alpine_gneiss_bricks",
+    "alpinewhispers:alpine_gneiss_slab",
+    "alpinewhispers:alpine_gneiss_stairs",
+    "alpinewhispers:alpine_gneiss_wall",
+    "alpinewhispers:arolla_pine_window",
+    "alpinewhispers:arolla_pine_window_pane",
+    "alpinewhispers:icicles",
+    "alpinewhispers:layered_alpine_gneiss_brick_slab",
+    "alpinewhispers:layered_alpine_gneiss_brick_stairs",
+    "alpinewhispers:layered_alpine_gneiss_brick_wall",
+    "alpinewhispers:layered_alpine_gneiss_bricks",
+    "alpinewhispers:mossy_alpine_gneiss_brick_slab",
+    "alpinewhispers:mossy_alpine_gneiss_brick_stairs",
+    "alpinewhispers:mossy_alpine_gneiss_brick_wall",
+    "alpinewhispers:mossy_alpine_gneiss_bricks",
+    "alpinewhispers:mossy_layered_alpine_gneiss_brick_slab",
+    "alpinewhispers:mossy_layered_alpine_gneiss_brick_stairs",
+    "alpinewhispers:mossy_layered_alpine_gneiss_brick_wall",
+    "alpinewhispers:mossy_layered_alpine_gneiss_bricks",
+    "alpinewhispers:snow_globe"
   ]
 }

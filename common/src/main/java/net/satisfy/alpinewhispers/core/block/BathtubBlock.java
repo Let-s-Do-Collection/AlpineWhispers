@@ -164,7 +164,6 @@ public class BathtubBlock extends Block implements EntityBlock {
         return out;
     }
 
-    // +++ GEÄNDERT +++
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) return ItemInteractionResult.SUCCESS;
@@ -233,6 +232,8 @@ public class BathtubBlock extends Block implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource r) {
+        if ((level.getGameTime() & 1L) != 0L) return;
+
         Direction f = state.getValue(FACING);
         boolean isHead = state.getValue(PART) == BedPart.HEAD;
         BlockPos headPos = isHead ? pos : pos.relative(f);
@@ -245,6 +246,8 @@ public class BathtubBlock extends Block implements EntityBlock {
         double base = 0.475;
         double height = 0.46;
         double ratio = Mth.clamp(tub.getFillRatio(0), 0.0f, 1.0f);
+        if (!tub.isFilling() && ratio <= 0.02f) return;
+
         double ySurface = headPos.getY() + base + height * ratio + 0.02;
 
         double fx = f.getStepX();
@@ -263,40 +266,46 @@ public class BathtubBlock extends Block implements EntityBlock {
         double cz = headPos.getZ() + lz;
 
         if (tub.isFilling() && isHead) {
-            double spx = cx + rx * 0.18;
-            double spz = cz + fx * 0.18;
-            double sy = headPos.getY() + 1.0;
-            int seg = 11;
-            double dy = (sy - ySurface) / seg;
-            for (int i = 0; i < seg; i++) {
-                double py = sy - i * dy;
-                double ox = (r.nextDouble() - 0.5) * 0.01;
-                double oz = (r.nextDouble() - 0.5) * 0.01;
-                level.addParticle(ParticleTypes.FALLING_WATER, spx + ox, py, spz + oz, 0, -0.18, 0);
-            }
-            for (int i = 0; i < 4; i++) {
-                double ix = spx + (r.nextDouble() - 0.5) * 0.10;
-                double iz = spz + (r.nextDouble() - 0.5) * 0.10;
-                double vy = 0.12 + r.nextDouble() * 0.06;
-                double vx = (r.nextDouble() - 0.5) * 0.03;
-                double vz = (r.nextDouble() - 0.5) * 0.03;
-                level.addParticle(ParticleTypes.SPLASH, ix, ySurface, iz, vx, vy, vz);
+            if (r.nextFloat() < 0.6f) {
+                double spx = cx + rx * 0.18;
+                double spz = cz + fx * 0.18;
+                double sy = headPos.getY() + 1.0;
+                int seg = 5;
+                double dy = (sy - ySurface) / seg;
+                for (int i = 0; i < seg; i++) {
+                    double py = sy - i * dy;
+                    double ox = (r.nextDouble() - 0.5) * 0.01;
+                    double oz = (r.nextDouble() - 0.5) * 0.01;
+                    level.addParticle(ParticleTypes.FALLING_WATER, spx + ox, py, spz + oz, 0, -0.18, 0);
+                }
+                for (int i = 0; i < 2; i++) {
+                    double ix = spx + (r.nextDouble() - 0.5) * 0.10;
+                    double iz = spz + (r.nextDouble() - 0.5) * 0.10;
+                    double vy = 0.12 + r.nextDouble() * 0.06;
+                    double vx = (r.nextDouble() - 0.5) * 0.03;
+                    double vz = (r.nextDouble() - 0.5) * 0.03;
+                    level.addParticle(ParticleTypes.SPLASH, ix, ySurface, iz, vx, vy, vz);
+                }
             }
         }
 
         if (tub.isFilling() || ratio > 0.0) {
+            if (r.nextFloat() > 0.4f) return;
+
             BlockPos footPos = headPos.relative(f.getOpposite());
             for (int half = 0; half < 2; half++) {
                 BlockPos basePos = half == 0 ? headPos : footPos;
                 long t = level.getGameTime();
-                boolean allowPop = ((t + basePos.asLong()) & 7L) == 0 && r.nextFloat() < 0.05f;
-                for (int i = 0; i < 2; i++) {
+                boolean allowPop = ((t + basePos.asLong()) & 15L) == 0 && r.nextFloat() < 0.15f;
+                for (int i = 0; i < 1; i++) {
                     double u = (r.nextDouble() - 0.5) * 0.6;
                     double v = (r.nextDouble() - 0.5) * 0.9;
                     double x = basePos.getX() + 0.5 + u * rx + v * fx;
                     double z = basePos.getZ() + 0.5 + u * fx + v * fz;
                     level.addParticle(ParticleTypes.BUBBLE_POP, x, ySurface - 0.005, z, 0, 0.006 + r.nextDouble() * 0.01, 0);
-                    if (allowPop && i == 0) level.addParticle(ParticleTypes.SPLASH, x, ySurface + 0.01, z, 0, 0.03, 0);
+                    if (allowPop) {
+                        level.addParticle(ParticleTypes.SPLASH, x, ySurface + 0.01, z, 0, 0.03, 0);
+                    }
                 }
             }
         }

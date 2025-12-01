@@ -80,7 +80,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> AROLLA_PINE_TRAPDOOR = registerWithItem("arolla_pine_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)));
     public static final RegistrySupplier<Block> AROLLA_PINE_FENCE = registerWithItem("arolla_pine_fence", () -> new FenceBlock(BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)));
     public static final RegistrySupplier<Block> AROLLA_PINE_WINDOW_PANE = registerWithItem("arolla_pine_window_pane", () -> new WindowBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GLASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).mapColor(MapColor.GRASS).pushReaction(PushReaction.IGNORE)));
-    public static final RegistrySupplier<Block> AROLLA_PINE_WINDOW = registerWithItem("arolla_pine_window", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+    public static final RegistrySupplier<Block> AROLLA_PINE_WINDOW = registerWithItem("arolla_pine_window", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion()));
     public static final RegistrySupplier<Block> AROLLA_PINE_LEAVES = registerWithItem("arolla_pine_leaves", () -> new SnowyLeavesBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).mapColor(MapColor.GRASS)));
     public static final RegistrySupplier<Block> AROLLA_PINE_SAPLING = registerWithItem("arolla_pine_sapling", () -> new SaplingBlock(new TreeGrower("arolla_pine_mid", Optional.empty(), Optional.of(configuredFeatureKey("arolla_pine_mid")), Optional.empty()), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING)));
 
@@ -108,7 +108,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((s, w, p) -> true).lightLevel(state -> 4).noOcclusion()));
     public static final RegistrySupplier<Item> TREE_BAUBLES_ITEM = registerItem("tree_baubles",  () -> new TreeBaublesItem(TREE_BAUBLES.get(), new Item.Properties()));
 
-    public static final RegistrySupplier<Item> WINTER_MAGIC_MUSIC_DISC = registerItem("winter_magic_music_disc", () -> new Item(new Item.Properties().stacksTo(1).jukeboxPlayable(JukeboxSongRegistry.WINTER_MAGIC)));
+    public static final RegistrySupplier<Item> WINTER_MAGIC_MUSIC_DISC = registerItem("winter_magic_music_disc", () -> new Item(new Item.Properties().stacksTo(1).jukeboxPlayable(SoundEventRegistry.WINTER_MAGIC)));
     public static final RegistrySupplier<Item> REINDEER_SPAWN_EGG = registerItem("reindeer_spawn_egg", () -> new ArchitecturySpawnEggItem(EntityTypeRegistry.REINDEER_ENTITY, -1, -1, getSettings()));
 
     public static final RegistrySupplier<Block> SNOW_GENTIAN = registerWithItem("snow_gentian", () -> new FlowerBlock(MobEffects.HEAL, 1, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_TULIP)));
