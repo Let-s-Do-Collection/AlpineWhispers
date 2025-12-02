@@ -75,15 +75,7 @@ public interface ArollaPineModelGen {
                 .pressurePlate(ObjectRegistry.AROLLA_PINE_PRESSURE_PLATE.get())
                 .fenceGate(ObjectRegistry.AROLLA_PINE_FENCE_GATE.get());
 
-        // Slab muss manuell gemacht werden, weil holz nicht standard BSD benützen
-        TextureMapping texMap = TextureMapping.cube(plankVariants.getFirst());
-        ResourceLocation sBottom = ModelTemplates.SLAB_BOTTOM.create(ModelGenHelpers.blockID("arolla_pine_slab_bottom"), texMap, modelGen.modelOutput);
-        ResourceLocation sTop = ModelTemplates.SLAB_TOP.create(ModelGenHelpers.blockID("arolla_pine_slab_top"), texMap, modelGen.modelOutput);
-        modelGen.blockStateOutput.accept(BlockModelGenerators.createSlab(
-                ObjectRegistry.AROLLA_PINE_SLAB.get(), sBottom, sTop, plankVariants.getFirst()
-        ));
-
-        modelGen.delegateItemModel(ObjectRegistry.AROLLA_PINE_SLAB.get().asItem(), ModelGenHelpers.blockID("arolla_pine_slab_bottom"));
+        ModelGenHelpers.slabFromTex(modelGen, ObjectRegistry.AROLLA_PINE_SLAB, plankVariants.getFirst());
 
         modelGen.createOrientableTrapdoor(ObjectRegistry.AROLLA_PINE_TRAPDOOR.get());
     }

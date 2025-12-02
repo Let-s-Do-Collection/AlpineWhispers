@@ -1,37 +1,4 @@
 {
-  "block.alpinewhispers.arolla_pine_bathtub": "Arolla Pine Bathtub",
-  "block.alpinewhispers.arolla_pine_bed": "Arolla Pine Bed",
-  "block.alpinewhispers.arolla_pine_cabinet": "Arolla Pine Cabinet",
-  "block.alpinewhispers.arolla_pine_chair": "Arolla Pine Chair",
-  "block.alpinewhispers.arolla_pine_cooking_aisle": "Arolla Pine Cooking Aisle",
-  "block.alpinewhispers.arolla_pine_dresser": "Arolla Pine Dresser",
-  "block.alpinewhispers.arolla_pine_privy": "Arolla Pine Privy",
-  "block.alpinewhispers.arolla_pine_sink": "Arolla Pine Sink",
-  "block.alpinewhispers.arolla_pine_smoker": "Arolla Pine Smoker",
-  "block.alpinewhispers.arolla_pine_sofa": "Arolla Pine Sofa",
-  "block.alpinewhispers.arolla_pine_table": "Arolla Pine Table",
-  "block.alpinewhispers.arolla_pine_washbasin": "Arolla Pine Washbasin",
-  "block.alpinewhispers.arolla_pine_wall_cabinet": "Arolla Pine Wall Cabinet",
-  "block.alpinewhispers.arolla_pine_wardrobe": "Arolla Pine Wardrobe",
-
-  "block.alpinewhispers.fireplace_cornice": "Fireplace Cornice",
-
-  "block.alpinewhispers.snow_gentian": "Snow Gentian",
-  "block.alpinewhispers.potted_snow_gentian": "Potted Snow Gentian",
-  "block.alpinewhispers.christmas_rose": "Christmas Rose",
-  "block.alpinewhispers.potted_christmas_rose": "Potted Christmas Rose",
-  "block.alpinewhispers.hoarfrost_grass": "Hoarfrost Grass",
-  "block.alpinewhispers.tall_hoarfrost_grass": "Tall Hoarfrost Grass",
-
-  "item.alpinewhispers.winter_magic_music_disc": "Music Disc Winter Magic",
-  "item.alpinewhispers.reindeer_spawn_egg": "Reindeer Spawn Egg",
-
-  "item.alpinewhispers.reindeer": "Raw Reindeer",
-  "item.alpinewhispers.cooked_reindeer": "Cooked Reindeer",
   "item.alpinewhispers.cooked_reindeer_dish": "Cooked Reindeer Dish",
-  "entity.alpinewhispers.reindeer": "Reindeer",
-
-  "item.alpinewhispers.winter_hat": "Winter Hat",
-
-  "jukebox_song.alpinewhispers.winter_magic": "Winter Magic"
+  "entity.alpinewhispers.reindeer": "Reindeer"
 }
