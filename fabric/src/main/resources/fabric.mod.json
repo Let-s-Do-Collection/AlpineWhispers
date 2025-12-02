@@ -31,5 +31,8 @@
     "architectury": ">=9.0.8"
   },
   "suggests": {
-  }
+  },
+  "mixins": [
+    "alpinewhispers-fabric.mixins.json"
+  ]
 }

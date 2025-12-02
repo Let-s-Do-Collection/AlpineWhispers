@@ -43,7 +43,7 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(tt + "tree_baubles.info_1", "Shift Right-Click to remove it.");
         texts.add(tt + "snowy_leaves.info_0", "Right-Click with a Snowball to cover the Leaves in Snow.");
         texts.add(tt + "snowy_leaves.info_1", "Right-Click to clear the Snow.");
-        texts.add(tt + "frosty_block.info_0", "Right-Click with a snowball to Cover the Bricks in Snow.");
+        texts.add(tt + "frosty_block.info_0", "Right-Click with a Snowball to Cover the Bricks in Snow.");
         texts.add(tt + "frosty_block.info_1", "Right-Click while holding a Brush to clear the Snow.");
         texts.add("subtitles.alpinewhispers.winter_magic", "Winter Magic plays");
         texts.add("subtitles.alpinewhispers.winter_magic_sound_event", "Winter Magic plays");
