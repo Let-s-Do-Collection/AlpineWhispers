@@ -3,6 +3,7 @@ package net.satisfy.alpinewhispers.fabric.datagen.lang;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
+import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,11 +22,12 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         translateArollaPineFurniture(texts);
         translatePlants(texts);
         translateItems(texts);
+        translateEntities(texts);
     }
 
     public static void translateAdditionals(TranslationBuilder texts) {
         String tt = "tooltip.alpinewhispers.";
-        texts.add("creativetab.alpinewhispers.tab", "[Let's Do] AlpineWhispers");
+        texts.add("creativetab.alpinewhispers.tab", "[Let's Do] Alpine Whispers");
         texts.add(tt + "tooltip_information.hold", "Hold %s for more Information");
         texts.add(tt + "fireplace_cornice.info_0", "Can be filled with any full Block.");
         texts.add(tt + "fireplace_cornice.info_1", "Right-Click with a Pickaxe to remove the inserted Block.");
@@ -146,10 +148,17 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
     public static void translateItems(TranslationBuilder texts) {
         texts.add(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get(), "Music Disc");
         texts.add(ObjectRegistry.REINDEER_SPAWN_EGG.get(), "Reindeer Spawn Egg");
+        texts.add(ObjectRegistry.ALPINE_SHEEP_SPAWN_EGG.get(), "Alpine Sheep Spawn Egg");
         texts.add(ObjectRegistry.REINDEER.get(), "Reindeer");
         texts.add(ObjectRegistry.COOKED_REINDEER.get(), "Cooked Reindeer");
         texts.add(ObjectRegistry.COOKED_REINDEER_DISH.get(), "Cooked Reindeer Dish");
         texts.add(ObjectRegistry.WINTER_HAT.get(), "Winter Hat");
+        texts.add(ObjectRegistry.BREAD_ON_A_STICK.get(), "Bread on a Stick");
+    }
+
+    public static void translateEntities(TranslationBuilder texts) {
+        texts.add(EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), "Alpine Sheep");
+        texts.add(EntityTypeRegistry.REINDEER_ENTITY.get(), "Reindeer");
     }
 
 }

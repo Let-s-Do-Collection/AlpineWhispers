@@ -24,13 +24,8 @@ public class AlpineWhispersNeoForge {
     }
 
     private void onRegisterSpawnPlacement(RegisterSpawnPlacementsEvent event) {
-        event.register(
-                EntityTypeRegistry.REINDEER_ENTITY.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                Animal::checkAnimalSpawnRules,
-                RegisterSpawnPlacementsEvent.Operation.REPLACE
-        );
+        event.register(EntityTypeRegistry.REINDEER_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

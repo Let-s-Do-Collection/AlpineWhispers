@@ -52,11 +52,12 @@ public class FoodBlock extends Block {
 
     private static final Map<Direction, VoxelShape[]> SHAPES = Util.make(new HashMap<>(), map -> {
         for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-            VoxelShape[] shapes = new VoxelShape[4];
+            VoxelShape[] shapes = new VoxelShape[5];
             shapes[0] = GeneralUtil.rotateShape(Direction.NORTH, direction, createShape0());
             shapes[1] = GeneralUtil.rotateShape(Direction.NORTH, direction, createShape1());
             shapes[2] = GeneralUtil.rotateShape(Direction.NORTH, direction, createShape2());
             shapes[3] = GeneralUtil.rotateShape(Direction.NORTH, direction, createShape3());
+            shapes[4] = GeneralUtil.rotateShape(Direction.NORTH, direction, createShape4());
             map.put(direction, shapes);
         }
     });
@@ -143,7 +144,7 @@ public class FoodBlock extends Block {
 
     static {
         FACING = BlockStateProperties.HORIZONTAL_FACING;
-        BITES = IntegerProperty.create("bites", 0, 3);
+        BITES = IntegerProperty.create("bites", 0, 4);
     }
 
     @Override
@@ -161,35 +162,46 @@ public class FoodBlock extends Block {
 
     private static VoxelShape createShape0() {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0.065625, 0.0625, 0.9375, 0.065625, 0.9375), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.5625, 0.0625, 0.25, 0.8125, 0.1875, 0.5), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.5, 0.0625, 0.5, 0.8125, 0.1875, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.125, 0.0625, 0.3125, 0.5, 0.1875, 0.6875), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.625, 0.75, 0.375, 0.875), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.375, 0.75, 0.375, 0.625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.125, 0.75, 0.375, 0.375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.2375, 0.05, 0.1125, 0.7625, 0.3875, 0.8875), BooleanOp.OR);
         return shape;
     }
 
     private static VoxelShape createShape1() {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0.065625, 0.0625, 0.9375, 0.065625, 0.9375), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.5, 0.0625, 0.5, 0.8125, 0.1875, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.125, 0.0625, 0.3125, 0.5, 0.1875, 0.6875), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.625, 0.75, 0.375, 0.875), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.375, 0.75, 0.375, 0.625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.125, 0.75, 0.375, 0.375), BooleanOp.OR);
         return shape;
     }
 
     private static VoxelShape createShape2() {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0.065625, 0.0625, 0.9375, 0.065625, 0.9375), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.5, 0.0625, 0.5, 0.8125, 0.1875, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.625, 0.75, 0.375, 0.875), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.375, 0.75, 0.375, 0.625), BooleanOp.OR);
         return shape;
     }
 
     private static VoxelShape createShape3() {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0.065625, 0.0625, 0.9375, 0.065625, 0.9375), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.625, 0.75, 0.375, 0.875), BooleanOp.OR);
+        return shape;
+    }
+
+    private static VoxelShape createShape4() {
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.0, 0.0625, 0.9375, 0.0625, 0.9375), BooleanOp.OR);
         return shape;
     }
 

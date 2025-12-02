@@ -32,7 +32,9 @@ public class AlpineWhispersFabric implements ModInitializer {
 
     private void addSpawns() {
         BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.REINDEER_ENTITY.get(), 11, 3, 5);
+        BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), 13, 4, 5);
 
         SpawnPlacements.register(EntityTypeRegistry.REINDEER_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmbientCreature::checkMobSpawnRules);
+        SpawnPlacements.register(EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmbientCreature::checkMobSpawnRules);
     }
 }

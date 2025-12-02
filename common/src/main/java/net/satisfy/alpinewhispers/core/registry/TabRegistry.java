@@ -84,11 +84,13 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.TREE_BAUBLES_ITEM.get());
                 output.accept(ObjectRegistry.SNOW_GLOBE.get());
                 output.accept(ObjectRegistry.WINTER_HAT.get());
+                output.accept(ObjectRegistry.BREAD_ON_A_STICK.get());
                 output.accept(ObjectRegistry.REINDEER.get());
                 output.accept(ObjectRegistry.COOKED_REINDEER.get());
                 output.accept(ObjectRegistry.COOKED_REINDEER_DISH.get());
-                output.accept(ObjectRegistry.REINDEER_SPAWN_EGG.get());
                 output.accept(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get());
+                output.accept(ObjectRegistry.REINDEER_SPAWN_EGG.get());
+                output.accept(ObjectRegistry.ALPINE_SHEEP_SPAWN_EGG.get());
             })
             .build());
 

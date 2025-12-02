@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "alpinewhisprs:reindeer"
+    "alpinewhispers:reindeer",
+    "alpinewhispers:alpine_sheep"
   ]
 }

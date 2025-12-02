@@ -19,6 +19,7 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -111,7 +112,7 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
         return AbstractHorse.createBaseHorseAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0)
+                .add(Attributes.MAX_HEALTH, 40.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.18)
                 .add(Attributes.FOLLOW_RANGE, 16.0)
                 .add(Attributes.ATTACK_DAMAGE, 7.0)
@@ -134,6 +135,7 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
         this.goalSelector.addGoal(9, new RandomStrollGoal(this, 0.9));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(12, new TemptGoal(this, 1.1, Ingredient.of(Items.SWEET_BERRIES), false));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
     }
 

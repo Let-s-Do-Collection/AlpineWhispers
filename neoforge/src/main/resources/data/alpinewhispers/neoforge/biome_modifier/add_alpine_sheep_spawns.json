@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#alpinewhispers:reindeer_habitat",
+  "spawners": [
+    {
+      "type": "alpinewhispers:alpine_sheep",
+      "weight": 15,
+      "minCount": 4,
+      "maxCount": 5
+    }
+  ]
+}
