@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "alpinewhispers:block/mossy_layered_alpine_gneiss_bricks",
-    "side": "alpinewhispers:block/mossy_layered_alpine_gneiss_bricks",
-    "top": "alpinewhispers:block/mossy_layered_alpine_gneiss_bricks"
-  }
-}
