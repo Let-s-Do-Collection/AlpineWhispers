@@ -17,8 +17,10 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         translateAdditionals(texts);
         translateAlpineGneiss(texts);
         translateArollaPine(texts);
-        translateOtherBlocks(texts);
         translateDecor(texts);
+        translateArollaPineFurniture(texts);
+        translatePlants(texts);
+        translateItems(texts);
     }
 
     public static void translateAdditionals(TranslationBuilder texts) {
@@ -34,7 +36,11 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(tt + "privy.info_1", "Right-Click with spare edible Items to grind them into Rotten Flesh. Has a small chance to produce Bone Meal.");
         texts.add(tt + "wardrobe.info_0", "Right-click to open or close.");
         texts.add(tt + "wardrobe.info_1", "Use to store Armor.");
+        texts.add(tt + "canbeplaced", "Can be placed.");
+        texts.add(tt + "canbeplacedonwalls", "Can be placed on walls.");
+        texts.add(tt + "canbeplacedonbottomface", "Can be placed underneath");
     }
+
 
     public static void translateAlpineGneiss(TranslationBuilder texts) {
         texts.add(ObjectRegistry.ALPINE_GNEISS.get(), "Alpine Gneiss");
@@ -84,14 +90,8 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(ObjectRegistry.AROLLA_PINE_WINDOW.get(), "Arolla Pine Window");
     }
 
-    public static void translateOtherBlocks(TranslationBuilder texts) {
-        texts.add(ObjectRegistry.FROZEN_DIRT.get(), "Frozen Dirt");
-        texts.add(ObjectRegistry.ICICLES.get(), "Icicles");
-        texts.add(ObjectRegistry.HOMESPUN_WOOL.get(), "Homespun Wool");
-        texts.add(ObjectRegistry.HOMESPUN_CARPET.get(), "Homespun Carpet");
-    }
-
     public static void translateDecor(TranslationBuilder texts) {
+        texts.add(ObjectRegistry.FROZEN_DIRT.get(), "Frozen Dirt");
         texts.add(ObjectRegistry.CANDLE_WREATH.get(), "Candle Wreath");
         texts.add(ObjectRegistry.FAIRY_LIGHTS.get(), "Fairy Lights");
         texts.add(ObjectRegistry.GARLAND.get(), "Garland");
@@ -99,5 +99,45 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(ObjectRegistry.STAR_TOPPER.get(), "Star Topper");
         texts.add(ObjectRegistry.TREE_BAUBLES.get(), "Tree Baubles");
         texts.add(ObjectRegistry.SNOW_GLOBE.get(), "Snow Globe");
+        texts.add(ObjectRegistry.HOMESPUN_WOOL.get(), "Homespun Wool");
+        texts.add(ObjectRegistry.HOMESPUN_CARPET.get(), "Homespun Carpet");
     }
+
+    public static void translateArollaPineFurniture(TranslationBuilder texts) {
+        texts.add(ObjectRegistry.AROLLA_PINE_BED.get(), "Arolla Pine Bed");
+        texts.add(ObjectRegistry.AROLLA_PINE_SOFA.get(), "Arolla Pine Sofa");
+        texts.add(ObjectRegistry.AROLLA_PINE_DRESSER.get(), "Arolla Pine Dresser");
+        texts.add(ObjectRegistry.AROLLA_PINE_SINK.get(), "Arolla Pine Sink");
+        texts.add(ObjectRegistry.AROLLA_PINE_WASHBASIN.get(), "Arolla Pine Washbasin");
+        texts.add(ObjectRegistry.AROLLA_PINE_CABINET.get(), "Arolla Pine Cabinet");
+        texts.add(ObjectRegistry.AROLLA_PINE_COOKING_AISLE.get(), "Arolla Pine Cooking Aisle");
+        texts.add(ObjectRegistry.AROLLA_PINE_WALL_CABINET.get(), "Arolla Pine Wall Cabinet");
+        texts.add(ObjectRegistry.AROLLA_PINE_SMOKER.get(), "Arolla Pine Smoker");
+        texts.add(ObjectRegistry.AROLLA_PINE_WARDROBE.get(), "Arolla Pine Wardrobe");
+        texts.add(ObjectRegistry.AROLLA_PINE_BATHTUB.get(), "Arolla Pine Bathtub");
+        texts.add(ObjectRegistry.AROLLA_PINE_PRIVY.get(), "Arolla Pine Privy");
+        texts.add(ObjectRegistry.AROLLA_PINE_TABLE.get(), "Arolla Pine Table");
+        texts.add(ObjectRegistry.AROLLA_PINE_CHAIR.get(), "Arolla Pine Chair");
+        texts.add(ObjectRegistry.FIREPLACE_CORNICE.get(), "Fireplace Cornice");
+    }
+
+    public static void translatePlants(TranslationBuilder texts) {
+        texts.add(ObjectRegistry.SNOW_GENTIAN.get(), "Snow Gentian");
+        texts.add(ObjectRegistry.POTTED_SNOW_GENTIAN.get(), "Potted Snow Gentian");
+        texts.add(ObjectRegistry.CHRISTMAS_ROSE.get(), "Christmas Rose");
+        texts.add(ObjectRegistry.POTTED_CHRISTMAS_ROSE.get(), "Potted Christmas Rose");
+        texts.add(ObjectRegistry.HOARFROST_GRASS.get(), "Hoarfrost Grass");
+        texts.add(ObjectRegistry.TALL_HOARFROST_GRASS.get(), "Tall Hoarfrost Grass");
+        texts.add(ObjectRegistry.ICICLES.get(), "Icicles");
+    }
+
+    public static void translateItems(TranslationBuilder texts) {
+        texts.add(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get(), "Music Disc (Winter Magic)");
+        texts.add(ObjectRegistry.REINDEER_SPAWN_EGG.get(), "Reindeer Spawn Egg");
+        texts.add(ObjectRegistry.REINDEER.get(), "Reindeer");
+        texts.add(ObjectRegistry.COOKED_REINDEER.get(), "Cooked Reindeer");
+        texts.add(ObjectRegistry.COOKED_REINDEER_DISH.get(), "Cooked Reindeer Dish");
+        texts.add(ObjectRegistry.WINTER_HAT.get(), "Winter Hat");
+    }
+
 }

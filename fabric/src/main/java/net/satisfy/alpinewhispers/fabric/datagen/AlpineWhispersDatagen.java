@@ -13,6 +13,6 @@ public class AlpineWhispersDatagen implements DataGeneratorEntrypoint {
         mainPack = fabricDataGenerator.createPack();
 
         mainPack.addProvider(AWEnglishLangGen::new);
-        mainPack.addProvider(AWModelGen::new);
+        //mainPack.addProvider(AWModelGen::new);
     }
 }

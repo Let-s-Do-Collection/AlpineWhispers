@@ -1,8 +1,0 @@
-{
-  "comparator_output": 10,
-  "description": {
-    "translate": "jukebox_song.alpinewhispers.winter_magic"
-  },
-  "length_in_seconds": 119.0,
-  "sound_event": "alpinewhispers:winter_magic_sound_event"
-}
