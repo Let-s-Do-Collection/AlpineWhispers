@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "alpinewhispers:block/tall_hoarfrost_grass_bottom"
-  }
-}

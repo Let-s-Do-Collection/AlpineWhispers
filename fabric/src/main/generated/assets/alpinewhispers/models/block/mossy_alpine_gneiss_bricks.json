@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "alpinewhispers:block/mossy_alpine_gneiss_bricks"
-  }
-}
