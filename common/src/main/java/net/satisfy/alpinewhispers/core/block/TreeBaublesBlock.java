@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -85,26 +86,46 @@ public class TreeBaublesBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (stack.getItem() instanceof ShearsItem || player.isShiftKeyDown()) {
-            if (!level.isClientSide && level.getBlockEntity(pos) instanceof TreeBaublesBlockEntity blockEntity) {
-                popResource(level, pos, new ItemStack(ObjectRegistry.TREE_BAUBLES.get()));
-                BlockState held = blockEntity.getHeldBlock();
-                if (held != null && !held.isAir()) {
-                    level.setBlock(pos, held, 11);
-                } else {
-                    level.removeBlock(pos, false);
-                }
-                level.playSound(player, pos, SoundEvents.LEASH_KNOT_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                if (stack.getItem() instanceof ShearsItem) {
-                    stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-                }
-            }
-            return level.isClientSide ? ItemInteractionResult.CONSUME : ItemInteractionResult.SUCCESS;
+        if (!(stack.getItem() instanceof ShearsItem)) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof TreeBaublesBlockEntity blockEntity) {
+            popResource(level, pos, new ItemStack(ObjectRegistry.TREE_BAUBLES.get()));
+            BlockState held = blockEntity.getHeldBlock();
+            if (held != null && !held.isAir()) {
+                level.setBlock(pos, held, Block.UPDATE_ALL);
+            } else {
+                level.removeBlock(pos, false);
+            }
+            level.playSound(player, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+            ItemStack shearsStack = player.getItemInHand(hand);
+            if (shearsStack.getItem() instanceof ShearsItem) {
+                shearsStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            }
+        }
+        return level.isClientSide ? ItemInteractionResult.CONSUME : ItemInteractionResult.SUCCESS;
     }
 
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!player.isShiftKeyDown()) {
+            return net.minecraft.world.InteractionResult.PASS;
+        }
+
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof TreeBaublesBlockEntity blockEntity) {
+            popResource(level, pos, new ItemStack(ObjectRegistry.TREE_BAUBLES.get()));
+            BlockState held = blockEntity.getHeldBlock();
+            if (held != null && !held.isAir()) {
+                level.setBlock(pos, held, Block.UPDATE_ALL);
+            } else {
+                level.removeBlock(pos, false);
+            }
+            level.playSound(player, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
     @Override
     public boolean useShapeForLightOcclusion(BlockState state) {
         return false;

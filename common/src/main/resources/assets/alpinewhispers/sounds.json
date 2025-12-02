@@ -1,7 +1,15 @@
-
 {
-  "winter_magicw": {
+  "winter_magic": {
     "subtitle": "subtitles.alpinewhispers.winter_magic",
+    "sounds": [
+      {
+        "name": "alpinewhispers:winter_magic",
+        "stream": true
+      }
+    ]
+  },
+  "winter_magic_sound_event": {
+    "subtitle": "subtitles.alpinewhispers.winter_magic_sound_event",
     "sounds": [
       {
         "name": "alpinewhispers:winter_magic",

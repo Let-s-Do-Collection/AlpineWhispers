@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "alpinewhispers:block/arolla_pine_planks_0",
-    "side": "alpinewhispers:block/arolla_pine_planks_0",
-    "top": "alpinewhispers:block/arolla_pine_planks_0"
-  }
-}

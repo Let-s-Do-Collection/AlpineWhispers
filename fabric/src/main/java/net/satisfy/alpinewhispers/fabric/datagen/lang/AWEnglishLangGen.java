@@ -37,8 +37,20 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add(tt + "wardrobe.info_0", "Right-click to open or close.");
         texts.add(tt + "wardrobe.info_1", "Use to store Armor.");
         texts.add(tt + "canbeplaced", "Can be placed.");
-        texts.add(tt + "canbeplacedonwalls", "Can be placed on walls.");
-        texts.add(tt + "canbeplacedonbottomface", "Can be placed underneath");
+        texts.add(tt + "canbeplacedonwalls", "Can be placed on Walls.");
+        texts.add(tt + "canbeplacedonbottomface", "Can be placed underneath other Blocks");
+        texts.add(tt + "tree_baubles.info_0", "Right-Click while holding it to place it on Leaves.");
+        texts.add(tt + "tree_baubles.info_1", "Shift Right-Click to remove it.");
+        texts.add(tt + "snowy_leaves.info_0", "Right-Click with a Snowball to cover the Leaves in Snow.");
+        texts.add(tt + "snowy_leaves.info_1", "Right-Click to clear the Snow.");
+        texts.add(tt + "frosty_block.info_0", "Right-Click with a snowball to Cover the Bricks in Snow.");
+        texts.add(tt + "frosty_block.info_1", "Right-Click while holding a Brush to clear the Snow.");
+        texts.add("subtitles.alpinewhispers.winter_magic", "Winter Magic plays");
+        texts.add("subtitles.alpinewhispers.winter_magic_sound_event", "Winter Magic plays");
+        texts.add("subtitles.alpinewhispers.reindeer_ambient", "Reindeer snorts");
+        texts.add("subtitles.alpinewhispers.reindeer_hurt", "Reindeer hurt");
+        texts.add("subtitles.alpinewhispers.reindeer_death", "Reindeer dies");
+        texts.add("jukebox_song.alpinewhispers.winter_magic", "Marco's Favorites - Winter Magic");
     }
 
 
@@ -132,7 +144,7 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
     }
 
     public static void translateItems(TranslationBuilder texts) {
-        texts.add(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get(), "Music Disc (Winter Magic)");
+        texts.add(ObjectRegistry.WINTER_MAGIC_MUSIC_DISC.get(), "Music Disc");
         texts.add(ObjectRegistry.REINDEER_SPAWN_EGG.get(), "Reindeer Spawn Egg");
         texts.add(ObjectRegistry.REINDEER.get(), "Reindeer");
         texts.add(ObjectRegistry.COOKED_REINDEER.get(), "Cooked Reindeer");

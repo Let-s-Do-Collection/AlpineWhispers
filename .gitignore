@@ -8,7 +8,7 @@ out/
 output/
 bin/
 libs/
-
+fabric/src/main/generated/.cache/
 .classpath
 .project
 .idea/
