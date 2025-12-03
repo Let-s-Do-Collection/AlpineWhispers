@@ -7,6 +7,7 @@ import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 public class AWEnglishLangGen extends FabricLanguageProvider {
     public AWEnglishLangGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
@@ -15,7 +16,9 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider provider, TranslationBuilder texts) {
-        translateAdditionals(texts);
+        texts.add("creativetab.alpinewhispers.tab", "[Let's Do] Alpine Whispers");
+        translateTooltips(texts);
+        translateSounds(texts);
         translateAlpineGneiss(texts);
         translateArollaPine(texts);
         translateDecor(texts);
@@ -25,36 +28,43 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         translateEntities(texts);
     }
 
-    public static void translateAdditionals(TranslationBuilder texts) {
-        String tt = "tooltip.alpinewhispers.";
-        texts.add("creativetab.alpinewhispers.tab", "[Let's Do] Alpine Whispers");
-        texts.add(tt + "tooltip_information.hold", "Hold %s for more Information");
-        texts.add(tt + "fireplace_cornice.info_0", "Can be filled with any full Block.");
-        texts.add(tt + "fireplace_cornice.info_1", "Right-Click with a Pickaxe to remove the inserted Block.");
-        texts.add(tt + "splitstone.info_0", "Can be transformed into a Path Block with a Pickaxe.");
-        texts.add(tt + "sink.info_0", "Right-click to fill with Water.");
-        texts.add(tt + "sink.info_1", "When filled, use a Bucket to collect Water.");
-        texts.add(tt + "privy.info_0", "Eww... whose idea was this?!");
-        texts.add(tt + "privy.info_1", "Right-Click with spare edible Items to grind them into Rotten Flesh. Has a small chance to produce Bone Meal.");
-        texts.add(tt + "wardrobe.info_0", "Right-click to open or close.");
-        texts.add(tt + "wardrobe.info_1", "Use to store Armor.");
-        texts.add(tt + "canbeplaced", "Can be placed.");
-        texts.add(tt + "canbeplacedonwalls", "Can be placed on Walls.");
-        texts.add(tt + "canbeplacedonbottomface", "Can be placed underneath other Blocks");
-        texts.add(tt + "tree_baubles.info_0", "Right-Click while holding it to place it on Leaves.");
-        texts.add(tt + "tree_baubles.info_1", "Shift Right-Click to remove it.");
-        texts.add(tt + "snowy_leaves.info_0", "Right-Click with a Snowball to cover the Leaves in Snow.");
-        texts.add(tt + "snowy_leaves.info_1", "Right-Click to clear the Snow.");
-        texts.add(tt + "frosty_block.info_0", "Right-Click with a Snowball to Cover the Bricks in Snow.");
-        texts.add(tt + "frosty_block.info_1", "Right-Click while holding a Brush to clear the Snow.");
-        texts.add("subtitles.alpinewhispers.winter_magic", "Winter Magic plays");
-        texts.add("subtitles.alpinewhispers.winter_magic_sound_event", "Winter Magic plays");
-        texts.add("subtitles.alpinewhispers.reindeer_ambient", "Reindeer snorts");
-        texts.add("subtitles.alpinewhispers.reindeer_hurt", "Reindeer hurt");
-        texts.add("subtitles.alpinewhispers.reindeer_death", "Reindeer dies");
+    public static void translateTooltips(TranslationBuilder texts) {
+        BiConsumer<String, String> tooltips = (key, value) -> texts.add(
+                "tooltip.alpinewhispers." + key, value
+        );
+        tooltips.accept("tooltip_information.hold", "Hold %s for more Information");
+        tooltips.accept("fireplace_cornice.info_0", "Can be filled with any full Block.");
+        tooltips.accept("fireplace_cornice.info_1", "Right-Click with a Pickaxe to remove the inserted Block.");
+        tooltips.accept("splitstone.info_0", "Can be transformed into a Path Block with a Pickaxe.");
+        tooltips.accept("sink.info_0", "Right-click to fill with Water.");
+        tooltips.accept("sink.info_1", "When filled, use a Bucket to collect Water.");
+        tooltips.accept("privy.info_0", "Eww... whose idea was this?!");
+        tooltips.accept("privy.info_1", "Right-Click with spare edible Items to grind them into Rotten Flesh. Has a small chance to produce Bone Meal.");
+        tooltips.accept("wardrobe.info_0", "Right-click to open or close.");
+        tooltips.accept("wardrobe.info_1", "Use to store Armor.");
+        tooltips.accept("canbeplaced", "Can be placed.");
+        tooltips.accept("canbeplacedonwalls", "Can be placed on Walls.");
+        tooltips.accept("canbeplacedonbottomface", "Can be placed underneath other Blocks");
+        tooltips.accept("tree_baubles.info_0", "Right-Click while holding it to place it on Leaves.");
+        tooltips.accept("tree_baubles.info_1", "Shift Right-Click to remove it.");
+        tooltips.accept("snowy_leaves.info_0", "Right-Click with a Snowball to cover the Leaves in Snow.");
+        tooltips.accept("snowy_leaves.info_1", "Right-Click to clear the Snow.");
+        tooltips.accept("frosty_block.info_0", "Right-Click with a Snowball to Cover the Bricks in Snow.");
+        tooltips.accept("frosty_block.info_1", "Right-Click while holding a Brush to clear the Snow.");
+    }
+    
+    public static void translateSounds(TranslationBuilder texts) {
+        BiConsumer<String, String> subtitles = (key, value) -> texts.add(
+                "subtitles.alpinewhispers." + key, value
+        );
+        
+        subtitles.accept("winter_magic", "Winter Magic plays");
+        subtitles.accept("winter_magic_sound_event", "Winter Magic plays");
+        subtitles.accept("reindeer_ambient", "Reindeer snorts");
+        subtitles.accept("reindeer_hurt", "Reindeer hurt");
+        subtitles.accept("reindeer_death", "Reindeer dies");
         texts.add("jukebox_song.alpinewhispers.winter_magic", "Marco's Favorites - Winter Magic");
     }
-
 
     public static void translateAlpineGneiss(TranslationBuilder texts) {
         texts.add(ObjectRegistry.ALPINE_GNEISS.get(), "Alpine Gneiss");
