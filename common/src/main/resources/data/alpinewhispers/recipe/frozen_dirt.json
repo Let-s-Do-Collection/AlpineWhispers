@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_fence_gate",
+  "key": {
+    "#": {
+      "item": "minecraft:dirt"
+    },
+    "W": {
+      "item": "minecraft:snowball"
+    }
+  },
+  "pattern": [
+    "#W ",
+    "W# "
+  ],
+  "result": {
+    "id": "alpinewhispers:frozen_dirt"
+  },
+  "show_notification": true
+}

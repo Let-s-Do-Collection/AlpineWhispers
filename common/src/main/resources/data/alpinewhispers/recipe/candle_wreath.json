@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "minecraft:candles"
+    },
+    "B": {
+      "item": "alpinewhispers:arolla_pine_leaves"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#B#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "alpinewhispers:candle_wreath"
+  },
+  "show_notification": true
+}

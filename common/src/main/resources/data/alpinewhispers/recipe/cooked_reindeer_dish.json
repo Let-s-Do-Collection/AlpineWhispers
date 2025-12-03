@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:bowl"
+    },
+    "B": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "C": {
+      "item": "minecraft:baked_potato"
+    },
+    "D": {
+      "item": "alpinewhispers:cooked_reindeer"
+    }
+  },
+  "pattern": [
+    "BDC",
+    " A "
+  ],
+  "result": {
+    "count": 2,
+    "id": "alpinewhispers:cooked_reindeer_dish"
+  }
+}

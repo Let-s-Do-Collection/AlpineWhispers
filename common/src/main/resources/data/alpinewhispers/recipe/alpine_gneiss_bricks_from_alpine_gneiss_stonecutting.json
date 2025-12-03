@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "alpinewhispers:alpine_gneiss"
+  },
+  "result": {
+    "id": "alpinewhispers:alpine_gneiss_bricks",
+    "count": 1
+  }
+}

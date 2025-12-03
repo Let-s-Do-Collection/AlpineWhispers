@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "alpinewhispers:mossy_alpine_gneiss_bricks"
+  },
+  "result": {
+    "id": "alpinewhispers:mossy_alpine_gneiss_brick_stairs",
+    "count": 1
+  }
+}

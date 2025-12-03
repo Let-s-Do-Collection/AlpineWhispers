@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "alpinewhispers:arolla_pine_planks"
+    }
+  ],
+  "result": {
+    "id": "alpinewhispers:arolla_pine_button"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "blue_dye",
+  "ingredients": [
+    {
+      "item": "alpinewhispers:snow_gentian"
+    }
+  ],
+  "result": {
+    "id": "minecraft:blue_dye"
+  }
+}

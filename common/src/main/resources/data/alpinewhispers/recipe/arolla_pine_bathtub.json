@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "alpinewhispers:alpine_gneiss_bricks"
+    },
+    "B": {
+      "item": "alpinewhispers:arolla_pine_slab"
+    },
+    "A": {
+      "item": "minecraft:cauldron"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "alpinewhispers:arolla_pine_bathtub"
+  },
+  "show_notification": true
+}

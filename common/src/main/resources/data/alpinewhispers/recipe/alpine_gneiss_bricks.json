@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "alpinewhispers:alpine_gneiss"
+    }
+  },
+  "pattern": [
+    "## ",
+    "## "
+  ],
+  "result": {
+    "count": 4,
+    "id": "alpinewhispers:alpine_gneiss_bricks"
+  },
+  "show_notification": true
+}

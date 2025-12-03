@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "alpinewhispers:mossy_layered_alpine_gneiss_bricks"
+    }
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "alpinewhispers:mossy_layered_alpine_gneiss_brick_wall"
+  },
+  "show_notification": true
+}

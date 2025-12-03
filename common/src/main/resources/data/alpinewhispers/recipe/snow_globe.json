@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "B": {
+      "item": "minecraft:snowball"
+    },
+    "A": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "pattern": [
+    "###",
+    "#B#",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "alpinewhispers:snow_globe"
+  }
+}

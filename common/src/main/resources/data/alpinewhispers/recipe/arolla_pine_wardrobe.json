@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "alpinewhispers:arolla_pine_cabinet"
+    },
+    {
+      "item": "alpinewhispers:arolla_pine_cabinet"
+    }
+  ],
+  "result": {
+    "id": "alpinewhispers:arolla_pine_wardrobe",
+    "count": 1
+  }
+}

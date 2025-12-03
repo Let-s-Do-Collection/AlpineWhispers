@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  B",
+    "BBB",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "item": "alpinewhispers:arolla_pine_slab"
+    }
+  },
+  "result": {
+    "id": "alpinewhispers:arolla_pine_chair",
+    "count": 2
+  }
+}

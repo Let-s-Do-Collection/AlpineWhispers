@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "alpinewhispers:item/fireplace_cornice"
+    "layer0": "alpinewhispers:item/reindeer_spawn_egg"
   }
 }

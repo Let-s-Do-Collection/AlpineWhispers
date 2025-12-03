@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "alpinewhispers:arolla_pine_cabinet"
+    }
+  ],
+  "result": {
+    "id": "alpinewhispers:arolla_pine_cooking_aisle",
+    "count": 1
+  }
+}

@@ -74,7 +74,6 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.AROLLA_PINE_PRIVY.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_COOKING_AISLE.get());
                 output.accept(ObjectRegistry.AROLLA_PINE_SMOKER.get());
-                output.accept(ObjectRegistry.FIREPLACE_CORNICE.get());
                 output.accept(ObjectRegistry.ICICLES.get());
                 output.accept(ObjectRegistry.CANDLE_WREATH.get());
                 output.accept(ObjectRegistry.WALL_WREATH.get());
@@ -82,6 +81,7 @@ public class TabRegistry {
                 output.accept(ObjectRegistry.FAIRY_LIGHTS.get());
                 output.accept(ObjectRegistry.STAR_TOPPER.get());
                 output.accept(ObjectRegistry.TREE_BAUBLES_ITEM.get());
+                output.accept(ObjectRegistry.FIREPLACE_CORNICE.get());
                 output.accept(ObjectRegistry.SNOW_GLOBE.get());
                 output.accept(ObjectRegistry.WINTER_HAT.get());
                 output.accept(ObjectRegistry.BREAD_ON_A_STICK.get());

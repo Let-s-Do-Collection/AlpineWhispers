@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "###",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "alpinewhispers:arolla_pine_planks"
+    },
+    "#": {
+      "item": "alpinewhispers:homespun_wool"
+    }
+  },
+  "result": {
+    "id": "alpinewhispers:arolla_pine_sofa",
+    "count": 4
+  }
+}

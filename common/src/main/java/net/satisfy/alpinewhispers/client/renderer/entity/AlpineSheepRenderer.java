@@ -26,8 +26,7 @@ public class AlpineSheepRenderer extends MobRenderer<AlpineSheepEntity, AlpineSh
     }
 
     @Override
-    public void render(AlpineSheepEntity entity, float entityYaw, float partialTicks, PoseStack stack,
-                       MultiBufferSource buffer, int packedLight) {
+    public void render(AlpineSheepEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource buffer, int packedLight) {
         if (entity.isBaby()) {
             stack.scale(0.4F, 0.4F, 0.4F);
         }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "G#G",
+    " G "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:smoker"
+    },
+    "G": {
+      "item": "alpinewhispers:arolla_pine_planks"
+    }
+  },
+  "result": {
+    "id": "alpinewhispers:arolla_pine_smoker",
+    "count": 1
+  }
+}

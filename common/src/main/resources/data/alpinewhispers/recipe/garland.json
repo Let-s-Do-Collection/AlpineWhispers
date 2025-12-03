@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "B": {
+      "item": "alpinewhispers:arolla_pine_leaves"
+    }
+  },
+  "pattern": [
+    "#B#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "alpinewhispers:garland"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:glowstone"
+    },
+    "W": {
+      "item": "alpinewhispers:icicles"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#W#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "alpinewhispers:winter_magic_music_disc"
+  },
+  "show_notification": true
+}

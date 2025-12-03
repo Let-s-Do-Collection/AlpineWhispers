@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iCi",
+    "BBB",
+    "U U"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "U": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "alpinewhispers:arolla_pine_planks"
+    }
+  },
+  "result": {
+    "id": "alpinewhispers:arolla_pine_washbasin"
+  }
+}
