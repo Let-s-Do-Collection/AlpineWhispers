@@ -32,7 +32,7 @@ public class EntityTypeRegistry {
 
     public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR_ENTITY = registerEntityType("chair", () -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((AlpineWhispers.identifier("chair")).toString()));
     public static final RegistrySupplier<EntityType<ReindeerEntity>> REINDEER_ENTITY = registerEntityType("reindeer", () -> EntityType.Builder.of(ReindeerEntity::new, MobCategory.CREATURE).sized(1.1F, 1.6F).build(AlpineWhispers.identifier("reindeer").toString()));
-    public static final RegistrySupplier<EntityType<AlpineSheepEntity>> ALPINE_SHEEP_ENTITY = registerEntityType("alpine_sheep", () -> EntityType.Builder.of(AlpineSheepEntity::new, MobCategory.CREATURE).sized(1F, 1F).build(AlpineWhispers.identifier("alpine_sheep").toString()));
+    public static final RegistrySupplier<EntityType<AlpineSheepEntity>> ALPINE_SHEEP_ENTITY = registerEntityType("alpine_sheep", () -> EntityType.Builder.of(AlpineSheepEntity::new, MobCategory.CREATURE).sized(0.8F, 1.1F).build(AlpineWhispers.identifier("alpine_sheep").toString()));
 
     private static <T extends BlockEntityType<?>> RegistrySupplier<T> registerBlockEntity(final String path, final Supplier<T> type) {
         return BLOCK_ENTITY_TYPES.register(AlpineWhispers.identifier(path), type);

@@ -51,6 +51,8 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         tooltips.accept("snowy_leaves.info_1", "Right-Click to clear the Snow.");
         tooltips.accept("frosty_block.info_0", "Right-Click with a Snowball to Cover the Bricks in Snow.");
         tooltips.accept("frosty_block.info_1", "Right-Click while holding a Brush to clear the Snow.");
+        tooltips.accept("bread_on_a_stick.info_0", "Use it to ride Alpine Sheep like a true mountaineer!");
+        tooltips.accept("bread_on_a_stick.info_1", "Sheep love bread, even if it’s not great for them. What a mean way to travel!");
     }
     
     public static void translateSounds(TranslationBuilder texts) {
