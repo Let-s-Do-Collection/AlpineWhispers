@@ -26,6 +26,7 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         translatePlants(texts);
         translateItems(texts);
         translateEntities(texts);
+        translateAdvancements(texts);
     }
 
     public static void translateTooltips(TranslationBuilder texts) {
@@ -171,6 +172,27 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
     public static void translateEntities(TranslationBuilder texts) {
         texts.add(EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), "Alpine Sheep");
         texts.add(EntityTypeRegistry.REINDEER_ENTITY.get(), "Reindeer");
+    }
+
+    public static void translateAdvancements(TranslationBuilder texts) {
+        texts.add("advancement.alpinewhispers.root", "A Whiff of the Alps");
+        texts.add("advancement.alpinewhispers.root.desc", "Your journey into the alpine wilderness begins with a simple seed.");
+        texts.add("advancement.alpinewhispers.find_grove", "Among Snow and Pines");
+        texts.add("advancement.alpinewhispers.find_grove.desc", "Discover the cold, quiet beauty of the alpine grove.");
+        texts.add("advancement.alpinewhispers.get_arolla_pine_log", "Heart of the Stone Pine");
+        texts.add("advancement.alpinewhispers.get_arolla_pine_log.desc", "Obtain the fragrant wood of the legendary Arolla Pine.");
+        texts.add("advancement.alpinewhispers.arolla_pine_smoker", "Aroma of the Mountains");
+        texts.add("advancement.alpinewhispers.arolla_pine_smoker.desc", "Build a smoker crafted from Arolla Pine and fill the air with alpine flavor.");
+        texts.add("advancement.alpinewhispers.get_cooked_reindeer_dish", "Warmth on a Winter's Night");
+        texts.add("advancement.alpinewhispers.get_cooked_reindeer_dish.desc", "A hearty alpine meal to keep the cold at bay.");
+        texts.add("advancement.alpinewhispers.use_flint_and_steel_on_candle_wreath", "Light of Tradition");
+        texts.add("advancement.alpinewhispers.use_flint_and_steel_on_candle_wreath.desc", "Ignite a candle wreath to celebrate alpine festivities.");
+        texts.add("advancements.alpinewhispers.feed_alpine_sheep.title", "Mean Little Snack");
+        texts.add("advancements.alpinewhispers.feed_alpine_sheep.description", "Sheep love bread, but it is not good for them at all. You give it to them anyway.");
+        texts.add("advancements.alpinewhispers.shear_alpine_sheep.title", "Homespun Craft");
+        texts.add("advancements.alpinewhispers.shear_alpine_sheep.description", "Collect homespun wool from an Alpine Sheep, with a gentle snip.");
+        texts.add("advancements.alpinewhispers.spyglass_at_reindeer.title", "Majesty in the Snow");
+        texts.add("advancements.alpinewhispers.spyglass_at_reindeer.description", "Observe a reindeer in its natural frosty habitat.");
     }
 
 }

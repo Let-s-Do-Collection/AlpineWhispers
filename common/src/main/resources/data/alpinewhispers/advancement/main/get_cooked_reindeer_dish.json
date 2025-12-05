@@ -1,0 +1,38 @@
+{
+  "parent": "alpinewhispers:main/spyglass_at_reindeer",
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "alpinewhispers:cooked_reindeer_dish"
+    },
+    "title": {
+      "translate": "advancement.alpinewhispers.get_cooked_reindeer_dish"
+    },
+    "description": {
+      "translate": "advancement.alpinewhispers.get_cooked_reindeer_dish.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cooked_reindeer_dish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "alpinewhispers:cooked_reindeer_dish"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "cooked_reindeer_dish"
+    ]
+  ]
+}

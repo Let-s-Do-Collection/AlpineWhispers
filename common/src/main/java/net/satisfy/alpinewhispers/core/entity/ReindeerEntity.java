@@ -46,7 +46,6 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
 
     @Override
     public void tick() {
@@ -72,13 +71,11 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+        if (!this.idleAnimationState.isStarted()) {
             this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
         }
     }
+
 
     @Override
     protected void updateWalkAnimation(float pPartialTick) {

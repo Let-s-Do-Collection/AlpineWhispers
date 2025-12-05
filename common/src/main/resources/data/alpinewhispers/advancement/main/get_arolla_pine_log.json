@@ -1,0 +1,38 @@
+{
+  "parent": "alpinewhispers:main/find_grove",
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "alpinewhispers:arolla_pine_log"
+    },
+    "title": {
+      "translate": "advancement.alpinewhispers.get_arolla_pine_log"
+    },
+    "description": {
+      "translate": "advancement.alpinewhispers.get_arolla_pine_log.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "arolla_pine_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "alpinewhispers:arolla_pine_log"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "arolla_pine_log"
+    ]
+  ]
+}

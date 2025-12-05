@@ -1,0 +1,41 @@
+{
+  "parent": "alpinewhispers:main/find_grove",
+  "criteria": {
+    "feed_alpine_sheep": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "alpinewhispers:alpine_sheep"
+            }
+          }
+        ],
+        "item": {
+          "items": "minecraft:bread"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.alpinewhispers.feed_alpine_sheep.description"
+    },
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bread"
+    },
+    "title": {
+      "translate": "advancements.alpinewhispers.feed_alpine_sheep.title"
+    }
+  },
+  "requirements": [
+    [
+      "feed_alpine_sheep"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

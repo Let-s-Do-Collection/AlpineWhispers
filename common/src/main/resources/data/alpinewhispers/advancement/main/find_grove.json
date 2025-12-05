@@ -1,0 +1,46 @@
+{
+  "parent": "alpinewhispers:main/root",
+  "criteria": {
+    "find_grove": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "minecraft:grove"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "find_grove"
+    ]
+  ],
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alpinewhispers.find_grove.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "alpinewhispers:snow_gentian",
+      "count": 1
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alpinewhispers.find_grove"
+    }
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

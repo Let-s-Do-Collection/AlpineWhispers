@@ -1,0 +1,52 @@
+{
+  "parent": "alpinewhispers:main/place_arolla_pine_smoker",
+  "criteria": {
+    "use_flint_and_steel_on_candle_wreath": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "alpinewhispers:candle_wreath"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:flint_and_steel"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alpinewhispers.use_flint_and_steel_on_candle_wreath.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "alpinewhispers:candle_wreath"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alpinewhispers.use_flint_and_steel_on_candle_wreath"
+    }
+  },
+  "requirements": [
+    [
+      "use_flint_and_steel_on_candle_wreath"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

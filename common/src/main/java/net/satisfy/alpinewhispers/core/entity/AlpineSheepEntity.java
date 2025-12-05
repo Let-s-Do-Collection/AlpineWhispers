@@ -53,7 +53,6 @@ public class AlpineSheepEntity extends Animal implements Shearable, ItemSteerabl
     public final AnimationState shakeAnimationState = new AnimationState();
     private int eatAnimationTick;
     private int eatAnimationTimeout;
-    private int idleAnimationTimeout;
     private int shakeAnimationTick;
     private int boostTime;
     private int breadEffectTicks;
@@ -79,12 +78,10 @@ public class AlpineSheepEntity extends Animal implements Shearable, ItemSteerabl
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+        if (!this.idleAnimationState.isStarted()) {
             this.idleAnimationState.start(this.tickCount);
-        } else {
-            this.idleAnimationTimeout--;
         }
+
         if (this.eatAnimationTick > 0) {
             if (this.eatAnimationTimeout <= 0) {
                 this.eatAnimationState.start(this.tickCount);
@@ -96,6 +93,7 @@ public class AlpineSheepEntity extends Animal implements Shearable, ItemSteerabl
             this.eatAnimationState.stop();
             this.eatAnimationTimeout = 0;
         }
+
         if (this.shakeAnimationTick > 0) {
             if (!this.shakeAnimationState.isStarted()) {
                 this.shakeAnimationState.start(this.tickCount);

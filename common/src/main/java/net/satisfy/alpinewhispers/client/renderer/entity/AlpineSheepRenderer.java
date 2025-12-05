@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AlpineSheepRenderer extends MobRenderer<AlpineSheepEntity, AlpineSheepModel<AlpineSheepEntity>> {
-    private static final ResourceLocation TEXTURE = AlpineWhispers.identifier("textures/entity/alpine_sheep.png");
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {AlpineWhispers.identifier("textures/entity/alpine_sheep_0.png"), AlpineWhispers.identifier("textures/entity/alpine_sheep_1.png"), AlpineWhispers.identifier("textures/entity/alpine_sheep_2.png")};
 
     public AlpineSheepRenderer(EntityRendererProvider.Context context) {
         super(context, new AlpineSheepModel<>(context.bakeLayer(AlpineSheepModel.LAYER_LOCATION)), 0.7F);
@@ -22,7 +22,8 @@ public class AlpineSheepRenderer extends MobRenderer<AlpineSheepEntity, AlpineSh
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(AlpineSheepEntity entity) {
-        return TEXTURE;
+        int index = Math.floorMod(entity.getUUID().hashCode(), TEXTURES.length);
+        return TEXTURES[index];
     }
 
     @Override

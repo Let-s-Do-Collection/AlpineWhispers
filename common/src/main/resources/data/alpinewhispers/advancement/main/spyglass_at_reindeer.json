@@ -1,0 +1,45 @@
+{
+  "parent": "alpinewhispers:main/find_grove",
+  "criteria": {
+    "spyglass_at_reindeer": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:spyglass"
+        },
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "minecraft:player",
+                "looking_at": {
+                  "type": "alpinewhispers:reindeer"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.alpinewhispers.spyglass_at_reindeer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "translate": "advancements.alpinewhispers.spyglass_at_reindeer.title"
+    }
+  },
+  "requirements": [
+    [
+      "spyglass_at_reindeer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

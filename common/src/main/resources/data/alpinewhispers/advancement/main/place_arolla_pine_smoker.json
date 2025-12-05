@@ -1,0 +1,38 @@
+{
+  "parent": "alpinewhispers:main/get_arolla_pine_log",
+  "criteria": {
+    "arolla_pine_smoker": {
+      "conditions": {
+        "location": [
+          {
+            "block": "alpinewhispers:arolla_pine_smoker",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.alpinewhispers.arolla_pine_smoker.desc"
+    },
+    "arolla_pine_smoker": "goal",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "alpinewhispers:arolla_pine_smoker"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.alpinewhispers.arolla_pine_smoker"
+    }
+  },
+  "requirements": [
+    [
+      "arolla_pine_smoker"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
