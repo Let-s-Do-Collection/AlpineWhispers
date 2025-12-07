@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "alpinewhispers:arolla_pine_log",
+    "alpinewhispers:arolla_pine_wood",
+    "alpinewhispers:stripped_arolla_pine_log",
+    "alpinewhispers:stripped_arolla_pine_wood"
+  ]
+}

@@ -2,6 +2,7 @@ package net.satisfy.alpinewhispers.core.world.feature.configured.tree.rock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -19,30 +20,44 @@ public class RockPileFeature extends Feature<RockPileFeatureConfig> {
         var level = context.level();
         var origin = context.origin();
         var random = context.random();
-        var cfg = context.config();
+        var config = context.config();
 
-        int span = Math.max(0, cfg.maxCount() - cfg.minCount());
-        int pileCount = cfg.minCount() + (span == 0 ? 0 : random.nextInt(span + 1));
+        int span = Math.max(0, config.maxCount() - config.minCount());
+        int pileCount = config.minCount() + (span == 0 ? 0 : random.nextInt(span + 1));
 
         boolean placedAny = false;
 
         for (int n = 0; n < pileCount; n++) {
-            if (cfg.rocks().isEmpty()) break;
-            var spec = cfg.rocks().get(random.nextInt(cfg.rocks().size()));
+            if (config.rocks().isEmpty()) break;
+            var specification = config.rocks().get(random.nextInt(config.rocks().size()));
 
-            int sizeX = Math.max(1, spec.pickSizeX(random));
-            int sizeY = Math.max(1, spec.pickSizeY(random));
-            int sizeZ = Math.max(1, spec.pickSizeZ(random));
-            int bury = Math.max(0, Math.min(spec.pickBury(random), sizeY));
-            float roughness = Math.max(0f, spec.pickRoughness(random));
+            int sizeX = Math.max(1, specification.pickSizeX(random));
+            int sizeY = Math.max(1, specification.pickSizeY(random));
+            int sizeZ = Math.max(1, specification.pickSizeZ(random));
+            int bury = Math.max(0, Math.min(specification.pickBury(random), sizeY));
+            float roughness = Math.max(0f, specification.pickRoughness(random));
 
-            int offX = random.nextInt(cfg.spreadX() * 2 + 1) - cfg.spreadX();
-            int offZ = random.nextInt(cfg.spreadZ() * 2 + 1) - cfg.spreadZ();
+            int offsetX = random.nextInt(config.spreadX() * 2 + 1) - config.spreadX();
+            int offsetZ = random.nextInt(config.spreadZ() * 2 + 1) - config.spreadZ();
 
-            int surfaceY = context.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, origin.getX() + offX, origin.getZ() + offZ) - 1;
-            var base = new BlockPos(origin.getX() + offX, surfaceY, origin.getZ() + offZ);
+            int surfaceY = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, origin.getX() + offsetX, origin.getZ() + offsetZ) - 1;
+            var basePosition = new BlockPos(origin.getX() + offsetX, surfaceY, origin.getZ() + offsetZ);
 
-            if (placeOne(context, base, sizeX, sizeY, sizeZ, bury, roughness, spec)) placedAny = true;
+            var baseState = level.getBlockState(basePosition);
+            if (!baseState.getFluidState().isEmpty()) continue;
+            if (!baseState.isCollisionShapeFullBlock(level, basePosition)) continue;
+            if (baseState.is(BlockTags.LEAVES)) continue;
+            if (baseState.is(BlockTags.LOGS)) continue;
+            if (baseState.is(BlockTags.FENCES)) continue;
+
+            var belowPosition = basePosition.below();
+            var belowState = level.getBlockState(belowPosition);
+            if (belowState.isAir()) continue;
+            if (!belowState.getFluidState().isEmpty()) continue;
+
+            if (placeOne(context, basePosition, sizeX, sizeY, sizeZ, bury, roughness, specification)) {
+                placedAny = true;
+            }
         }
 
         return placedAny;

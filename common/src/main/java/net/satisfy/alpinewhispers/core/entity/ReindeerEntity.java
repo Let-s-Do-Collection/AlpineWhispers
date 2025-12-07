@@ -320,6 +320,13 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
+        if (!player.isSecondaryUseActive() && !this.isBaby() && this.canAddPassenger(player)) {
+            if (!this.level().isClientSide) {
+                player.startRiding(this);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
         return super.mobInteract(player, interactionHand);
     }
 
@@ -368,9 +375,9 @@ public class ReindeerEntity extends Donkey implements EntityWithAttackAnimation 
         Vec3 localOffset;
 
         if (passengerIndex == 0) {
-            localOffset = new Vec3(0.0, 0.0, -0.3);
-        } else {
             localOffset = new Vec3(0.0, 0.0, 0.3);
+        } else {
+            localOffset = new Vec3(0.0, 0.0, -0.3);
         }
 
         Vec3 worldOffset = localOffset.yRot(rotation);

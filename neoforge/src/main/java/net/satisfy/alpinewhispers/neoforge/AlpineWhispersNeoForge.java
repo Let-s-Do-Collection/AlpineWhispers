@@ -29,7 +29,9 @@ public class AlpineWhispersNeoForge {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(CompostableRegistry::init);
-        AlpineWhispers.commonInit();
+        event.enqueueWork(() -> {
+            CompostableRegistry.init();
+            AlpineWhispers.commonInit();
+        });
     }
 }
