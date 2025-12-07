@@ -65,6 +65,9 @@ remapJar {
 jar { archiveClassifier.set("dev") }
 
 sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    exclude(".cache/**")
+
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
@@ -108,7 +111,7 @@ curseforge {
         addGameVersion rootProject.minecraft_version
         addGameVersion "Fabric"
         mainArtifact(remapJar) {
-            displayName = "alpinewhispers - ${rootProject.mod_version} - FABRIC - ${rootProject.minecraft_version}"
+            displayName = "AlpineWhispers - ${rootProject.mod_version} - FABRIC - ${rootProject.minecraft_version}"
             changelog = changelogText
             changelogType = "markdown"
         }

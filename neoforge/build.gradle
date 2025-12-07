@@ -105,7 +105,7 @@ curseforge {
         addGameVersion rootProject.minecraft_version
         addGameVersion "NeoForge"
         mainArtifact(remapJar) {
-            displayName = "alpinewhispers - ${rootProject.mod_version} - NEOFORGE - ${rootProject.minecraft_version}"
+            displayName = "AlpineWhispers - ${rootProject.mod_version} - NEOFORGE - ${rootProject.minecraft_version}"
             changelog = changelogText
             changelogType = "markdown"
         }
