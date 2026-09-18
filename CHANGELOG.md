@@ -1,3 +1,15 @@
+[1.0.3]
+
+**Fixed**
+* Fixed the shear_alpine_sheep achievement (thanks to Tefnya).
+
+**Added**
+* Japanese (`ja_jp`) translation (thanks to Anpan715).
+* Italian (`it_it`) translation (thanks to Serenautilus).
+* Russian (`ru_ru`) translation (thanks to Tefnya).
+
+***
+
 [1.0.2]
 
 **Fixed**
