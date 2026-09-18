@@ -2,8 +2,11 @@ package net.satisfy.alpinewhispers.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.alpinewhispers.client.AlpineWhispersClient;
+import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
+import net.satisfy.alpinewhispers.fabric.client.renderer.WinterHatRenderer;
 import net.satisfy.alpinewhispers.fabric.client.renderer.block.FireplaceCorniceTexturedModel;
 
 public class AlpineWhispersClientFabric implements ClientModInitializer {
@@ -12,6 +15,7 @@ public class AlpineWhispersClientFabric implements ClientModInitializer {
         AlpineWhispersClient.onInitializeClient();
         AlpineWhispersClient.preInitClient();
         registerFoundationModelHandler();
+        ArmorRenderer.register(new WinterHatRenderer(), ObjectRegistry.WINTER_HAT.get());
     }
 
     private static void registerFoundationModelHandler() {

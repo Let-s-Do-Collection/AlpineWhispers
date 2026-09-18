@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,7 +19,7 @@ import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class WardrobeBlockEntity extends BlockEntity {
+public class WardrobeBlockEntity extends BlockEntity implements Clearable {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
 
     public static final int SLOT_HEAD = 0;
@@ -41,6 +42,11 @@ public class WardrobeBlockEntity extends BlockEntity {
 
     public NonNullList<ItemStack> getInventory() {
         return this.inventory;
+    }
+
+    @Override
+    public void clearContent() {
+        this.inventory.clear();
     }
 
     @Override

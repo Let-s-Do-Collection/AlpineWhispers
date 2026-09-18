@@ -289,7 +289,7 @@ public class BathtubBlock extends Block implements EntityBlock {
             }
         }
 
-        if (tub.isFilling() || ratio > 0.0) {
+        if (tub.isFilling()) {
             if (r.nextFloat() > 0.4f) return;
 
             BlockPos footPos = headPos.relative(f.getOpposite());
@@ -308,6 +308,13 @@ public class BathtubBlock extends Block implements EntityBlock {
                     }
                 }
             }
+        } else if (ratio > 0.0 && r.nextFloat() < 0.02f) {
+            BlockPos basePos = r.nextBoolean() ? headPos : headPos.relative(f.getOpposite());
+            double u = (r.nextDouble() - 0.5) * 0.6;
+            double v = (r.nextDouble() - 0.5) * 0.9;
+            double x = basePos.getX() + 0.5 + u * rx + v * fx;
+            double z = basePos.getZ() + 0.5 + u * fx + v * fz;
+            level.addParticle(ParticleTypes.BUBBLE_POP, x, ySurface - 0.005, z, 0, 0.006 + r.nextDouble() * 0.01, 0);
         }
     }
 

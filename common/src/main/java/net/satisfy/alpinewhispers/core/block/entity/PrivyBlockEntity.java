@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -34,7 +35,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class PrivyBlockEntity extends BlockEntity {
+public class PrivyBlockEntity extends BlockEntity implements Clearable {
     private final SimpleContainer inventory = new SimpleContainer(9);
     private final Deque<Pending> queue = new ArrayDeque<>();
     private final Map<UUID, Integer> sitTicks = new HashMap<>();
@@ -157,6 +158,12 @@ public class PrivyBlockEntity extends BlockEntity {
         queue.clear();
         setChanged();
         sync();
+    }
+
+    @Override
+    public void clearContent() {
+        inventory.clearContent();
+        queue.clear();
     }
 
     public int redstoneLevel() {
