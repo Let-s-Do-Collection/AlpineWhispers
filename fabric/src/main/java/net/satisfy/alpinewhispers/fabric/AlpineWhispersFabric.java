@@ -25,6 +25,7 @@ public class AlpineWhispersFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         AlpineWhispers.init();
+        AlpineWhispers.commonInit();
         AlpineWhispersFabricWorldgen.init();
         AlpineWhispersClientConfig.load();
         addSpawns();

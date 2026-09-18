@@ -74,15 +74,14 @@ public class WardrobeBlock extends HorizontalDirectionalBlock implements EntityB
 
     @Override
     public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof WardrobeBlockEntity wardrobe) {
-                for (ItemStack s : wardrobe.getInventory()) {
-                    if (!s.isEmpty()) Block.popResource(level, pos, s.copy());
-                }
+        DoubleBlockHalf half = state.getValue(HALF);
+        BlockPos lowerPos = half == DoubleBlockHalf.LOWER ? pos : pos.below();
+        BlockEntity be = level.getBlockEntity(lowerPos);
+        if (be instanceof WardrobeBlockEntity wardrobe) {
+            for (ItemStack s : wardrobe.getInventory()) {
+                if (!s.isEmpty()) Block.popResource(level, pos, s.copy());
             }
         }
-        DoubleBlockHalf half = state.getValue(HALF);
         BlockPos other = half == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
         BlockState otherState = level.getBlockState(other);
         if (otherState.is(this) && otherState.getValue(HALF) != half) {

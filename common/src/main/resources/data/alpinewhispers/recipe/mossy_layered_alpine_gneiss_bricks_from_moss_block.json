@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "alpinewhispers:alpine_gneiss_bricks"
+      "item": "alpinewhispers:layered_alpine_gneiss_bricks"
     },
     {
       "item": "minecraft:moss_block"

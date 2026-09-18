@@ -42,7 +42,7 @@ public class ObjectRegistry {
     public static final Registrar<Block> BLOCK_REGISTRAR = BLOCKS.getRegistrar();
 
     public static final RegistrySupplier<Block> FROZEN_DIRT = registerWithItem("frozen_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
-    public static final RegistrySupplier<Block> ICICLES = registerWithItem("icicles", () -> new IcicleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).noOcclusion()));
+    public static final RegistrySupplier<Block> ICICLES = registerWithItem("icicles", () -> new IcicleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).sound(SoundType.GLASS).noOcclusion()));
     public static final RegistrySupplier<Block> ALPINE_GNEISS = registerWithItem("alpine_gneiss", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)));
     public static final RegistrySupplier<Block> ALPINE_GNEISS_STAIRS = registerWithItem("alpine_gneiss_stairs", () -> new StairBlock(ALPINE_GNEISS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_STAIRS)));
     public static final RegistrySupplier<Block> ALPINE_GNEISS_SLAB = registerWithItem("alpine_gneiss_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_SLAB)));
@@ -119,7 +119,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> COOKED_REINDEER_DISH_BLOCK = registerWithoutItem("cooked_reindeer_dish", () -> new FoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), 4, new FoodProperties.Builder().nutrition(8).saturationModifier(0.9F).build()));
     public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new FoodBlockItem(COOKED_REINDEER_DISH_BLOCK.get(), getSettings().food(Foods.GOLDEN_CARROT)));
     public static final RegistrySupplier<Item> BREAD_ON_A_STICK = registerItem("bread_on_a_stick", () -> new BreadOnAStickItem(new Item.Properties().durability(25)));
-    public static final RegistrySupplier<Item> WINTER_HAT = registerItem("winter_hat", () -> new WinterHatItem(ArmorMaterialRegistry.WINTER_HAT.value(), ArmorItem.Type.HELMET, getSettings().rarity(Rarity.RARE), AlpineWhispers.identifier("textures/models/armor/winter_hat_layer_1.png")));
+    public static final RegistrySupplier<Item> WINTER_HAT = registerItem("winter_hat", () -> new WinterHatItem(ArmorMaterialRegistry.WINTER_HAT.value(), ArmorItem.Type.HELMET, getSettings().rarity(Rarity.RARE).stacksTo(1), AlpineWhispers.identifier("textures/models/armor/winter_hat_layer_1.png")));
 
     public static void init() {
         ITEMS.register();

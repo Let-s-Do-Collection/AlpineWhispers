@@ -56,9 +56,8 @@ public class LineConnectingBlock extends Block {
             default -> type = getType(state, world.getBlockState(pos.east()), world.getBlockState(pos.west()));
         }
         if (state.getValue(TYPE) != type) {
-            state = state.setValue(TYPE, type);
+            world.setBlock(pos, state.setValue(TYPE, type), 3);
         }
-        world.setBlock(pos, state, 3);
     }
 
     public GeneralUtil.LineConnectingType getType(BlockState state, BlockState left, BlockState right) {

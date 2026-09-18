@@ -118,7 +118,9 @@ public class SofaBlock extends LineConnectingBlock {
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-        GeneralUtil.onStateReplaced(world, pos);
+        if (!state.is(newState.getBlock())) {
+            GeneralUtil.onStateReplaced(world, pos);
+        }
     }
 
     static {

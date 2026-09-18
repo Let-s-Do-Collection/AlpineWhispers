@@ -107,7 +107,7 @@ public class PrivyBlockEntity extends BlockEntity {
         int count = itemStack.getCount();
         for (int i = 0; i < count; i++) {
             assert level != null;
-            queue.add(new Pending(level.getGameTime() + 600));
+            queue.add(new Pending(level.getGameTime() + 600, itemStack.copyWithCount(1)));
         }
         setChanged();
         sync();
@@ -151,6 +151,9 @@ public class PrivyBlockEntity extends BlockEntity {
 
     public void dropAll(ServerLevel level, BlockPos pos) {
         releaseAll(level, pos);
+        for (Pending pending : queue) {
+            GeneralUtil.popResourceFromFace(level, pos, Direction.UP, pending.stack().copy());
+        }
         queue.clear();
         setChanged();
         sync();
@@ -182,6 +185,7 @@ public class PrivyBlockEntity extends BlockEntity {
         for (Pending pending : queue) {
             CompoundTag t = new CompoundTag();
             t.putLong("Ready", pending.readyTime);
+            t.put("Stack", pending.stack().save(provider, new CompoundTag()));
             q.add(t);
         }
         tag.put("Queue", q);
@@ -203,7 +207,8 @@ public class PrivyBlockEntity extends BlockEntity {
         ListTag q = tag.getList("Queue", Tag.TAG_COMPOUND);
         for (int i = 0; i < q.size(); i++) {
             CompoundTag t = q.getCompound(i);
-            queue.add(new Pending(t.getLong("Ready")));
+            ItemStack stack = t.contains("Stack") ? ItemStack.parse(provider, t.getCompound("Stack")).orElse(new ItemStack(Items.ROTTEN_FLESH)) : new ItemStack(Items.ROTTEN_FLESH);
+            queue.add(new Pending(t.getLong("Ready"), stack));
         }
         lastSmelly = getBlockState().hasProperty(PrivyBlock.SMELLY) && getBlockState().getValue(PrivyBlock.SMELLY);
         smellyCooldown = 0;
@@ -234,5 +239,5 @@ public class PrivyBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    private record Pending(long readyTime) {}
+    private record Pending(long readyTime, ItemStack stack) {}
 }

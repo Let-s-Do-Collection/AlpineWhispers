@@ -3,6 +3,9 @@
   "ingredients": [
     {
       "item": "alpinewhispers:arolla_pine_cabinet"
+    },
+    {
+      "item": "alpinewhispers:arolla_pine_slab"
     }
   ],
   "result": {
