@@ -17,6 +17,7 @@ import net.satisfy.alpinewhispers.core.entity.ReindeerEntity;
 import java.util.function.Supplier;
 
 import static net.satisfy.alpinewhispers.core.registry.ObjectRegistry.*;
+import net.satisfy.foundation.block.mimic.MimicBlockEntity;
 
 public class EntityTypeRegistry {
     private static final Registrar<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(AlpineWhispers.MOD_ID, Registries.BLOCK_ENTITY_TYPE).getRegistrar();
@@ -27,7 +28,7 @@ public class EntityTypeRegistry {
     public static final RegistrySupplier<BlockEntityType<WardrobeBlockEntity>> WARDROBE_BLOCK_ENTITY = registerBlockEntity("wardrobe", () -> BlockEntityType.Builder.of(WardrobeBlockEntity::new, AROLLA_PINE_WARDROBE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<BathtubBlockEntity>> BATHTUB_BLOCK_ENTITY = registerBlockEntity("bathtub", () -> BlockEntityType.Builder.of(BathtubBlockEntity::new, AROLLA_PINE_BATHTUB.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<PrivyBlockEntity>> PRIVY_BLOCK_ENTITY = registerBlockEntity("privy", () -> BlockEntityType.Builder.of(PrivyBlockEntity::new, AROLLA_PINE_PRIVY.get()).build(null));
-    public static final RegistrySupplier<BlockEntityType<FireplaceCorniceBlockEntity>> FIRE_PLACE_CORNICE_BLOCK_ENTITY = registerBlockEntity("fire_place_cornice", () -> BlockEntityType.Builder.of(FireplaceCorniceBlockEntity::new, FIREPLACE_CORNICE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<MimicBlockEntity>> FIRE_PLACE_CORNICE_BLOCK_ENTITY = registerBlockEntity("fire_place_cornice", () -> BlockEntityType.Builder.of((pos, state) -> new MimicBlockEntity(EntityTypeRegistry.FIRE_PLACE_CORNICE_BLOCK_ENTITY.get(), pos, state), FIREPLACE_CORNICE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<TreeBaublesBlockEntity>> TREE_BAUBLES_BLOCK_ENTITY = registerBlockEntity("tree_baubles", () -> BlockEntityType.Builder.of(TreeBaublesBlockEntity::new, TREE_BAUBLES.get()).build(null));
 
     public static final RegistrySupplier<EntityType<ChairEntity>> CHAIR_ENTITY = registerEntityType("chair", () -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC).sized(0.001F, 0.001F).build((AlpineWhispers.identifier("chair")).toString()));

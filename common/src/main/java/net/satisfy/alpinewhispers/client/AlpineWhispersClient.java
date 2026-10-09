@@ -21,9 +21,12 @@ import net.satisfy.alpinewhispers.client.weather.GroveSnowWeather;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 
 import static net.satisfy.alpinewhispers.core.registry.ObjectRegistry.*;
+import net.satisfy.foundation.client.mimic.MimicModels;
 
 @Environment(EnvType.CLIENT)
 public class AlpineWhispersClient {
+    private static boolean mimicModelsRegistered;
+
 
     public static void onInitializeClient() {
         RenderTypeRegistry.register(RenderType.cutout(), COOKED_REINDEER_DISH_BLOCK.get(), HOMESPUN_CARPET.get(), TREE_BAUBLES.get(), SNOW_GLOBE.get(), ICICLES.get(), HOARFROST_GRASS.get(), TALL_HOARFROST_GRASS.get(), CHRISTMAS_ROSE.get(), POTTED_CHRISTMAS_ROSE.get() ,SNOW_GENTIAN.get(), POTTED_SNOW_GENTIAN.get() ,AROLLA_PINE_SAPLING.get(), STAR_TOPPER.get(), GARLAND.get(), CANDLE_WREATH.get(), WALL_WREATH.get(), FAIRY_LIGHTS.get(), AROLLA_PINE_WARDROBE.get(), AROLLA_PINE_SINK.get(), AROLLA_PINE_WASHBASIN.get(), AROLLA_PINE_BATHTUB.get(), AROLLA_PINE_TABLE.get(), AROLLA_PINE_CHAIR.get(), AROLLA_PINE_SOFA.get(), FIREPLACE_CORNICE.get(), AROLLA_PINE_WINDOW.get(), AROLLA_PINE_WINDOW_PANE.get(), AROLLA_PINE_DOOR.get(), AROLLA_PINE_TRAPDOOR.get());
@@ -42,6 +45,14 @@ public class AlpineWhispersClient {
         GroveSnowWeather.init();
     }
 
+    private static void registerMimicModels() {
+        if (mimicModelsRegistered) {
+            return;
+        }
+        mimicModelsRegistered = true;
+        MimicModels.retexture(MimicModels.tintIndex(1), FIREPLACE_CORNICE);
+    }
+
     public static void registerEntityRenderers() {
         EntityRendererRegistry.register(EntityTypeRegistry.CHAIR_ENTITY, ChairRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.REINDEER_ENTITY, ReindeerRenderer::new);
@@ -49,6 +60,7 @@ public class AlpineWhispersClient {
     }
 
     public static void preInitClient() {
+        registerMimicModels();
         registerEntityRenderers();
         registerEntityModelLayer();
     }

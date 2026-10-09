@@ -12,6 +12,7 @@ public class AlpineWhispers {
     }
 
     public static void init() {
+        CompostableRegistry.init();
         ObjectRegistry.init();
         EntityTypeRegistry.init();
         TabRegistry.init();

@@ -2,16 +2,18 @@
   "schemaVersion": 1,
   "id": "alpinewhispers",
   "version": "${version}",
-  "name": "[Let's Do] Alpinewhispers",
+  "name": "[Let's Do] Alpine Whispers",
   "description": "Alpinewhispers brings cozy, arolla_pine furniture to every corner of your world.",
   "authors": [
     "satisfy"
   ],
   "contact": {
-    "issues": "https://github.com/satisfyu/Let-s-Do-Hub",
-    "sources": "https://github.com/satisfyu/Alpinewhispers"
+    "homepage": "https://www.lets-do.ch",
+    "wiki": "https://lets-do.ch/wiki/alpine-whispers/",
+    "sources": "https://github.com/Let-s-Do-Collection/AlpineWhispers",
+    "issues": "https://github.com/satisfyu/Let-s-Do-Hub"
   },
-  "license": "custom",
+  "license": "Custom",
   "icon": "pack.png",
   "environment": "*",
   "entrypoints": {
@@ -25,14 +27,14 @@
       "net.satisfy.alpinewhispers.fabric.client.AlpineWhispersClientFabric"
     ]
   },
-  "depends": {
-    "fabric-api": "*",
-    "minecraft": ">=1.20",
-    "architectury": ">=9.0.8"
-  },
-  "suggests": {
-  },
   "mixins": [
     "alpinewhispers-fabric.mixins.json"
-  ]
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric-api": "*",
+    "minecraft": ">=1.21.1 <1.22",
+    "architectury": ">=13.0.8",
+    "foundation": ">=1.0.5"
+  }
 }

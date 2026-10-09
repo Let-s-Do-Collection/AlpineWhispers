@@ -1,16 +1,16 @@
 package net.satisfy.alpinewhispers.core.registry;
 
-import net.minecraft.world.level.block.ComposterBlock;
+import net.satisfy.foundation.compostable.FoundationCompostables;
 
 public class CompostableRegistry {
     public static void init() {
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.AROLLA_PINE_LEAVES.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.SNOW_GENTIAN.get().asItem(), 0.65F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.CHRISTMAS_ROSE.get().asItem(), 0.65F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.HOARFROST_GRASS.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.TALL_HOARFROST_GRASS.get().asItem(), 0.5F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.CANDLE_WREATH.get().asItem(), 0.65F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.WALL_WREATH.get().asItem(), 0.65F);
-        ComposterBlock.COMPOSTABLES.put(ObjectRegistry.GARLAND.get().asItem(), 0.65F);
+        FoundationCompostables.register(0.3F, ObjectRegistry.AROLLA_PINE_LEAVES);
+        FoundationCompostables.register(0.65F, ObjectRegistry.SNOW_GENTIAN);
+        FoundationCompostables.register(0.65F, ObjectRegistry.CHRISTMAS_ROSE);
+        FoundationCompostables.register(0.3F, ObjectRegistry.HOARFROST_GRASS);
+        FoundationCompostables.register(0.5F, ObjectRegistry.TALL_HOARFROST_GRASS);
+        FoundationCompostables.register(0.65F, ObjectRegistry.CANDLE_WREATH);
+        FoundationCompostables.register(0.65F, ObjectRegistry.WALL_WREATH);
+        FoundationCompostables.register(0.65F, ObjectRegistry.GARLAND);
     }
 }

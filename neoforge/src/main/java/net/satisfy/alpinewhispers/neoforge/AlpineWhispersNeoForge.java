@@ -10,7 +10,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.satisfy.alpinewhispers.AlpineWhispers;
-import net.satisfy.alpinewhispers.core.registry.CompostableRegistry;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.neoforge.core.config.AlpineWhispersClientConfig;
 
@@ -35,7 +34,6 @@ public class AlpineWhispersNeoForge {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            CompostableRegistry.init();
             AlpineWhispers.commonInit();
         });
     }

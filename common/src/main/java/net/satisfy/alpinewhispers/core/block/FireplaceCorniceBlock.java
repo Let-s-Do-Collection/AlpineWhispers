@@ -6,23 +6,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -39,10 +34,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.alpinewhispers.core.block.entity.FireplaceCorniceBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import net.satisfy.foundation.block.mimic.MimicBlock;
+import net.satisfy.foundation.block.mimic.MimicBlockEntity;
+import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
+import net.minecraft.world.level.storage.loot.LootParams;
 
 public class FireplaceCorniceBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -51,7 +49,7 @@ public class FireplaceCorniceBlock extends Block implements EntityBlock, SimpleW
     public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
     public static final BooleanProperty LEFT = BooleanProperty.create("left");
     public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-    public static final BooleanProperty APPLIED = BooleanProperty.create("applied");
+    public static final BooleanProperty APPLIED = MimicBlock.APPLIED;
 
     public FireplaceCorniceBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -105,14 +103,7 @@ public class FireplaceCorniceBlock extends Block implements EntityBlock, SimpleW
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FireplaceCorniceBlockEntity(pos, state);
-    }
-
-    private static boolean canAccept(BlockState state) {
-        if (state == null || state.isAir()) return false;
-        if (state.getBlock() instanceof EntityBlock) return false;
-        if (state.getRenderShape() != RenderShape.MODEL) return false;
-        return Block.isShapeFullBlock(state.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO));
+        return new MimicBlockEntity(EntityTypeRegistry.FIRE_PLACE_CORNICE_BLOCK_ENTITY.get(), pos, state);
     }
 
     private static boolean isConnected(Direction facing, BlockState neighbor) {
@@ -185,46 +176,7 @@ public class FireplaceCorniceBlock extends Block implements EntityBlock, SimpleW
 
     @Override
     public @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        Item item = stack.getItem();
-        if (item instanceof PickaxeItem) {
-            if (!state.getValue(APPLIED)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-            if (level.isClientSide) return ItemInteractionResult.SUCCESS;
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof FireplaceCorniceBlockEntity fireplaceEntity) {
-                BlockState mimic = fireplaceEntity.getMimicState();
-                if (mimic != null && !mimic.isAir()) {
-                    Block.popResource(level, pos, new ItemStack(mimic.getBlock()));
-                }
-                BlockState newState = state.setValue(APPLIED, false);
-                level.setBlock(pos, newState, 3);
-                fireplaceEntity.setMimicState(null);
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendBlockUpdated(pos, state, newState, 3);
-                    serverLevel.levelEvent(2001, pos, Block.getId(mimic == null ? Blocks.AIR.defaultBlockState() : mimic));
-                }
-            }
-            return ItemInteractionResult.CONSUME;
-        }
-
-        if (state.getValue(APPLIED)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        if (!(item instanceof BlockItem blockItem)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-
-        BlockState mimic = blockItem.getBlock().defaultBlockState();
-        if (!canAccept(mimic)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-
-        if (level.isClientSide) return ItemInteractionResult.SUCCESS;
-
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof FireplaceCorniceBlockEntity fireplaceEntity) {
-            BlockState newState = state.setValue(APPLIED, true);
-            fireplaceEntity.setMimicState(mimic);
-            level.setBlock(pos, newState, 3);
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendBlockUpdated(pos, state, newState, 3);
-                serverLevel.levelEvent(2001, pos, Block.getId(mimic));
-            }
-        }
-        return ItemInteractionResult.CONSUME;
+        return MimicBlock.use(stack, state, level, pos, player, mimic -> true);
     }
 
     @Override
@@ -242,16 +194,8 @@ public class FireplaceCorniceBlock extends Block implements EntityBlock, SimpleW
     }
 
     @Override
-    public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof FireplaceCorniceBlockEntity fireplaceEntity) {
-            BlockState mimic = fireplaceEntity.getMimicState();
-            if (mimic != null && !mimic.isAir() && !player.isCreative()) {
-                Block.popResource(level, pos, new ItemStack(mimic.getBlock()));
-            }
-        }
-        super.playerWillDestroy(level, pos, state, player);
-        return state;
+    protected @NotNull List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+        return MimicBlock.addDrops(super.getDrops(state, builder), builder);
     }
 
     @Override

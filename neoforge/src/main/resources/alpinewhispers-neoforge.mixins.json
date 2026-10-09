@@ -7,8 +7,7 @@
     "FogRendererMixin"
   ],
   "mixins": [
-    "BrushItemMixin",
-    "FireplaceCorniceBlockEntityMixin"
+    "BrushItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
