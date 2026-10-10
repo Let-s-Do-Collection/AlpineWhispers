@@ -1,5 +1,8 @@
 package net.satisfy.alpinewhispers.fabric;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -8,6 +11,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -16,7 +20,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
-import net.satisfy.alpinewhispers.fabric.core.config.AlpineWhispersClientConfig;
+import net.satisfy.alpinewhispers.fabric.core.config.AlpineWhispersFabricConfig;
 import net.satisfy.alpinewhispers.fabric.core.world.AlpineWhispersFabricWorldgen;
 
 import java.util.Optional;
@@ -24,10 +28,15 @@ import java.util.Optional;
 public class AlpineWhispersFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        ConfigHolder<AlpineWhispersFabricConfig> config = AutoConfig.register(AlpineWhispersFabricConfig.class, GsonConfigSerializer::new);
+        config.getConfig().apply();
+        config.registerSaveListener((holder, data) -> {
+            data.apply();
+            return InteractionResult.SUCCESS;
+        });
         AlpineWhispers.init();
         AlpineWhispers.commonInit();
         AlpineWhispersFabricWorldgen.init();
-        AlpineWhispersClientConfig.load();
         addSpawns();
     }
 

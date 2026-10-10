@@ -49,8 +49,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.alpinewhispers.core.block.entity.BathtubBlockEntity;
+import net.satisfy.alpinewhispers.core.config.AlpineWhispersConfig;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.core.util.GeneralUtil;
+import net.satisfy.foundation.registry.FoundationParticles;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -183,13 +185,13 @@ public class BathtubBlock extends Block implements EntityBlock {
         boolean filling = tub.isFilling();
 
         if (hit.getBlockPos().equals(head) && hit.getDirection() != Direction.DOWN && stack.isEmpty() && !filled && !filling && !isFullState) {
-            tub.startFilling(45 * 20);
+            tub.startFilling(AlpineWhispersConfig.bathtubFillSeconds * 20);
             level.playSound(null, head, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
             return ItemInteractionResult.CONSUME;
         }
 
         if ((stack.is(Items.WATER_BUCKET) || stack.is(Items.GLASS_BOTTLE)) && !filled && !filling && !isFullState) {
-            tub.startFilling(45 * 20);
+            tub.startFilling(AlpineWhispersConfig.bathtubFillSeconds * 20);
             level.playSound(null, head, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
             if (!player.isCreative()) {
                 if (stack.is(Items.WATER_BUCKET)) {
@@ -232,90 +234,62 @@ public class BathtubBlock extends Block implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource r) {
-        if ((level.getGameTime() & 1L) != 0L) return;
+        if (state.getValue(PART) != BedPart.HEAD) return;
+        if (!(level.getBlockEntity(pos) instanceof BathtubBlockEntity tub)) return;
+
+        boolean filling = tub.isFilling();
+        float ratio = Mth.clamp(tub.getFillRatio(0), 0.0f, 1.0f);
+        if (!filling && ratio <= 0.02f) return;
 
         Direction f = state.getValue(FACING);
-        boolean isHead = state.getValue(PART) == BedPart.HEAD;
-        BlockPos headPos = isHead ? pos : pos.relative(f);
-        BlockState headState = level.getBlockState(headPos);
-        if (!headState.is(this) || headState.getValue(PART) != BedPart.HEAD) return;
+        double ySurface = pos.getY() + 0.475 + 0.46 * ratio + 0.01;
 
-        BlockEntity be = level.getBlockEntity(headPos);
-        if (!(be instanceof BathtubBlockEntity tub)) return;
-
-        double base = 0.475;
-        double height = 0.46;
-        double ratio = Mth.clamp(tub.getFillRatio(0), 0.0f, 1.0f);
-        if (!tub.isFilling() && ratio <= 0.02f) return;
-
-        double ySurface = headPos.getY() + base + height * ratio + 0.02;
-
-        double fx = f.getStepX();
-        double fz = f.getStepZ();
-        double rx = -fz;
-
-        double lx;
-        double lz;
-        switch (f) {
-            case WEST -> { lx = 0.375;   lz = 0.625; }
-            case EAST -> { lx = 0.675;   lz = 0.325; }
-            case NORTH -> { lx = 0.325; lz = 0.4; }
-            default -> { lx = 0.675; lz = 0.6; }
-        }
-        double cx = headPos.getX() + lx;
-        double cz = headPos.getZ() + lz;
-
-        if (tub.isFilling() && isHead) {
-            if (r.nextFloat() < 0.6f) {
-                double spx = cx + rx * 0.18;
-                double spz = cz + fx * 0.18;
-                double sy = headPos.getY() + 1.0;
-                int seg = 5;
-                double dy = (sy - ySurface) / seg;
-                for (int i = 0; i < seg; i++) {
-                    double py = sy - i * dy;
-                    double ox = (r.nextDouble() - 0.5) * 0.01;
-                    double oz = (r.nextDouble() - 0.5) * 0.01;
-                    level.addParticle(ParticleTypes.FALLING_WATER, spx + ox, py, spz + oz, 0, -0.18, 0);
-                }
-                for (int i = 0; i < 2; i++) {
-                    double ix = spx + (r.nextDouble() - 0.5) * 0.10;
-                    double iz = spz + (r.nextDouble() - 0.5) * 0.10;
-                    double vy = 0.12 + r.nextDouble() * 0.06;
-                    double vx = (r.nextDouble() - 0.5) * 0.03;
-                    double vz = (r.nextDouble() - 0.5) * 0.03;
-                    level.addParticle(ParticleTypes.SPLASH, ix, ySurface, iz, vx, vy, vz);
-                }
+        if (filling) {
+            // Faucet outlet sits centred across the tub, 3px in from the head end, 13px high.
+            Vec3 spout = tubToWorld(pos, f, 0.5, 0.8125, 0.1875);
+            double fall = spout.y - ySurface;
+            int seg = Math.max(2, (int) (fall * 10));
+            for (int i = 0; i < seg; i++) {
+                double py = spout.y - fall * (i + r.nextDouble()) / seg;
+                level.addParticle(ParticleTypes.FALLING_WATER, spout.x + (r.nextDouble() - 0.5) * 0.04, py, spout.z + (r.nextDouble() - 0.5) * 0.04, 0, -0.2, 0);
+            }
+            if (r.nextFloat() < 0.7f) {
+                level.addParticle(ParticleTypes.SPLASH, spout.x + (r.nextDouble() - 0.5) * 0.12, ySurface, spout.z + (r.nextDouble() - 0.5) * 0.12, 0, 0, 0);
+            }
+            if (r.nextFloat() < 0.25f) {
+                Vec3 p = randomSurfacePoint(pos, f, r);
+                level.addParticle(ParticleTypes.BUBBLE_POP, p.x, ySurface, p.z, 0, 0, 0);
             }
         }
 
-        if (tub.isFilling()) {
-            if (r.nextFloat() > 0.4f) return;
-
-            BlockPos footPos = headPos.relative(f.getOpposite());
-            for (int half = 0; half < 2; half++) {
-                BlockPos basePos = half == 0 ? headPos : footPos;
-                long t = level.getGameTime();
-                boolean allowPop = ((t + basePos.asLong()) & 15L) == 0 && r.nextFloat() < 0.15f;
-                for (int i = 0; i < 1; i++) {
-                    double u = (r.nextDouble() - 0.5) * 0.6;
-                    double v = (r.nextDouble() - 0.5) * 0.9;
-                    double x = basePos.getX() + 0.5 + u * rx + v * fx;
-                    double z = basePos.getZ() + 0.5 + u * fx + v * fz;
-                    level.addParticle(ParticleTypes.BUBBLE_POP, x, ySurface - 0.005, z, 0, 0.006 + r.nextDouble() * 0.01, 0);
-                    if (allowPop) {
-                        level.addParticle(ParticleTypes.SPLASH, x, ySurface + 0.01, z, 0, 0.03, 0);
-                    }
-                }
-            }
-        } else if (ratio > 0.0 && r.nextFloat() < 0.02f) {
-            BlockPos basePos = r.nextBoolean() ? headPos : headPos.relative(f.getOpposite());
-            double u = (r.nextDouble() - 0.5) * 0.6;
-            double v = (r.nextDouble() - 0.5) * 0.9;
-            double x = basePos.getX() + 0.5 + u * rx + v * fx;
-            double z = basePos.getZ() + 0.5 + u * fx + v * fz;
-            level.addParticle(ParticleTypes.BUBBLE_POP, x, ySurface - 0.005, z, 0, 0.006 + r.nextDouble() * 0.01, 0);
+        // Warm bath water steams, and noticeably more so in snowy biomes.
+        float steamChance = (filling ? 0.15f : 0.08f) * ratio;
+        if (level.getBiome(pos).value().coldEnoughToSnow(pos)) steamChance *= 2.5f;
+        if (AlpineWhispersConfig.bathtubSteam && r.nextFloat() < steamChance) {
+            Vec3 p = randomSurfacePoint(pos, f, r);
+            level.addParticle(FoundationParticles.SOUP_STEAM.get(), p.x, ySurface + 0.05, p.z, 0, 0, 0);
         }
+
+        if (!filling && r.nextFloat() < 0.03f) {
+            Vec3 spout = tubToWorld(pos, f, 0.5, 0.8125, 0.1875);
+            level.addParticle(ParticleTypes.DRIPPING_WATER, spout.x, spout.y, spout.z, 0, 0, 0);
+        }
+    }
+
+    private static Vec3 randomSurfacePoint(BlockPos head, Direction f, RandomSource r) {
+        return tubToWorld(head, f, 0.25 + r.nextDouble() * 0.5, 0, 0.3 + r.nextDouble() * 1.4);
+    }
+
+    // Tub-local coordinates: x across the tub, z from the head end (0) to the foot end (2).
+    private static Vec3 tubToWorld(BlockPos head, Direction f, double x, double y, double z) {
+        Direction back = f.getOpposite();
+        Direction side = f.getClockWise();
+        double dz = z - 0.5;
+        double dx = x - 0.5;
+        return new Vec3(
+                head.getX() + 0.5 + back.getStepX() * dz + side.getStepX() * dx,
+                head.getY() + y,
+                head.getZ() + 0.5 + back.getStepZ() * dz + side.getStepZ() * dx);
     }
 
     @Override
@@ -328,7 +302,7 @@ public class BathtubBlock extends Block implements EntityBlock {
         if (entity instanceof EnderMan) {
             entity.hurt(level.damageSources().drown(), 4.0f);
         }
-        if (entity instanceof Zombie z && !z.isRemoved()) {
+        if (AlpineWhispersConfig.bathtubDrownsZombies && entity instanceof Zombie z && !z.isRemoved()) {
             if (!level.isClientSide) {
                 z.discard();
                 Drowned d = EntityType.DROWNED.create(level);
@@ -340,7 +314,7 @@ public class BathtubBlock extends Block implements EntityBlock {
             }
         }
         if (entity instanceof LivingEntity le) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide && AlpineWhispersConfig.bathtubCleansesEffects) {
                 for (var e : le.getActiveEffectsMap().keySet()) {
                     if (e.value().getCategory() == MobEffectCategory.HARMFUL) le.removeEffect(e);
                 }

@@ -25,6 +25,10 @@ public class BathtubBlockEntity extends BlockEntity {
     private int progress;
     private int clientProgress;
     private boolean filling;
+    private float knob;
+    private float prevKnob;
+    private float slosh;
+    private float prevSlosh;
 
     public BathtubBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.BATHTUB_BLOCK_ENTITY.get(), pos, state);
@@ -46,34 +50,49 @@ public class BathtubBlockEntity extends BlockEntity {
         filling = true;
         setFullFlag(false);
         setChanged();
+        sync();
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BathtubBlockEntity be) {
         if (!be.filling || be.total <= 0) return;
         be.progress++;
-        be.setChanged();
+        level.blockEntityChanged(pos);
         if (be.progress % 10 == 0) level.playSound(null, pos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, 0.25f, 0.9f + level.random.nextFloat() * 0.2f);
         if (be.progress % 20 == 0) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.BLOCKS, 0.35f, 0.95f + level.random.nextFloat() * 0.1f);
-        if (be.progress % 5 == 0) level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
         if (be.progress >= be.total) {
             be.progress = be.total;
             be.filling = false;
             be.setFullFlag(true);
             level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 0.7f, 1.0f);
-            level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
+            be.sync();
+        } else if (be.progress % 40 == 0) {
+            be.sync();
         }
     }
 
 
+    // The client advances on its own while filling; server syncs only correct drift.
     public static void clientTick(BathtubBlockEntity be) {
-        if (be.clientProgress < be.progress) be.clientProgress++;
+        be.clientProgress = be.progress;
+        if (be.filling && be.progress < be.total) be.progress++;
+        be.prevKnob = be.knob;
+        be.knob = Mth.approach(be.knob, be.filling ? 1.0F : 0.0F, 0.1F);
+        // Water keeps rocking for a moment after the tap closes.
+        be.prevSlosh = be.slosh;
+        be.slosh = be.filling ? Mth.approach(be.slosh, 1.0F, 0.05F) : be.slosh * 0.97F;
+    }
+
+    public float getKnob(float partial) {
+        return Mth.lerp(partial, prevKnob, knob);
+    }
+
+    public float getSlosh(float partial) {
+        return Mth.lerp(partial, prevSlosh, slosh);
     }
 
     public float getFillRatio(float partial) {
         if (total <= 0) return 0f;
-        float cp = clientProgress;
-        float sp = progress;
-        float p = cp + (sp - cp) * Mth.clamp(partial, 0f, 1f);
+        float p = level != null && level.isClientSide ? Mth.lerp(Mth.clamp(partial, 0f, 1f), clientProgress, progress) : progress;
         return Mth.clamp(p / (float) total, 0f, 1f);
     }
 
@@ -95,10 +114,17 @@ public class BathtubBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         total = tag.getInt("total");
-        progress = tag.getInt("progress");
+        boolean wasFilling = filling;
+        int predicted = progress;
         filling = tag.getBoolean("filling");
-        clientProgress = progress;
+        progress = tag.getInt("progress");
         Level l = level;
+        // Small corrections while filling are absorbed smoothly instead of snapping the water level.
+        if (l != null && l.isClientSide && wasFilling && filling && Math.abs(predicted - progress) <= 10) {
+            progress = Math.max(progress, predicted);
+        } else {
+            clientProgress = progress;
+        }
         if (l instanceof ServerLevel) {
             setFullFlag(total > 0 && progress >= total);
         }
@@ -122,19 +148,15 @@ public class BathtubBlockEntity extends BlockEntity {
             filling = false;
         }
         setChanged();
-        Level l = level;
-        if (l != null) l.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        sync();
         return true;
     }
 
-    @Override
-    public void setChanged() {
-        Level l = level;
-        if (l instanceof ServerLevel s && !l.isClientSide()) {
+    private void sync() {
+        if (level instanceof ServerLevel s) {
             Packet<ClientGamePacketListener> pkt = getUpdatePacket();
             for (ServerPlayer p : GeneralUtil.tracking(s, worldPosition)) p.connection.send(pkt);
         }
-        super.setChanged();
     }
 
     @Override

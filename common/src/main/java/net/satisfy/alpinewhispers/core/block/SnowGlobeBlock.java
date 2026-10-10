@@ -3,7 +3,6 @@ package net.satisfy.alpinewhispers.core.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -29,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.alpinewhispers.core.registry.ParticleTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -81,7 +81,7 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
 
         if (nextPower != currentPower) {
             level.setBlock(blockPos, blockState.setValue(POWER, nextPower), Block.UPDATE_ALL);
-            level.scheduleTick(blockPos, this, 4);
+            level.scheduleTick(blockPos, this, decayDelay(nextPower));
         }
 
         return InteractionResult.CONSUME;
@@ -96,8 +96,12 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
         int nextPower = currentPower - 1;
         level.setBlock(blockPos, blockState.setValue(POWER, nextPower), Block.UPDATE_ALL);
         if (nextPower > 0) {
-            level.scheduleTick(blockPos, this, 4);
+            level.scheduleTick(blockPos, this, decayDelay(nextPower));
         }
+    }
+
+    private static int decayDelay(int power) {
+        return power > 10 ? 10 : 4;
     }
 
     @Override
@@ -116,28 +120,24 @@ public class SnowGlobeBlock extends HorizontalDirectionalBlock {
         if (!level.isClientSide) return;
         int power = blockState.getValue(POWER);
         if (power <= 0) return;
-        if (!level.getBlockState(blockPos.below()).isSolid()) return;
 
-        double intensity = Math.min(1.0, power / 15.0);
-        int particleCount = 1 + (int)(intensity * 4.0);
-
-        double minX = blockPos.getX() + 4.0 / 16.0;
-        double maxX = blockPos.getX() + 12.0 / 16.0;
-        double minY = blockPos.getY() + 4.0 / 16.0;
-        double maxY = blockPos.getY() + 12.0 / 16.0;
-        double minZ = blockPos.getZ() + 4.0 / 16.0;
-        double maxZ = blockPos.getZ() + 12.0 / 16.0;
-
-        double baseSpeed = 0.002 + intensity * 0.003;
+        double intensity = power / 15.0;
+        boolean storm = power >= 12;
+        int particleCount = storm ? 6 + randomSource.nextInt(4) : power >= 8 ? 2 : (randomSource.nextFloat() < 0.4F + intensity ? 1 : 0);
+        double centerX = blockPos.getX() + 0.5;
+        double centerZ = blockPos.getZ() + 0.5;
 
         for (int i = 0; i < particleCount; i++) {
-            double x = minX + randomSource.nextDouble() * (maxX - minX);
-            double y = minY + randomSource.nextDouble() * (maxY - minY);
-            double z = minZ + randomSource.nextDouble() * (maxZ - minZ);
-            double motionX = (randomSource.nextDouble() - 0.5) * baseSpeed;
-            double motionZ = (randomSource.nextDouble() - 0.5) * baseSpeed;
-            double motionY = -0.002 - randomSource.nextDouble() * baseSpeed * 0.5;
-            level.addParticle(ParticleTypes.SNOWFLAKE, x, y, z, motionX, motionY, motionZ);
+            double angle = randomSource.nextDouble() * Math.PI * 2.0;
+            double radius = Math.sqrt(randomSource.nextDouble()) * ((storm ? 4.5 : 4.0) / 16.0);
+            double x = centerX + Math.cos(angle) * radius;
+            double z = centerZ + Math.sin(angle) * radius;
+            double y = blockPos.getY() + (storm ? 3.5 + randomSource.nextDouble() * 9.0 : 8.0 + randomSource.nextDouble() * 4.0) / 16.0;
+            double lift = storm ? 0.01 + randomSource.nextDouble() * 0.03 : 0.0;
+            double tangential = storm ? 0.03 * intensity : 0.0;
+            double motionX = -Math.sin(angle) * tangential + (randomSource.nextDouble() - 0.5) * 0.02 * intensity;
+            double motionZ = Math.cos(angle) * tangential + (randomSource.nextDouble() - 0.5) * 0.02 * intensity;
+            level.addParticle(ParticleTypeRegistry.SNOW_GLOBE_FLAKE.get(), x, y, z, motionX, lift, motionZ);
         }
     }
 

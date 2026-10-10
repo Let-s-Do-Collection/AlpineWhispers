@@ -31,21 +31,14 @@ import net.satisfy.alpinewhispers.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GarlandBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<GarlandType> TYPE = EnumProperty.create("type", GarlandType.class);
-    public static final Map<Direction, VoxelShape> SHAPES = new HashMap<>();
-
-    static {
-        VoxelShape baseShape = makeShape();
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            SHAPES.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, baseShape));
-        }
-    }
+    private static final Map<BlockState, VoxelShape> SHAPE_CACHE = new ConcurrentHashMap<>();
 
     public GarlandBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -61,8 +54,35 @@ public class GarlandBlock extends Block {
 
     @Override
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        Direction facing = state.getValue(FACING);
-        return SHAPES.getOrDefault(facing, SHAPES.get(Direction.NORTH));
+        return SHAPE_CACHE.computeIfAbsent(state, GarlandBlock::computeShape);
+    }
+
+    // Mirrors the y-rotations in blockstates/garland.json so shapes always match the rendered model.
+    private static VoxelShape computeShape(BlockState state) {
+        GarlandType type = state.getValue(TYPE);
+        VoxelShape base;
+        int baseSteps;
+        switch (type) {
+            case INNER_LEFT -> { base = innerShape(); baseSteps = 3; }
+            case INNER_RIGHT -> { base = innerShape(); baseSteps = 2; }
+            case OUTER_LEFT -> { base = outerShape(); baseSteps = 3; }
+            case OUTER_RIGHT -> { base = outerShape(); baseSteps = 2; }
+            default -> { base = makeShape(); baseSteps = 0; }
+        }
+        int facingSteps = (state.getValue(FACING).get2DDataValue() + 2) % 4;
+        Direction target = Direction.from2DDataValue((2 + baseSteps + facingSteps) % 4);
+        return GeneralUtil.rotateShape(Direction.NORTH, target, base);
+    }
+
+    private static VoxelShape innerShape() {
+        return Shapes.or(
+                Block.box(0, 10, 0, 16, 16, 6),
+                Block.box(0, 10, 0, 6, 16, 16)
+        );
+    }
+
+    private static VoxelShape outerShape() {
+        return Block.box(0, 10, 0, 6, 16, 6);
     }
 
     @Override
@@ -96,7 +116,7 @@ public class GarlandBlock extends Block {
                         .setValue(FACING, direction.getOpposite())
                         .setValue(TYPE, GarlandType.NONE);
                 if (candidate.canSurvive(level, pos)) {
-                    return candidate;
+                    return candidate.setValue(TYPE, resolveType(candidate, level, pos));
                 }
             }
         }
@@ -117,64 +137,42 @@ public class GarlandBlock extends Block {
         return state;
     }
 
-    private GarlandType resolveType(BlockState state, LevelAccessor level, BlockPos pos) {
+    private GarlandType resolveType(BlockState state, LevelReader level, BlockPos pos) {
         Direction facing = state.getValue(FACING);
-        Direction leftDirection = facing.getCounterClockWise();
-        Direction rightDirection = facing.getClockWise();
+        Direction left = facing.getCounterClockWise();
+        Direction right = facing.getClockWise();
 
-        BlockState leftState = level.getBlockState(pos.relative(leftDirection));
-        BlockState rightState = level.getBlockState(pos.relative(rightDirection));
-
-        boolean hasLeft = leftState.is(this);
-        boolean hasRight = rightState.is(this);
-
-        if (hasLeft && hasRight
-                && leftState.getValue(FACING) == facing
-                && rightState.getValue(FACING) == facing) {
-            return GarlandType.STRAIGHT;
+        BlockState backState = level.getBlockState(pos.relative(facing.getOpposite()));
+        if (backState.is(this)) {
+            Direction backFacing = backState.getValue(FACING);
+            if (backFacing == right) return GarlandType.OUTER_LEFT;
+            if (backFacing == left) return GarlandType.OUTER_RIGHT;
         }
 
-        if (hasLeft) {
-            Direction leftFacing = leftState.getValue(FACING);
-            if (leftFacing == leftDirection) {
-                return GarlandType.OUTER_LEFT;
-            }
-            if (leftFacing == leftDirection.getOpposite()) {
-                return GarlandType.INNER_LEFT;
-            }
-            if (leftFacing == facing) {
-                return GarlandType.STRAIGHT;
-            }
+        BlockState frontState = level.getBlockState(pos.relative(facing));
+        if (frontState.is(this)) {
+            Direction frontFacing = frontState.getValue(FACING);
+            if (frontFacing == right) return GarlandType.INNER_LEFT;
+            if (frontFacing == left) return GarlandType.INNER_RIGHT;
         }
 
-        if (hasRight) {
-            Direction rightFacing = rightState.getValue(FACING);
-            if (rightFacing == rightDirection) {
-                return GarlandType.OUTER_RIGHT;
-            }
-            if (rightFacing == rightDirection.getOpposite()) {
-                return GarlandType.INNER_RIGHT;
-            }
-            if (rightFacing == facing) {
-                return GarlandType.STRAIGHT;
-            }
-        }
-
+        boolean hasLeft = level.getBlockState(pos.relative(left)).is(this);
+        boolean hasRight = level.getBlockState(pos.relative(right)).is(this);
+        if (hasLeft && hasRight) return GarlandType.STRAIGHT;
+        if (hasLeft) return GarlandType.LEFT;
+        if (hasRight) return GarlandType.RIGHT;
         return GarlandType.NONE;
     }
 
     private static VoxelShape makeShape() {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0, 0.6875, 0.75, 1, 0.9375, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.125, 0.6875, 0.6875, 0.25, 0.8125, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.4375, 0.8125, 0.6875, 0.5625, 0.9375, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0.75, 0.6875, 0.875, 0.875, 0.75), BooleanOp.OR);
-        return shape;
+        return Block.box(0, 10, 11, 16, 16, 16);
     }
 
     public enum GarlandType implements StringRepresentable {
         NONE("none"),
         STRAIGHT("straight"),
+        LEFT("left"),
+        RIGHT("right"),
         INNER_LEFT("inner_left"),
         INNER_RIGHT("inner_right"),
         OUTER_LEFT("outer_left"),

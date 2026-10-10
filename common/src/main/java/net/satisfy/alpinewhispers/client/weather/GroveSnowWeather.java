@@ -12,6 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.satisfy.alpinewhispers.core.config.AlpineWhispersConfig;
 import net.satisfy.alpinewhispers.core.registry.SoundEventRegistry;
 
 public class GroveSnowWeather {
@@ -52,23 +53,23 @@ public class GroveSnowWeather {
 
         avalancheIntensity = Mth.clamp(avalancheIntensity + 0.002F, 0.0F, 1.0F);
 
-        if (random.nextFloat() < 0.25F) {
+        if (AlpineWhispersConfig.groveSnowEnabled && random.nextFloat() < 0.25F) {
             spawnGentleSnow(level, player, random);
         }
 
-        if (random.nextFloat() < avalancheIntensity * 0.15F) {
+        if (AlpineWhispersConfig.avalanchesEnabled && random.nextFloat() < avalancheIntensity * 0.15F) {
             spawnAvalancheParticles(level, player, random);
         }
 
         groveAmbientTicks++;
         avalancheSoundTicks++;
 
-        if (groveAmbientTicks >= 600) {
+        if (groveAmbientTicks >= 600 && AlpineWhispersConfig.groveAmbienceEnabled) {
             playGroveAmbientSound(minecraft, random);
             groveAmbientTicks = 0;
         }
 
-        if (avalancheSoundTicks >= 1800 && avalancheIntensity > 0.35F) {
+        if (avalancheSoundTicks >= 1800 && avalancheIntensity > 0.35F && AlpineWhispersConfig.groveAmbienceEnabled && AlpineWhispersConfig.avalanchesEnabled) {
             if (random.nextFloat() < 0.6F) {
                 playAvalancheSound(minecraft, random);
             }

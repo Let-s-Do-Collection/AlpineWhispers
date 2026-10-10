@@ -7,11 +7,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
-import net.satisfy.alpinewhispers.neoforge.core.config.AlpineWhispersClientConfig;
+import net.satisfy.alpinewhispers.neoforge.core.config.AlpineWhispersNeoForgeConfig;
 
 import java.util.Objects;
 
@@ -21,7 +22,13 @@ public class AlpineWhispersNeoForge {
     public AlpineWhispersNeoForge(ModContainer modContainer, final IEventBus modEventBus) {
         AlpineWhispers.init();
 
-        modContainer.registerConfig(ModConfig.Type.CLIENT, AlpineWhispersClientConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, AlpineWhispersNeoForgeConfig.COMMON);
+        modEventBus.addListener((ModConfigEvent.Loading event) -> {
+            if (event.getConfig().getSpec() == AlpineWhispersNeoForgeConfig.COMMON) AlpineWhispersNeoForgeConfig.applyCommon();
+        });
+        modEventBus.addListener((ModConfigEvent.Reloading event) -> {
+            if (event.getConfig().getSpec() == AlpineWhispersNeoForgeConfig.COMMON) AlpineWhispersNeoForgeConfig.applyCommon();
+        });
 
         Objects.requireNonNull(modContainer.getEventBus()).addListener(this::onRegisterSpawnPlacement);
         modEventBus.addListener(this::commonSetup);

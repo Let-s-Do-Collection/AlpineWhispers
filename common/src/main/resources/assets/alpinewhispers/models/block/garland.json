@@ -43,9 +43,9 @@
 			}
 		},
 		{
-			"from": [2, 11, 11],
-			"to": [4, 13, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [2, 11, 11]},
+			"from": [2, 12, 11],
+			"to": [4, 14, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 12, 11]},
 			"faces": {
 				"north": {"uv": [2, 13, 4, 15], "texture": "#0"},
 				"east": {"uv": [1, 13, 2, 15], "texture": "#0"},
@@ -56,9 +56,9 @@
 			}
 		},
 		{
-			"from": [7, 13, 11],
-			"to": [9, 15, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 11]},
+			"from": [8, 13, 11],
+			"to": [10, 15, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 13, 11]},
 			"faces": {
 				"north": {"uv": [7, 13, 9, 15], "texture": "#0"},
 				"east": {"uv": [6, 13, 7, 15], "texture": "#0"},
@@ -86,12 +86,14 @@
 		{
 			"name": "garland",
 			"origin": [0, 11, 16],
+			"scope": 0,
 			"color": 0,
 			"children": [0, 1, 2, 3]
 		},
 		{
 			"name": "baubles",
 			"origin": [0, 0, 0],
+			"scope": 0,
 			"color": 0,
 			"children": [4, 5, 6]
 		}

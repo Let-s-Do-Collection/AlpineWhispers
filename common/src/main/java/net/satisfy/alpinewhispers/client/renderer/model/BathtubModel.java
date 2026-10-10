@@ -15,11 +15,22 @@ import net.satisfy.alpinewhispers.AlpineWhispers;
 public class BathtubModel extends Model {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(AlpineWhispers.identifier("bathtub"), "main");
 	private final ModelPart bathtub;
+	private final ModelPart knobLeft;
+	private final ModelPart knobRight;
 
 	public BathtubModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
 		this.bathtub = root.getChild("bathtub");
 		ModelPart cubes = this.bathtub.getChild("cubes");
+		this.knobLeft = cubes.getChild("knob_left");
+		this.knobRight = cubes.getChild("knob_right");
+	}
+
+	// Hot and cold tap turn in opposite directions; 0 is closed, 1 fully open.
+	public void setKnobs(float open) {
+		float angle = open * (float) Math.PI * 0.5F;
+		knobLeft.yRot = angle;
+		knobRight.yRot = -angle;
 	}
 
 
@@ -40,9 +51,10 @@ public class BathtubModel extends Model {
 		.texOffs(0, 0).addBox(15.0F, -2.0F, -28.0F, 2.0F, 2.0F, 16.0F, new CubeDeformation(0.0F))
 		.texOffs(2, 2).addBox(15.0F, -2.0F, -12.0F, 2.0F, 2.0F, 14.0F, new CubeDeformation(0.0F))
 		.texOffs(0, 5).addBox(9.0F, -4.0F, -27.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 11).addBox(9.0F, -2.0F, -27.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 11).addBox(12.0F, -3.0F, -27.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 11).addBox(6.0F, -3.0F, -27.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-17.0F, -14.0F, 24.0F));
+		.texOffs(0, 11).addBox(9.0F, -2.0F, -27.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-17.0F, -14.0F, 24.0F));
+
+		cubes.addOrReplaceChild("knob_right", CubeListBuilder.create().texOffs(0, 11).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(13.0F, -3.0F, -26.0F));
+		cubes.addOrReplaceChild("knob_left", CubeListBuilder.create().texOffs(0, 11).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, -3.0F, -26.0F));
 
 		PartDefinition cube_r1 = cubes.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -1.0F, -15.5F, 2.0F, 2.0F, 16.0F, new CubeDeformation(0.0F))
 		.texOffs(2, 2).addBox(-1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, -1.0F, -13.5F, 0.0F, 3.1416F, 0.0F));

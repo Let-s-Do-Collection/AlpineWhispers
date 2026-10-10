@@ -57,9 +57,9 @@
 			}
 		},
 		{
-			"from": [6, 13, 5.05],
-			"to": [8, 15, 6.05],
-			"rotation": {"angle": 0, "axis": "y", "origin": [6, 13, 5]},
+			"from": [5, 13, 5.05],
+			"to": [7, 15, 6.05],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 13, 5]},
 			"faces": {
 				"north": {"uv": [2, 13, 4, 15], "texture": "#0"},
 				"east": {"uv": [1, 13, 2, 15], "texture": "#0"},
@@ -155,18 +155,21 @@
 		{
 			"name": "garland",
 			"origin": [0, 9, 0],
+			"scope": 0,
 			"color": 0,
 			"children": [0, 1, 2, 3]
 		},
 		{
 			"name": "baubles",
 			"origin": [8, 8, 8],
+			"scope": 0,
 			"color": 0,
 			"children": [4, 5, 6]
 		},
 		{
 			"name": "garland",
 			"origin": [8, 8, 8],
+			"scope": 0,
 			"color": 0,
 			"children": [7, 8, 9, 10]
 		}

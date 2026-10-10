@@ -16,6 +16,7 @@ public class SoundEventRegistry {
     public static final RegistrySupplier<SoundEvent> REINDEER_HURT = SOUND_EVENTS.register("reindeer_hurt", () -> SoundEvent.createFixedRangeEvent(AlpineWhispers.identifier("reindeer_hurt"), 16f));
     public static final RegistrySupplier<SoundEvent> REINDEER_DEATH = SOUND_EVENTS.register("reindeer_death", () -> SoundEvent.createFixedRangeEvent(AlpineWhispers.identifier("reindeer_death"), 16f));
     public static final RegistrySupplier<SoundEvent> FALLING_SNOW = SOUND_EVENTS.register("falling_snow", () -> SoundEvent.createFixedRangeEvent(AlpineWhispers.identifier("falling_snow"), 16f));
+    public static final RegistrySupplier<SoundEvent> STAR_TOPPER_CHIME = SOUND_EVENTS.register("star_topper_chime", () -> SoundEvent.createFixedRangeEvent(AlpineWhispers.identifier("star_topper_chime"), 24f));
     public static final RegistrySupplier<SoundEvent> GROVE_AMBIENT = SOUND_EVENTS.register("grove_ambient", () -> SoundEvent.createFixedRangeEvent(AlpineWhispers.identifier("grove_ambient"), 16f));
 
     public static final ResourceKey<JukeboxSong> WINTER_MAGIC = song("winter_magic");

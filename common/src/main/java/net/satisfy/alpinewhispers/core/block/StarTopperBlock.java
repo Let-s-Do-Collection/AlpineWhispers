@@ -1,26 +1,32 @@
 package net.satisfy.alpinewhispers.core.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.alpinewhispers.core.block.entity.StarTopperBlockEntity;
+import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class StarTopperBlock extends Block {
+public class StarTopperBlock extends Block implements EntityBlock {
     private static final VoxelShape SHAPE = Block.box(4.0, 6.0, 4.0, 12.0, 16.0, 12.0);
 
     public StarTopperBlock(BlockBehaviour.Properties properties) {
@@ -28,29 +34,26 @@ public class StarTopperBlock extends Block {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
-        if (randomSource.nextFloat() < 0.15F) {
-            double baseX = pos.getX() + 0.5;
-            double baseY = pos.getY() + 1.15;
-            double baseZ = pos.getZ() + 0.5;
-
-            double angle = randomSource.nextDouble() * Math.PI * 2;
-            double radius = 0.25 + randomSource.nextDouble() * 0.15;
-            double x = baseX + Math.cos(angle) * radius;
-            double z = baseZ + Math.sin(angle) * radius;
-            double y = baseY + randomSource.nextDouble() * 0.08;
-
-            double velocityX = (randomSource.nextDouble() - 0.5) * 0.01;
-            double velocityY = 0.03 + randomSource.nextDouble() * 0.02;
-            double velocityZ = (randomSource.nextDouble() - 0.5) * 0.01;
-
-            level.addParticle(ParticleTypes.END_ROD, x, y, z, velocityX, velocityY, velocityZ);
-        }
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    protected @NotNull RenderShape getRenderShape(BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new StarTopperBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (!level.isClientSide || type != EntityTypeRegistry.STAR_TOPPER_BLOCK_ENTITY.get()) {
+            return null;
+        }
+        return (l, pos, s, be) -> StarTopperBlockEntity.clientTick(l, pos, (StarTopperBlockEntity) be);
     }
 
     @Override

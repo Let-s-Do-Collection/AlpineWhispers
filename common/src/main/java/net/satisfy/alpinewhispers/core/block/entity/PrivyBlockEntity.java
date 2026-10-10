@@ -29,6 +29,8 @@ import net.satisfy.alpinewhispers.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
@@ -164,6 +166,19 @@ public class PrivyBlockEntity extends BlockEntity implements Clearable {
     public void clearContent() {
         inventory.clearContent();
         queue.clear();
+    }
+
+    public List<ItemStack> getContents() {
+        List<ItemStack> contents = new ArrayList<>();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (!stack.isEmpty()) contents.add(stack);
+        }
+        return contents;
+    }
+
+    public int getProcessingCount() {
+        return queue.size();
     }
 
     public int redstoneLevel() {

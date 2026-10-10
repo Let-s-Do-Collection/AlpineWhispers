@@ -98,7 +98,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> CANDLE_WREATH = registerWithItem("candle_wreath", () -> new CandleWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
     public static final RegistrySupplier<Block> WALL_WREATH = registerWithItem("wall_wreath", () -> new WallWreathBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
     public static final RegistrySupplier<Block> FAIRY_LIGHTS = registerWithItem("fairy_lights", () -> new FairyLightsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 9).noOcclusion()));
-    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 4)));
+    public static final RegistrySupplier<Block> GARLAND = registerWithItem("garland", () -> new GarlandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 4).noOcclusion()));
     public static final RegistrySupplier<Block> STAR_TOPPER = registerWithItem("star_topper", () -> new StarTopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
     public static final RegistrySupplier<Block> TREE_BAUBLES = registerWithoutItem("tree_baubles", () -> new TreeBaublesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE).emissiveRendering((state, world, pos) -> true).lightLevel(state -> 4).noOcclusion()));
     public static final RegistrySupplier<Item> TREE_BAUBLES_ITEM = registerItem("tree_baubles",  () -> new TreeBaublesItem(TREE_BAUBLES.get(), new Item.Properties()));

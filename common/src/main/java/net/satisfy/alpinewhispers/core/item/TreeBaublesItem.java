@@ -41,7 +41,7 @@ public class TreeBaublesItem extends BlockItem {
         }
 
         if (!level.isClientSide) {
-            level.playSound(context.getPlayer(), blockPos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, blockPos, SoundEvents.AMETHYST_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             Player player = context.getPlayer();
             if (player != null && !player.getAbilities().instabuild) {
                 context.getItemInHand().shrink(1);

@@ -17,6 +17,7 @@ public class AlpineWhispers {
         EntityTypeRegistry.init();
         TabRegistry.init();
         SoundEventRegistry.init();
+        ParticleTypeRegistry.init();
         PlacerTypeRegistry.init();
     }
 

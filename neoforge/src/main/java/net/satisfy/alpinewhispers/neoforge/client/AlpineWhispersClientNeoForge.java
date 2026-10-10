@@ -4,15 +4,18 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.client.AlpineWhispersClient;
+import net.satisfy.alpinewhispers.client.particle.SnowGlobeFlakeParticle;
 import net.satisfy.alpinewhispers.core.registry.ObjectRegistry;
+import net.satisfy.alpinewhispers.core.registry.ParticleTypeRegistry;
 import net.satisfy.alpinewhispers.neoforge.client.extensions.WinterHatExtensions;
 
 
-@EventBusSubscriber(modid = AlpineWhispers.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = AlpineWhispers.MOD_ID, value = Dist.CLIENT)
 public class AlpineWhispersClientNeoForge {
 
     @SubscribeEvent
@@ -23,6 +26,11 @@ public class AlpineWhispersClientNeoForge {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         AlpineWhispersClient.onInitializeClient();
+    }
+
+    @SubscribeEvent
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ParticleTypeRegistry.SNOW_GLOBE_FLAKE.get(), SnowGlobeFlakeParticle.Provider::new);
     }
 
     @SubscribeEvent

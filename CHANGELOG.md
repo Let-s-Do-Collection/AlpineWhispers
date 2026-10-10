@@ -1,3 +1,27 @@
+[1.0.4]
+
+**Changed**
+* Migrated to Foundation; the Fireplace Cornice now uses Foundation's shared mimic block rendering.
+* Sink and Washbasin reworked: right-click with an empty hand opens or closes the tap, which slowly fills the basin over three water levels with an animated water surface. Buckets and bottles fill or drain it level by level.
+* Snow Globe now has its own snowflake particles that settle gently when idle and swirl into a proper storm when shaken hard.
+* Bathtub water now pours from the faucet, steams (more so in snowy biomes) and drips after filling.
+* Snow fog in snowy biomes reworked: a light mountain haze, thicker mist in the morning, at night, during snowfall and blizzards and in valleys, and denser fog in Groves.
+* Winter Hat recipe now yields 1 instead of 4.
+* Fabric now requires Cloth Config.
+
+**Fixed**
+* Garland corners not connecting properly and hitboxes not matching the rendered model.
+* Garland blocking light and culling neighboring block faces.
+* Tree Baubles placement sound not being heard by the placing player.
+
+**Added**
+* Star Topper on top of a decorated tree sends waves of sparkles through its Fairy Lights, Tree Baubles and Garlands at night, with a soft chime. A redstone signal lights it up during the day as well.
+* Info overlay when looking at a Privy, showing its contents and grinding progress.
+* NeoForge & Fabric config (Mod Menu on Fabric) for snow fog, Grove weather (drifting snow, avalanches, ambience), Bathtub (fill time, washing off effects, zombies turning into Drowned, steam), Star Topper and the info overlay.
+* German (`de_de`) translations for all new entries.
+
+***
+
 [1.0.3]
 
 **Fixed**

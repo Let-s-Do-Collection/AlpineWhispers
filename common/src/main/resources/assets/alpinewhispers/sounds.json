@@ -73,5 +73,30 @@
     "sounds": [
       "alpinewhispers:reindeer_death"
     ]
+  },
+  "star_topper_chime": {
+    "subtitle": "subtitles.alpinewhispers.star_topper_chime",
+    "sounds": [
+      {
+        "name": "alpinewhispers:star_topper_chime_1",
+        "volume": 0.6
+      },
+      {
+        "name": "alpinewhispers:star_topper_chime_2",
+        "volume": 0.6
+      },
+      {
+        "name": "alpinewhispers:star_topper_chime_3",
+        "volume": 0.6
+      },
+      {
+        "name": "alpinewhispers:star_topper_chime_4",
+        "volume": 0.6
+      },
+      {
+        "name": "alpinewhispers:star_topper_chime_5",
+        "volume": 0.6
+      }
+    ]
   }
 }

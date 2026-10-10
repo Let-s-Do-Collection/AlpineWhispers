@@ -18,6 +18,8 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
     public void generateTranslations(HolderLookup.Provider provider, TranslationBuilder texts) {
         texts.add("creativetab.alpinewhispers.tab", "[Let's Do] Alpine Whispers");
         translateTooltips(texts);
+        translateHud(texts);
+        translateConfig(texts);
         translateSounds(texts);
         translateAlpineGneiss(texts);
         translateArollaPine(texts);
@@ -56,6 +58,14 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         tooltips.accept("bread_on_a_stick.info_1", "Sheep love bread, even if it’s not great for them. What a mean way to travel!");
     }
     
+    public static void translateHud(TranslationBuilder texts) {
+        texts.add("hud.alpinewhispers.privy.grinding", "Grinding");
+        texts.add("hud.alpinewhispers.privy.items_left", "%s Items Left");
+        texts.add("hud.alpinewhispers.privy.in_privy", "In the Privy");
+        texts.add("hud.alpinewhispers.privy.hint", "§e[Right-Click]§r with Food: Grind");
+        texts.add("hud.alpinewhispers.privy.hint_take", "§e[Shift Right-Click]§r with an Empty Hand: Take Out");
+    }
+
     public static void translateSounds(TranslationBuilder texts) {
         BiConsumer<String, String> subtitles = (key, value) -> texts.add(
                 "subtitles.alpinewhispers." + key, value
@@ -195,4 +205,127 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add("advancements.alpinewhispers.spyglass_at_reindeer.description", "Observe a reindeer in its natural frosty habitat.");
     }
 
+    private void translateConfig(TranslationBuilder texts) {
+        texts.add("text.autoconfig.alpinewhispers.title", "Alpine Whispers");
+        texts.add("alpinewhispers.configuration.title", "Alpine Whispers");
+        texts.add("text.autoconfig.alpinewhispers.option.starTopper", "Star Topper");
+        texts.add("alpinewhispers.configuration.starTopper", "Star Topper");
+        texts.add("alpinewhispers.configuration.starTopper.button", "Star Topper...");
+        texts.add("alpinewhispers.configuration.starTopper.tooltip", "Light waves and chimes of the star on top of a tree");
+        texts.add("text.autoconfig.alpinewhispers.option.starTopper.treeLights", "Tree Lights");
+        texts.add("text.autoconfig.alpinewhispers.option.starTopper.treeLights.@Tooltip", "A star on top of a decorated tree sends waves of sparkles through its lights at night");
+        texts.add("alpinewhispers.configuration.treeLights", "Tree Lights");
+        texts.add("alpinewhispers.configuration.treeLights.tooltip", "A star on top of a decorated tree sends waves of sparkles through its lights at night");
+        texts.add("text.autoconfig.alpinewhispers.option.starTopper.chime", "Chime");
+        texts.add("text.autoconfig.alpinewhispers.option.starTopper.chime.@Tooltip", "A soft chime plays with the light waves");
+        texts.add("alpinewhispers.configuration.chime", "Chime");
+        texts.add("alpinewhispers.configuration.chime.tooltip", "A soft chime plays with the light waves");
+        texts.add("subtitles.alpinewhispers.star_topper_chime", "Star Topper chimes");
+        texts.add("alpinewhispers.configuration.section.alpinewhispers.common.toml", "Alpine Whispers");
+        texts.add("alpinewhispers.configuration.section.alpinewhispers.common.toml.title", "Alpine Whispers Settings");
+        texts.add("alpinewhispers.configuration.fog.button", "Snow Fog...");
+        texts.add("alpinewhispers.configuration.fog.tooltip", "Mist in snowy biomes");
+        texts.add("alpinewhispers.configuration.weather.button", "Grove Weather...");
+        texts.add("alpinewhispers.configuration.weather.tooltip", "Snow, avalanches and sounds in Groves");
+        texts.add("alpinewhispers.configuration.bathtub.button", "Bathtub...");
+        texts.add("alpinewhispers.configuration.bathtub.tooltip", "Filling, effects and steam");
+        texts.add("alpinewhispers.configuration.infoOverlay.button", "Info Overlay...");
+        texts.add("alpinewhispers.configuration.infoOverlay.tooltip", "Info overlays when looking at blocks");
+        texts.add("text.autoconfig.alpinewhispers.option.fog", "Snow Fog");
+        texts.add("alpinewhispers.configuration.fog", "Snow Fog");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.enabled", "Snow Fog");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.enabled.@Tooltip", "Mist in snowy biomes, thicker in the morning, at night, in snowfall and in valleys");
+        texts.add("alpinewhispers.configuration.enabled", "Snow Fog");
+        texts.add("alpinewhispers.configuration.enabled.tooltip", "Mist in snowy biomes, thicker in the morning, at night, in snowfall and in valleys");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.strengthPercent", "Fog Strength");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.strengthPercent.@Tooltip", "Overall fog strength in percent, 100 is the default, 200 doubles the thickening");
+        texts.add("alpinewhispers.configuration.strengthPercent", "Fog Strength");
+        texts.add("alpinewhispers.configuration.strengthPercent.tooltip", "Overall fog strength in percent, 100 is the default, 200 doubles the thickening");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.startPercent", "Fog Start");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.startPercent.@Tooltip", "Where the fog starts, in % of the render distance");
+        texts.add("alpinewhispers.configuration.startPercent", "Fog Start");
+        texts.add("alpinewhispers.configuration.startPercent.tooltip", "Where the fog starts, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hazeEndPercent", "Mountain Haze");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hazeEndPercent.@Tooltip", "How far you can see in the light haze that always hangs over snowy biomes, in % of the render distance");
+        texts.add("alpinewhispers.configuration.hazeEndPercent", "Mountain Haze");
+        texts.add("alpinewhispers.configuration.hazeEndPercent.tooltip", "How far you can see in the light haze that always hangs over snowy biomes, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.morning", "Morning Mist");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.morning.@Tooltip", "Mist from late night until shortly after sunrise");
+        texts.add("alpinewhispers.configuration.morning", "Morning Mist");
+        texts.add("alpinewhispers.configuration.morning.tooltip", "Mist from late night until shortly after sunrise");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.morningEndPercent", "Morning Mist View");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.morningEndPercent.@Tooltip", "How far you can see in morning mist, in % of the render distance");
+        texts.add("alpinewhispers.configuration.morningEndPercent", "Morning Mist View");
+        texts.add("alpinewhispers.configuration.morningEndPercent.tooltip", "How far you can see in morning mist, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.night", "Night Mist");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.night.@Tooltip", "Cold mist settles in after dusk");
+        texts.add("alpinewhispers.configuration.night", "Night Mist");
+        texts.add("alpinewhispers.configuration.night.tooltip", "Cold mist settles in after dusk");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.nightEndPercent", "Night Mist View");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.nightEndPercent.@Tooltip", "How far you can see at night, in % of the render distance");
+        texts.add("alpinewhispers.configuration.nightEndPercent", "Night Mist View");
+        texts.add("alpinewhispers.configuration.nightEndPercent.tooltip", "How far you can see at night, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.snowfall", "Snowfall Fog");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.snowfall.@Tooltip", "Snowfall and blizzards swallow the view");
+        texts.add("alpinewhispers.configuration.snowfall", "Snowfall Fog");
+        texts.add("alpinewhispers.configuration.snowfall.tooltip", "Snowfall and blizzards swallow the view");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.snowfallEndPercent", "Snowfall View");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.snowfallEndPercent.@Tooltip", "How far you can see in snowfall, in % of the render distance");
+        texts.add("alpinewhispers.configuration.snowfallEndPercent", "Snowfall View");
+        texts.add("alpinewhispers.configuration.snowfallEndPercent.tooltip", "How far you can see in snowfall, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.blizzardEndPercent", "Blizzard View");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.blizzardEndPercent.@Tooltip", "How far you can see in a blizzard during thunderstorms, in % of the render distance");
+        texts.add("alpinewhispers.configuration.blizzardEndPercent", "Blizzard View");
+        texts.add("alpinewhispers.configuration.blizzardEndPercent.tooltip", "How far you can see in a blizzard during thunderstorms, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hollows", "Valley Fog");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hollows.@Tooltip", "Thick mist gathers in valleys and hollows at night and in the morning");
+        texts.add("alpinewhispers.configuration.hollows", "Valley Fog");
+        texts.add("alpinewhispers.configuration.hollows.tooltip", "Thick mist gathers in valleys and hollows at night and in the morning");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hollowEndPercent", "Valley Fog View");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.hollowEndPercent.@Tooltip", "How far you can see in a misty valley, in % of the render distance");
+        texts.add("alpinewhispers.configuration.hollowEndPercent", "Valley Fog View");
+        texts.add("alpinewhispers.configuration.hollowEndPercent.tooltip", "How far you can see in a misty valley, in % of the render distance");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.groveThickeningPercent", "Grove Thickening");
+        texts.add("text.autoconfig.alpinewhispers.option.fog.groveThickeningPercent.@Tooltip", "How much thicker the fog is in Groves, in percent");
+        texts.add("alpinewhispers.configuration.groveThickeningPercent", "Grove Thickening");
+        texts.add("alpinewhispers.configuration.groveThickeningPercent.tooltip", "How much thicker the fog is in Groves, in percent");
+        texts.add("text.autoconfig.alpinewhispers.option.weather", "Grove Weather");
+        texts.add("alpinewhispers.configuration.weather", "Grove Weather");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.groveSnow", "Drifting Snow");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.groveSnow.@Tooltip", "Gentle snow drifts through Groves in clear weather");
+        texts.add("alpinewhispers.configuration.groveSnow", "Drifting Snow");
+        texts.add("alpinewhispers.configuration.groveSnow.tooltip", "Gentle snow drifts through Groves in clear weather");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.avalanches", "Avalanches");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.avalanches.@Tooltip", "Snow slides down steep slopes in Groves");
+        texts.add("alpinewhispers.configuration.avalanches", "Avalanches");
+        texts.add("alpinewhispers.configuration.avalanches.tooltip", "Snow slides down steep slopes in Groves");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.groveAmbience", "Grove Ambience");
+        texts.add("text.autoconfig.alpinewhispers.option.weather.groveAmbience.@Tooltip", "Quiet wind and distant avalanche sounds in Groves");
+        texts.add("alpinewhispers.configuration.groveAmbience", "Grove Ambience");
+        texts.add("alpinewhispers.configuration.groveAmbience.tooltip", "Quiet wind and distant avalanche sounds in Groves");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub", "Bathtub");
+        texts.add("alpinewhispers.configuration.bathtub", "Bathtub");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.fillSeconds", "Fill Time");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.fillSeconds.@Tooltip", "How long a bathtub takes to fill, in seconds");
+        texts.add("alpinewhispers.configuration.fillSeconds", "Fill Time");
+        texts.add("alpinewhispers.configuration.fillSeconds.tooltip", "How long a bathtub takes to fill, in seconds");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.cleansesEffects", "Washes Off Effects");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.cleansesEffects.@Tooltip", "A full bathtub washes off harmful effects");
+        texts.add("alpinewhispers.configuration.cleansesEffects", "Washes Off Effects");
+        texts.add("alpinewhispers.configuration.cleansesEffects.tooltip", "A full bathtub washes off harmful effects");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.drownsZombies", "Zombies Turn Into Drowned");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.drownsZombies.@Tooltip", "Zombies in a full bathtub turn into Drowned");
+        texts.add("alpinewhispers.configuration.drownsZombies", "Zombies Turn Into Drowned");
+        texts.add("alpinewhispers.configuration.drownsZombies.tooltip", "Zombies in a full bathtub turn into Drowned");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.steam", "Steam");
+        texts.add("text.autoconfig.alpinewhispers.option.bathtub.steam.@Tooltip", "Warm bath water steams");
+        texts.add("alpinewhispers.configuration.steam", "Steam");
+        texts.add("alpinewhispers.configuration.steam.tooltip", "Warm bath water steams");
+        texts.add("text.autoconfig.alpinewhispers.option.infoOverlay", "Info Overlay");
+        texts.add("alpinewhispers.configuration.infoOverlay", "Info Overlay");
+        texts.add("text.autoconfig.alpinewhispers.option.infoOverlay.showPrivyInfo", "Privy Info");
+        texts.add("text.autoconfig.alpinewhispers.option.infoOverlay.showPrivyInfo.@Tooltip", "Info overlay when looking at a privy");
+        texts.add("alpinewhispers.configuration.showPrivyInfo", "Privy Info");
+        texts.add("alpinewhispers.configuration.showPrivyInfo.tooltip", "Info overlay when looking at a privy");
+    }
 }

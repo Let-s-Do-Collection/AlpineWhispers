@@ -6,7 +6,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -48,8 +47,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.alpinewhispers.core.block.entity.PrivyBlockEntity;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.core.util.GeneralUtil;
+import net.satisfy.foundation.registry.FoundationParticles;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.List;
@@ -179,34 +178,12 @@ public class PrivyBlock extends BaseEntityBlock {
             case WEST -> centerX = pos.getX() + 0.62D;
             case EAST -> centerX = pos.getX() + 0.38D;
         }
-        DustParticleOptions fly = new DustParticleOptions(new Vector3f(0.05F, 0.06F, 0.05F), 0.075F);
         long time = level.getGameTime();
-        double base = time * 0.07D;
-        double[] rings = new double[]{0.14D, 0.22D, 0.30D};
-        for (double radius : rings) {
-            int count = 6;
-            for (int i = 0; i < count; i++) {
-                double angle = base + i * (Math.PI * 2.0D / count);
-                double x = centerX + Math.cos(angle) * radius + (random.nextDouble() - 0.5D) * 0.02D;
-                double z = centerZ + Math.sin(angle) * radius + (random.nextDouble() - 0.5D) * 0.02D;
-                double y = centerY + Math.sin((angle + radius) * 3.0D) * 0.06D + (random.nextDouble() - 0.5D) * 0.02D;
-                double speedX = -Math.sin(angle) * 0.012D + (random.nextDouble() - 0.5D) * 0.002D;
-                double speedZ = Math.cos(angle) * 0.012D + (random.nextDouble() - 0.5D) * 0.002D;
-                double speedY = 0.010D + random.nextDouble() * 0.010D;
-                level.addParticle(fly, x, y, z, speedX, speedY, speedZ);
-            }
-        }
-        int wanderers = 10 + random.nextInt(6);
-        for (int j = 0; j < wanderers; j++) {
-            double radius = 0.34D * Math.sqrt(random.nextDouble());
-            double angle = random.nextDouble() * Math.PI * 2.0D + base * 0.5D;
-            double x = centerX + Math.cos(angle) * radius + (random.nextDouble() - 0.5D) * 0.02D;
-            double z = centerZ + Math.sin(angle) * radius + (random.nextDouble() - 0.5D) * 0.02D;
-            double y = (pos.getY() + 0.72D) + random.nextDouble() * 0.44D;
-            double speedX = (random.nextDouble() - 0.5D) * 0.012D;
-            double speedZ = (random.nextDouble() - 0.5D) * 0.012D;
-            double speedY = 0.008D + random.nextDouble() * 0.012D;
-            level.addParticle(fly, x, y, z, speedX, speedY, speedZ);
+        if (random.nextInt(3) == 0) {
+            double x = centerX + (random.nextDouble() - 0.5D) * 0.3D;
+            double z = centerZ + (random.nextDouble() - 0.5D) * 0.3D;
+            double y = centerY + random.nextDouble() * 0.25D;
+            level.addParticle(FoundationParticles.FLY.get(), x, y, z, 0.0D, 0.0D, 0.0D);
         }
         int interval = 6;
         if (((time + pos.asLong()) % interval) == 0) {
