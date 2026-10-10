@@ -19,8 +19,10 @@ public final class AlpineWhispersNeoForgeConfig {
     private static final ModConfigSpec.IntValue FOG_HOLLOW_END;
     private static final ModConfigSpec.IntValue FOG_GROVE_THICKENING;
     private static final ModConfigSpec.BooleanValue GROVE_SNOW;
+    private static final ModConfigSpec.IntValue GROVE_SNOW_STRENGTH;
     private static final ModConfigSpec.BooleanValue AVALANCHES;
     private static final ModConfigSpec.BooleanValue GROVE_AMBIENCE;
+    private static final ModConfigSpec.BooleanValue FALLING_NEEDLES;
     private static final ModConfigSpec.IntValue BATHTUB_FILL_SECONDS;
     private static final ModConfigSpec.BooleanValue BATHTUB_CLEANSES_EFFECTS;
     private static final ModConfigSpec.BooleanValue BATHTUB_DROWNS_ZOMBIES;
@@ -28,6 +30,13 @@ public final class AlpineWhispersNeoForgeConfig {
     private static final ModConfigSpec.BooleanValue STAR_TREE_LIGHTS;
     private static final ModConfigSpec.BooleanValue STAR_CHIME;
     private static final ModConfigSpec.BooleanValue SHOW_PRIVY_INFO;
+    private static final ModConfigSpec.IntValue REINDEER_WEIGHT;
+    private static final ModConfigSpec.IntValue REINDEER_MIN_GROUP;
+    private static final ModConfigSpec.IntValue REINDEER_MAX_GROUP;
+    private static final ModConfigSpec.IntValue ALPINE_SHEEP_WEIGHT;
+    private static final ModConfigSpec.IntValue ALPINE_SHEEP_MIN_GROUP;
+    private static final ModConfigSpec.IntValue ALPINE_SHEEP_MAX_GROUP;
+    private static final ModConfigSpec.BooleanValue REPLACE_VANILLA_FARM_ANIMALS;
     public static final ModConfigSpec COMMON;
 
     static {
@@ -50,8 +59,10 @@ public final class AlpineWhispersNeoForgeConfig {
         common.pop();
         common.push("weather");
         GROVE_SNOW = common.comment("Gentle snow drifts through Groves in clear weather").define("groveSnow", true);
+        GROVE_SNOW_STRENGTH = common.comment("How heavy the drifting snow in Groves is, in percent of normal snowfall").defineInRange("groveSnowStrength", 15, 1, 100);
         AVALANCHES = common.comment("Snow slides down steep slopes in Groves").define("avalanches", true);
         GROVE_AMBIENCE = common.comment("Quiet wind and distant avalanche sounds in Groves").define("groveAmbience", true);
+        FALLING_NEEDLES = common.comment("Needles drift down from spruce and Arolla pine leaves").define("fallingNeedles", true);
         common.pop();
         common.push("bathtub");
         BATHTUB_FILL_SECONDS = common.comment("How long a bathtub takes to fill, in seconds").defineInRange("fillSeconds", 45, 1, 300);
@@ -65,6 +76,15 @@ public final class AlpineWhispersNeoForgeConfig {
         common.pop();
         common.push("infoOverlay");
         SHOW_PRIVY_INFO = common.comment("Info overlay when looking at a privy").define("showPrivyInfo", true);
+        common.pop();
+        common.comment("Spawning in cold biomes (#alpinewhispers:reindeer_habitat). Changes apply after restarting the world").push("spawning");
+        REINDEER_WEIGHT = common.comment("Spawn weight of reindeer, 0 disables them. Vanilla sheep use 12").defineInRange("reindeerWeight", 22, 0, 100);
+        REINDEER_MIN_GROUP = common.comment("Smallest reindeer herd").defineInRange("reindeerMinGroup", 3, 1, 16);
+        REINDEER_MAX_GROUP = common.comment("Largest reindeer herd").defineInRange("reindeerMaxGroup", 5, 1, 16);
+        ALPINE_SHEEP_WEIGHT = common.comment("Spawn weight of alpine sheep, 0 disables them").defineInRange("alpineSheepWeight", 18, 0, 100);
+        ALPINE_SHEEP_MIN_GROUP = common.comment("Smallest alpine sheep flock").defineInRange("alpineSheepMinGroup", 3, 1, 16);
+        ALPINE_SHEEP_MAX_GROUP = common.comment("Largest alpine sheep flock").defineInRange("alpineSheepMaxGroup", 5, 1, 16);
+        REPLACE_VANILLA_FARM_ANIMALS = common.comment("Remove vanilla sheep and cows from these biomes").define("replaceVanillaFarmAnimals", true);
         common.pop();
         COMMON = common.build();
     }
@@ -89,8 +109,10 @@ public final class AlpineWhispersNeoForgeConfig {
         AlpineWhispersConfig.fogHollowEndPercent = Math.max(FOG_HOLLOW_END.get(), start + 1);
         AlpineWhispersConfig.fogGroveThickeningPercent = FOG_GROVE_THICKENING.get();
         AlpineWhispersConfig.groveSnowEnabled = GROVE_SNOW.get();
+        AlpineWhispersConfig.groveSnowStrength = GROVE_SNOW_STRENGTH.get();
         AlpineWhispersConfig.avalanchesEnabled = AVALANCHES.get();
         AlpineWhispersConfig.groveAmbienceEnabled = GROVE_AMBIENCE.get();
+        AlpineWhispersConfig.fallingNeedlesEnabled = FALLING_NEEDLES.get();
         AlpineWhispersConfig.bathtubFillSeconds = BATHTUB_FILL_SECONDS.get();
         AlpineWhispersConfig.bathtubCleansesEffects = BATHTUB_CLEANSES_EFFECTS.get();
         AlpineWhispersConfig.bathtubDrownsZombies = BATHTUB_DROWNS_ZOMBIES.get();
@@ -98,5 +120,12 @@ public final class AlpineWhispersNeoForgeConfig {
         AlpineWhispersConfig.starTreeLights = STAR_TREE_LIGHTS.get();
         AlpineWhispersConfig.starChime = STAR_CHIME.get();
         AlpineWhispersConfig.showPrivyInfo = SHOW_PRIVY_INFO.get();
+        AlpineWhispersConfig.reindeerSpawnWeight = REINDEER_WEIGHT.get();
+        AlpineWhispersConfig.reindeerMinGroup = REINDEER_MIN_GROUP.get();
+        AlpineWhispersConfig.reindeerMaxGroup = Math.max(REINDEER_MAX_GROUP.get(), REINDEER_MIN_GROUP.get());
+        AlpineWhispersConfig.alpineSheepSpawnWeight = ALPINE_SHEEP_WEIGHT.get();
+        AlpineWhispersConfig.alpineSheepMinGroup = ALPINE_SHEEP_MIN_GROUP.get();
+        AlpineWhispersConfig.alpineSheepMaxGroup = Math.max(ALPINE_SHEEP_MAX_GROUP.get(), ALPINE_SHEEP_MIN_GROUP.get());
+        AlpineWhispersConfig.replaceVanillaFarmAnimals = REPLACE_VANILLA_FARM_ANIMALS.get();
     }
 }

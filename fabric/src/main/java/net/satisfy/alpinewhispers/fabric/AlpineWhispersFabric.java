@@ -14,7 +14,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.satisfy.alpinewhispers.core.config.AlpineWhispersConfig;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -43,8 +46,17 @@ public class AlpineWhispersFabric implements ModInitializer {
     private static final TagKey<Biome> REINDEER_HABITAT = TagKey.create(Registries.BIOME, AlpineWhispers.identifier("reindeer_habitat"));
 
     private void addSpawns() {
-        BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.REINDEER_ENTITY.get(), 11, 3, 5);
-        BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), 13, 4, 5);
+        if (AlpineWhispersConfig.reindeerSpawnWeight > 0) {
+            BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.REINDEER_ENTITY.get(), AlpineWhispersConfig.reindeerSpawnWeight, AlpineWhispersConfig.reindeerMinGroup, AlpineWhispersConfig.reindeerMaxGroup);
+        }
+        if (AlpineWhispersConfig.alpineSheepSpawnWeight > 0) {
+            BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), MobCategory.CREATURE, EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), AlpineWhispersConfig.alpineSheepSpawnWeight, AlpineWhispersConfig.alpineSheepMinGroup, AlpineWhispersConfig.alpineSheepMaxGroup);
+        }
+        if (AlpineWhispersConfig.replaceVanillaFarmAnimals) {
+            BiomeModifications.create(AlpineWhispers.identifier("remove_farm_animals_from_reindeer_habitat"))
+                    .add(ModificationPhase.REMOVALS, biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), context -> context.getSpawnSettings().removeSpawnsOfEntityType(EntityType.SHEEP))
+                    .add(ModificationPhase.REMOVALS, biomeSelectionContext -> biomeSelectionContext.hasTag(REINDEER_HABITAT), context -> context.getSpawnSettings().removeSpawnsOfEntityType(EntityType.COW));
+        }
 
         SpawnPlacements.register(EntityTypeRegistry.REINDEER_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmbientCreature::checkMobSpawnRules);
         SpawnPlacements.register(EntityTypeRegistry.ALPINE_SHEEP_ENTITY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AmbientCreature::checkMobSpawnRules);

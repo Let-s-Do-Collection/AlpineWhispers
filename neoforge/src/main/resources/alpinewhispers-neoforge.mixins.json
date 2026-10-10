@@ -6,6 +6,9 @@
   "mixins": [
     "BrushItemMixin"
   ],
+  "client": [
+    "LevelRendererMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

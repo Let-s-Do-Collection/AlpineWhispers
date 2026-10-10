@@ -13,6 +13,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 import net.satisfy.alpinewhispers.neoforge.core.config.AlpineWhispersNeoForgeConfig;
+import net.satisfy.alpinewhispers.neoforge.core.world.AlpineWhispersBiomeModifiers;
 
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ public class AlpineWhispersNeoForge {
             if (event.getConfig().getSpec() == AlpineWhispersNeoForgeConfig.COMMON) AlpineWhispersNeoForgeConfig.applyCommon();
         });
 
+        AlpineWhispersBiomeModifiers.register(modEventBus);
         Objects.requireNonNull(modContainer.getEventBus()).addListener(this::onRegisterSpawnPlacement);
         modEventBus.addListener(this::commonSetup);
     }

@@ -17,6 +17,7 @@ import net.satisfy.alpinewhispers.client.renderer.entity.ReindeerRenderer;
 import net.satisfy.alpinewhispers.client.fog.SnowFog;
 import net.satisfy.alpinewhispers.client.renderer.model.BathtubModel;
 import net.satisfy.alpinewhispers.client.overlay.PrivyInfoProvider;
+import net.satisfy.alpinewhispers.client.weather.FallingNeedles;
 import net.satisfy.alpinewhispers.client.weather.GroveSnowWeather;
 import net.satisfy.alpinewhispers.core.registry.EntityTypeRegistry;
 
@@ -34,6 +35,7 @@ public class AlpineWhispersClient {
 
         registerBlockEntityRenderer();
         GroveSnowWeather.init();
+        FallingNeedles.init();
         SnowFog.init();
         BlockInfoOverlay.init();
         BlockInfoOverlay.registerProvider(new PrivyInfoProvider());

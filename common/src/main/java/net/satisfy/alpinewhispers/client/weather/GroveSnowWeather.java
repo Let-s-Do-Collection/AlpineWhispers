@@ -1,27 +1,51 @@
 package net.satisfy.alpinewhispers.client.weather;
 
+import dev.architectury.event.events.client.ClientCommandRegistrationEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.satisfy.alpinewhispers.core.config.AlpineWhispersConfig;
 import net.satisfy.alpinewhispers.core.registry.SoundEventRegistry;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class GroveSnowWeather {
+    private static float snowfallLevel = 0.0F;
+    private static float previousSnowfallLevel = 0.0F;
     private static float avalancheIntensity = 0.0F;
-    private static int avalancheSoundTicks = 0;
+    private static int avalancheCooldown = 200;
+    private static final List<Avalanche> ACTIVE_AVALANCHES = new ArrayList<>();
     private static int groveAmbientTicks = 0;
 
     public static void init() {
         ClientTickEvent.CLIENT_POST.register(GroveSnowWeather::tickClient);
+        ClientCommandRegistrationEvent.EVENT.register((dispatcher, context) -> dispatcher.register(
+                ClientCommandRegistrationEvent.literal("avalanche").executes(ctx -> {
+                    Minecraft minecraft = Minecraft.getInstance();
+                    if (minecraft.level == null || minecraft.player == null) {
+                        return 0;
+                    }
+                    String result = tryStartAvalanche(minecraft.level, minecraft.player, minecraft.level.random);
+                    ctx.getSource().arch$sendSuccess(() -> Component.literal("[Avalanche] " + result), false);
+                    return 1;
+                })));
     }
 
     private static void tickClient(Minecraft minecraft) {
@@ -33,18 +57,21 @@ public class GroveSnowWeather {
         LocalPlayer player = minecraft.player;
         if (level == null || player == null) {
             avalancheIntensity = 0.0F;
-            avalancheSoundTicks = 0;
+            ACTIVE_AVALANCHES.clear();
             groveAmbientTicks = 0;
+            snowfallLevel = 0.0F;
+            previousSnowfallLevel = 0.0F;
             return;
         }
 
         BlockPos playerPos = player.blockPosition();
         boolean isGrove = level.getBiome(playerPos).is(Biomes.GROVE);
         boolean isWeatherActive = level.isRaining() || level.isThundering();
+        updateSnowfall(isGrove && !isWeatherActive && AlpineWhispersConfig.groveSnowEnabled);
 
         if (!isGrove || isWeatherActive) {
             avalancheIntensity = Mth.lerp(0.05F, avalancheIntensity, 0.0F);
-            avalancheSoundTicks = 0;
+            ACTIVE_AVALANCHES.clear();
             groveAmbientTicks = 0;
             return;
         }
@@ -53,28 +80,24 @@ public class GroveSnowWeather {
 
         avalancheIntensity = Mth.clamp(avalancheIntensity + 0.002F, 0.0F, 1.0F);
 
-        if (AlpineWhispersConfig.groveSnowEnabled && random.nextFloat() < 0.25F) {
-            spawnGentleSnow(level, player, random);
-        }
 
-        if (AlpineWhispersConfig.avalanchesEnabled && random.nextFloat() < avalancheIntensity * 0.15F) {
-            spawnAvalancheParticles(level, player, random);
+        if (AlpineWhispersConfig.avalanchesEnabled) {
+            tickAvalanches(level, random);
+            if (--avalancheCooldown <= 0 && avalancheIntensity > 0.35F && ACTIVE_AVALANCHES.size() < 2) {
+                tryStartAvalanche(level, player, random);
+                avalancheCooldown = 600 + random.nextInt(1800);
+            }
+        } else {
+            ACTIVE_AVALANCHES.clear();
         }
 
         groveAmbientTicks++;
-        avalancheSoundTicks++;
 
         if (groveAmbientTicks >= 600 && AlpineWhispersConfig.groveAmbienceEnabled) {
             playGroveAmbientSound(minecraft, random);
             groveAmbientTicks = 0;
         }
 
-        if (avalancheSoundTicks >= 1800 && avalancheIntensity > 0.35F && AlpineWhispersConfig.groveAmbienceEnabled && AlpineWhispersConfig.avalanchesEnabled) {
-            if (random.nextFloat() < 0.6F) {
-                playAvalancheSound(minecraft, random);
-            }
-            avalancheSoundTicks = 0;
-        }
     }
 
     private static void playGroveAmbientSound(Minecraft minecraft, RandomSource random) {
@@ -84,106 +107,149 @@ public class GroveSnowWeather {
         minecraft.getSoundManager().play(SimpleSoundInstance.forLocalAmbience(SoundEventRegistry.GROVE_AMBIENT.get(), volume, pitch));
     }
 
-    private static void playAvalancheSound(Minecraft minecraft, RandomSource random) {
-        float baseVolume = 0.001F;
-        float volume = baseVolume * (0.5F + avalancheIntensity * 0.5F);
-        float pitch = 0.85F + random.nextFloat() * 0.1F;
-        minecraft.getSoundManager().play(SimpleSoundInstance.forLocalAmbience(SoundEventRegistry.FALLING_SNOW.get(), volume, pitch));
+    public static float getSnowfallLevel(float partialTick) {
+        return Mth.lerp(partialTick, previousSnowfallLevel, snowfallLevel);
     }
 
-    private static void spawnGentleSnow(ClientLevel level, LocalPlayer player, RandomSource random) {
-        int radius = 6;
-        double centerX = player.getX();
-        double centerZ = player.getZ();
+    private static void updateSnowfall(boolean active) {
+        previousSnowfallLevel = snowfallLevel;
+        float target = active ? AlpineWhispersConfig.groveSnowStrength / 100.0F : 0.0F;
+        snowfallLevel = Mth.approach(snowfallLevel, target, 0.005F);
+    }
 
-        for (int i = 0; i < 4; i++) {
-            double offsetX = (random.nextDouble() - 0.5) * radius * 2.0;
-            double offsetZ = (random.nextDouble() - 0.5) * radius * 2.0;
+    private static String tryStartAvalanche(ClientLevel level, LocalPlayer player, RandomSource random) {
+        int noSnow = 0;
+        int noSlope = 0;
+        for (int attempt = 0; attempt < 32; attempt++) {
+            double angle = random.nextDouble() * Math.PI * 2.0;
+            double distance = 8.0 + random.nextDouble() * 24.0;
+            BlockPos samplePos = BlockPos.containing(player.getX() + Math.cos(angle) * distance, player.getY(), player.getZ() + Math.sin(angle) * distance);
+            BlockPos surfacePos = groundAt(level, samplePos);
 
-            BlockPos samplePos = BlockPos.containing(centerX + offsetX, player.getY(), centerZ + offsetZ);
-            BlockPos surfacePos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, samplePos);
-            if (!level.canSeeSky(surfacePos)) {
+            if (!isSnowSurface(level, surfacePos)) {
+                noSnow++;
                 continue;
             }
 
-            double particleX = surfacePos.getX() + 0.5;
-            double particleY = surfacePos.getY() + 5.0 + random.nextDouble() * 4.0;
-            double particleZ = surfacePos.getZ() + 0.5;
-            double velocityX = 0.0;
-            double velocityY = -0.02F - random.nextDouble() * 0.02F;
-            double velocityZ = 0.0;
+            Vec3 downhill = findDownhill(level, surfacePos);
+            if (downhill == null) {
+                noSlope++;
+                continue;
+            }
 
-            level.addParticle(ParticleTypes.SNOWFLAKE, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
+            Vec3 start = new Vec3(surfacePos.getX() + 0.5, surfacePos.getY(), surfacePos.getZ() + 0.5);
+            ACTIVE_AVALANCHES.add(new Avalanche(start, downhill, 60 + random.nextInt(60), 1.5F + random.nextFloat()));
+
+            if (AlpineWhispersConfig.groveAmbienceEnabled) {
+                float pitch = 0.8F + random.nextFloat() * 0.15F;
+                Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEventRegistry.FALLING_SNOW.get(), SoundSource.AMBIENT, 1.0F, pitch, random, start.x, start.y, start.z));
+            }
+            return "started at " + surfacePos.toShortString();
+        }
+        return "no spot found (no snow: " + noSnow + ", not steep: " + noSlope + ")";
+    }
+
+    private static void tickAvalanches(ClientLevel level, RandomSource random) {
+        Iterator<Avalanche> iterator = ACTIVE_AVALANCHES.iterator();
+        while (iterator.hasNext()) {
+            Avalanche avalanche = iterator.next();
+            avalanche.age++;
+            avalanche.speed = Math.min(avalanche.speed + 0.01, 0.45);
+
+            Vec3 next = avalanche.position.add(avalanche.direction.scale(avalanche.speed));
+            BlockPos surfacePos = groundAt(level, BlockPos.containing(next));
+
+            if (surfacePos.getY() > avalanche.position.y + 1.0 || avalanche.age > avalanche.maxAge) {
+                iterator.remove();
+                continue;
+            }
+
+            avalanche.position = new Vec3(next.x, surfacePos.getY(), next.z);
+
+            Vec3 downhill = findDownhill(level, surfacePos);
+            if (downhill != null) {
+                avalanche.direction = avalanche.direction.lerp(downhill, 0.2).normalize();
+            } else if (++avalanche.flatTicks > 10) {
+                iterator.remove();
+                continue;
+            }
+
+            spawnAvalancheFront(level, avalanche, random);
         }
     }
 
-    private static void spawnAvalancheParticles(ClientLevel level, LocalPlayer player, RandomSource random) {
-        int radius = 12;
-        double centerX = player.getX();
-        double centerZ = player.getZ();
+    private static void spawnAvalancheFront(ClientLevel level, Avalanche avalanche, RandomSource random) {
+        Vec3 side = new Vec3(-avalanche.direction.z, 0.0, avalanche.direction.x);
+        double fade = 1.0 - Math.max(0.0, (avalanche.age - avalanche.maxAge * 0.7) / (avalanche.maxAge * 0.3));
+        int count = (int) (14 * fade) + 4;
+        BlockParticleOption snowBlock = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.defaultBlockState());
 
-        int clusterCount = 1 + (int) (avalancheIntensity * 3.0F);
+        for (int i = 0; i < count; i++) {
+            double spread = (random.nextDouble() - 0.5) * 2.0 * avalanche.width;
+            double x = avalanche.position.x + side.x * spread;
+            double y = avalanche.position.y + 0.1 + random.nextDouble() * 0.6;
+            double z = avalanche.position.z + side.z * spread;
+            double vx = avalanche.direction.x * avalanche.speed * 0.8;
+            double vz = avalanche.direction.z * avalanche.speed * 0.8;
 
-        for (int clusterIndex = 0; clusterIndex < clusterCount; clusterIndex++) {
-            double offsetX = (random.nextDouble() - 0.5) * radius * 2.0;
-            double offsetZ = (random.nextDouble() - 0.5) * radius * 2.0;
-
-            BlockPos samplePos = BlockPos.containing(centerX + offsetX, player.getY(), centerZ + offsetZ);
-            BlockPos surfacePos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, samplePos);
-
-            BlockPos belowPos = surfacePos.below();
-            if (!level.getBlockState(belowPos).is(Blocks.SNOW) && !level.getBlockState(belowPos).is(Blocks.SNOW_BLOCK) && !level.getBlockState(belowPos).is(Blocks.POWDER_SNOW)) {
-                continue;
+            level.addAlwaysVisibleParticle(random.nextBoolean() ? snowBlock : ParticleTypes.SNOWFLAKE, x, y, z, vx, 0.02 + random.nextDouble() * 0.05, vz);
+            if (random.nextFloat() < 0.15F) {
+                level.addAlwaysVisibleParticle(ParticleTypes.CLOUD, x, y + 0.3, z, vx * 0.3, 0.01, vz * 0.3);
             }
+        }
+    }
 
-            if (surfacePos.getY() < player.getY() + 2.0) {
-                continue;
+    private static BlockPos groundAt(ClientLevel level, BlockPos pos) {
+        BlockPos.MutableBlockPos ground = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos).mutable();
+        for (int i = 0; i < 48 && ground.getY() > level.getMinBuildHeight(); i++) {
+            BlockState below = level.getBlockState(ground.below());
+            boolean passable = below.isAir() || below.is(BlockTags.LEAVES) || below.is(BlockTags.LOGS) || (below.canBeReplaced() && !below.is(Blocks.SNOW))
+                    || (below.is(Blocks.SNOW) && level.getBlockState(ground.below(2)).is(BlockTags.LEAVES));
+            if (!passable) {
+                break;
             }
+            ground.move(0, -1, 0);
+        }
+        return ground.immutable();
+    }
 
-            int baseY = surfacePos.getY();
-            int maxDiff = 0;
-            int slopeSampleRadius = 3;
+    private static boolean isSnowSurface(ClientLevel level, BlockPos surfacePos) {
+        BlockState at = level.getBlockState(surfacePos);
+        BlockState below = level.getBlockState(surfacePos.below());
+        return at.is(Blocks.SNOW) || below.is(Blocks.SNOW) || below.is(Blocks.SNOW_BLOCK) || below.is(Blocks.POWDER_SNOW);
+    }
 
-            for (int dx = -slopeSampleRadius; dx <= slopeSampleRadius; dx++) {
-                for (int dz = -slopeSampleRadius; dz <= slopeSampleRadius; dz++) {
-                    if (dx == 0 && dz == 0) {
-                        continue;
-                    }
-                    BlockPos neighborSample = surfacePos.offset(dx, 0, dz);
-                    BlockPos neighborSurface = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, neighborSample);
-                    int diff = Math.abs(neighborSurface.getY() - baseY);
-                    if (diff > maxDiff) {
-                        maxDiff = diff;
-                    }
-                }
+    private static Vec3 findDownhill(ClientLevel level, BlockPos surfacePos) {
+        int bestDrop = 1;
+        Vec3 best = null;
+        for (int i = 0; i < 8; i++) {
+            double angle = i * Math.PI / 4.0;
+            int dx = (int) Math.round(Math.cos(angle) * 3.0);
+            int dz = (int) Math.round(Math.sin(angle) * 3.0);
+            BlockPos neighbor = groundAt(level, surfacePos.offset(dx, 0, dz));
+            int drop = surfacePos.getY() - neighbor.getY();
+            if (drop > bestDrop) {
+                bestDrop = drop;
+                best = new Vec3(dx, 0.0, dz).normalize();
             }
+        }
+        return best;
+    }
 
-            if (maxDiff < 2) {
-                continue;
-            }
+    private static class Avalanche {
+        Vec3 position;
+        Vec3 direction;
+        final int maxAge;
+        final float width;
+        int age;
+        int flatTicks;
+        double speed = 0.15;
 
-            double baseX = surfacePos.getX() + 0.5;
-            double particleBaseY = surfacePos.getY() + 0.6;
-            double baseZ = surfacePos.getZ() + 0.5;
-
-            double slideAngle = random.nextFloat() * ((float) Math.PI * 2.0F);
-            double slideDirectionX = Mth.cos((float) slideAngle) * 0.08;
-            double slideDirectionZ = Mth.sin((float) slideAngle) * 0.08;
-
-            int particlesInCluster = 8 + random.nextInt(6);
-
-            for (int i = 0; i < particlesInCluster; i++) {
-                double step = i * 0.12;
-                double particleX = baseX + slideDirectionX * step;
-                double particleY = particleBaseY - i * 0.03;
-                double particleZ = baseZ + slideDirectionZ * step;
-
-                double velocityX = slideDirectionX * 0.7;
-                double velocityY = -0.04 - random.nextDouble() * 0.03;
-                double velocityZ = slideDirectionZ * 0.7;
-
-                level.addParticle(ParticleTypes.SNOWFLAKE, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
-            }
+        Avalanche(Vec3 position, Vec3 direction, int maxAge, float width) {
+            this.position = position;
+            this.direction = direction;
+            this.maxAge = maxAge;
+            this.width = width;
         }
     }
 }
