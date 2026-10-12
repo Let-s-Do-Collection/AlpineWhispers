@@ -40,6 +40,9 @@ public final class AlpineWhispersConfig {
     public static int alpineSheepMaxGroup = 5;
     public static boolean replaceVanillaFarmAnimals = true;
 
+    public static int reindeerDishNutrition = 6;
+    public static double reindeerDishSaturation = 0.8;
+
     private AlpineWhispersConfig() {
     }
 }

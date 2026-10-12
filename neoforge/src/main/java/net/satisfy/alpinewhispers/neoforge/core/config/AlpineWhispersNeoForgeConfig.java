@@ -37,7 +37,10 @@ public final class AlpineWhispersNeoForgeConfig {
     private static final ModConfigSpec.IntValue ALPINE_SHEEP_MIN_GROUP;
     private static final ModConfigSpec.IntValue ALPINE_SHEEP_MAX_GROUP;
     private static final ModConfigSpec.BooleanValue REPLACE_VANILLA_FARM_ANIMALS;
+    private static final ModConfigSpec.IntValue REINDEER_DISH_NUTRITION;
+    private static final ModConfigSpec.DoubleValue REINDEER_DISH_SATURATION;
     public static final ModConfigSpec COMMON;
+    public static final ModConfigSpec STARTUP;
 
     static {
         ModConfigSpec.Builder common = new ModConfigSpec.Builder();
@@ -87,9 +90,21 @@ public final class AlpineWhispersNeoForgeConfig {
         REPLACE_VANILLA_FARM_ANIMALS = common.comment("Remove vanilla sheep and cows from these biomes").define("replaceVanillaFarmAnimals", true);
         common.pop();
         COMMON = common.build();
+
+        ModConfigSpec.Builder startup = new ModConfigSpec.Builder();
+        startup.comment("Hunger and saturation of the food items. Changes need a game restart.").push("Food");
+        REINDEER_DISH_NUTRITION = startup.comment("Hunger points restored by each bite of Cooked Reindeer Dish. 2 points = 1 drumstick.").defineInRange("reindeerDishNutrition", 6, 0, 20);
+        REINDEER_DISH_SATURATION = startup.comment("Saturation given by each bite of Cooked Reindeer Dish, multiplied with its hunger points.").defineInRange("reindeerDishSaturation", 0.8, 0.0, 2.0);
+        startup.pop();
+        STARTUP = startup.build();
     }
 
     private AlpineWhispersNeoForgeConfig() {
+    }
+
+    public static void applyStartup() {
+        AlpineWhispersConfig.reindeerDishNutrition = REINDEER_DISH_NUTRITION.get();
+        AlpineWhispersConfig.reindeerDishSaturation = REINDEER_DISH_SATURATION.get();
     }
 
     public static void applyCommon() {

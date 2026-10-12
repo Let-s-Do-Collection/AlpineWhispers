@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Let-s-Do-Collection/AlpineWhispers/raw/main/LOGO.png" width="800">
+  <img src="https://lets-do.ch/assets/mod-logos/alpine_whispers.webp" width="800">
 </p>
 
 <br>

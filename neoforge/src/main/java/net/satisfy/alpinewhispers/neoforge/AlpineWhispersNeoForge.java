@@ -21,6 +21,8 @@ import java.util.Objects;
 public class AlpineWhispersNeoForge {
 
     public AlpineWhispersNeoForge(ModContainer modContainer, final IEventBus modEventBus) {
+        modContainer.registerConfig(ModConfig.Type.STARTUP, AlpineWhispersNeoForgeConfig.STARTUP);
+        AlpineWhispersNeoForgeConfig.applyStartup();
         AlpineWhispers.init();
 
         modContainer.registerConfig(ModConfig.Type.COMMON, AlpineWhispersNeoForgeConfig.COMMON);

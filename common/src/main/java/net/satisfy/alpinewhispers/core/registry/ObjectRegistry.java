@@ -24,6 +24,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.satisfy.alpinewhispers.AlpineWhispers;
 import net.satisfy.alpinewhispers.core.block.*;
 import net.satisfy.alpinewhispers.core.block.CozyBedBlock;
+import net.satisfy.alpinewhispers.core.config.AlpineWhispersConfig;
 import net.satisfy.alpinewhispers.core.item.BreadOnAStickItem;
 import net.satisfy.alpinewhispers.core.item.FoodBlockItem;
 import net.satisfy.alpinewhispers.core.item.TreeBaublesItem;
@@ -116,8 +117,8 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> HOMESPUN_CARPET = registerWithItem("homespun_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_CARPET)));
     public static final RegistrySupplier<Item> REINDEER = registerItem("reindeer", () -> new Item(getSettings().food(Foods.MUTTON)));
     public static final RegistrySupplier<Item> COOKED_REINDEER = registerItem("cooked_reindeer", () -> new Item(getSettings().food(Foods.COOKED_MUTTON)));
-    public static final RegistrySupplier<Block> COOKED_REINDEER_DISH_BLOCK = registerWithoutItem("cooked_reindeer_dish", () -> new FoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), 4, new FoodProperties.Builder().nutrition(8).saturationModifier(0.9F).build()));
-    public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new FoodBlockItem(COOKED_REINDEER_DISH_BLOCK.get(), getSettings().food(Foods.GOLDEN_CARROT)));
+    public static final RegistrySupplier<Block> COOKED_REINDEER_DISH_BLOCK = registerWithoutItem("cooked_reindeer_dish", () -> new FoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), 4, reindeerDishFood()));
+    public static final RegistrySupplier<Item> COOKED_REINDEER_DISH = registerItem("cooked_reindeer_dish", () -> new FoodBlockItem(COOKED_REINDEER_DISH_BLOCK.get(), getSettings().food(reindeerDishFood())));
     public static final RegistrySupplier<Item> BREAD_ON_A_STICK = registerItem("bread_on_a_stick", () -> new BreadOnAStickItem(new Item.Properties().durability(25)));
     public static final RegistrySupplier<Item> WINTER_HAT = registerItem("winter_hat", () -> new WinterHatItem(ArmorMaterialRegistry.WINTER_HAT.value(), ArmorItem.Type.HELMET, getSettings().rarity(Rarity.RARE).stacksTo(1), AlpineWhispers.identifier("textures/models/armor/winter_hat_layer_1.png")));
 
@@ -143,6 +144,10 @@ public class ObjectRegistry {
     static Item.Properties getSettings() {
         return getSettings(s -> {
         });
+    }
+
+    private static FoodProperties reindeerDishFood() {
+        return new FoodProperties.Builder().nutrition(AlpineWhispersConfig.reindeerDishNutrition).saturationModifier((float) AlpineWhispersConfig.reindeerDishSaturation).build();
     }
 
     private static ButtonBlock woodenButton(FeatureFlag... featureFlags) {

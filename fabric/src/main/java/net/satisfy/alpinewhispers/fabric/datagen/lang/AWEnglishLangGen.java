@@ -368,5 +368,18 @@ public class AWEnglishLangGen extends FabricLanguageProvider {
         texts.add("text.autoconfig.alpinewhispers.option.spawning.replaceVanillaFarmAnimals.@Tooltip", "Remove vanilla sheep and cows from these biomes");
         texts.add("alpinewhispers.configuration.replaceVanillaFarmAnimals", "Replace Vanilla Farm Animals");
         texts.add("alpinewhispers.configuration.replaceVanillaFarmAnimals.tooltip", "Remove vanilla sheep and cows from these biomes");
+        texts.add("text.autoconfig.alpinewhispers.option.food", "Food");
+        texts.add("text.autoconfig.alpinewhispers.option.food.@Tooltip", "Hunger and saturation of the food items. Changes need a game restart.");
+        texts.add("alpinewhispers.configuration.food", "Food");
+        texts.add("alpinewhispers.configuration.food.tooltip", "Hunger and saturation of the food items. Changes need a game restart.");
+        texts.add("alpinewhispers.configuration.food.button", "Food...");
+        texts.add("text.autoconfig.alpinewhispers.option.food.reindeerDishNutrition", "Reindeer Dish Nutrition");
+        texts.add("text.autoconfig.alpinewhispers.option.food.reindeerDishNutrition.@Tooltip", "Hunger points restored by each bite of Cooked Reindeer Dish. 2 points = 1 drumstick.");
+        texts.add("alpinewhispers.configuration.reindeerDishNutrition", "Reindeer Dish Nutrition");
+        texts.add("alpinewhispers.configuration.reindeerDishNutrition.tooltip", "Hunger points restored by each bite of Cooked Reindeer Dish. 2 points = 1 drumstick.");
+        texts.add("text.autoconfig.alpinewhispers.option.food.reindeerDishSaturation", "Reindeer Dish Saturation");
+        texts.add("text.autoconfig.alpinewhispers.option.food.reindeerDishSaturation.@Tooltip", "Saturation given by each bite of Cooked Reindeer Dish, multiplied with its hunger points.");
+        texts.add("alpinewhispers.configuration.reindeerDishSaturation", "Reindeer Dish Saturation");
+        texts.add("alpinewhispers.configuration.reindeerDishSaturation.tooltip", "Saturation given by each bite of Cooked Reindeer Dish, multiplied with its hunger points.");
     }
 }

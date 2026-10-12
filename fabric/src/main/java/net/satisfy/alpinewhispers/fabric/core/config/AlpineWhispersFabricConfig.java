@@ -27,6 +27,10 @@ public class AlpineWhispersFabricConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public Spawning spawning = new Spawning();
 
+    @ConfigEntry.Gui.CollapsibleObject
+    @ConfigEntry.Gui.Tooltip
+    public Food food = new Food();
+
     public static class Fog {
         @ConfigEntry.Gui.Tooltip
         public boolean enabled = true;
@@ -128,6 +132,19 @@ public class AlpineWhispersFabricConfig implements ConfigData {
         public boolean replaceVanillaFarmAnimals = true;
     }
 
+    public static class Food {
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+        public int reindeerDishNutrition = 6;
+        @ConfigEntry.Gui.Tooltip
+        public float reindeerDishSaturation = 0.8f;
+    }
+
+    @Override
+    public void validatePostLoad() {
+        food.reindeerDishSaturation = Math.max(0.0f, Math.min(2.0f, food.reindeerDishSaturation));
+    }
+
     public void apply() {
         AlpineWhispersConfig.fogEnabled = fog.enabled;
         AlpineWhispersConfig.fogStrengthPercent = fog.strengthPercent;
@@ -162,5 +179,7 @@ public class AlpineWhispersFabricConfig implements ConfigData {
         AlpineWhispersConfig.alpineSheepMinGroup = spawning.alpineSheepMinGroup;
         AlpineWhispersConfig.alpineSheepMaxGroup = Math.max(spawning.alpineSheepMaxGroup, spawning.alpineSheepMinGroup);
         AlpineWhispersConfig.replaceVanillaFarmAnimals = spawning.replaceVanillaFarmAnimals;
+        AlpineWhispersConfig.reindeerDishNutrition = food.reindeerDishNutrition;
+        AlpineWhispersConfig.reindeerDishSaturation = food.reindeerDishSaturation;
     }
 }
